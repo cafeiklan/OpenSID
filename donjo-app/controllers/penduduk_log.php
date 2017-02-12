@@ -11,6 +11,7 @@ class penduduk_log extends CI_Controller{
 
 		$this->load->model('penduduk_model');
 		$this->load->model('header_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 
 	}
 

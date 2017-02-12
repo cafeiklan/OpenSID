@@ -13,6 +13,7 @@ class Master_keluarga extends CI_Controller{
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup < 1) redirect('siteman');
 		$this->load->model('header_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 		
 	}
 		

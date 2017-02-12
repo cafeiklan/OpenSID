@@ -12,6 +12,7 @@ class Surat extends CI_Controller{
 		$this->load->model('surat_model');
 		$this->load->model('surat_keluar_model');
 		$this->load->model('config_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function index(){

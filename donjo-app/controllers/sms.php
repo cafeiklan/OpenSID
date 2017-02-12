@@ -10,6 +10,7 @@ class SMS extends CI_Controller{
 		if($grup!=1 AND $grup!=2 AND $grup!=3) redirect('siteman');
 		$this->load->model('header_model');
 		$this->load->model('penduduk_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function clear(){

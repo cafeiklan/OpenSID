@@ -8,6 +8,7 @@ class Siteman extends CI_Controller {
 		$this->load->model('header_model');
 		$this->load->model('user_model');
 		$this->load->model('track_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function index(){

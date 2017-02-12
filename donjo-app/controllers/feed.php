@@ -7,6 +7,8 @@ class Feed extends CI_Controller{
 		$this->load->model('header_model');
 		$this->load->model('feed_model');
 		$this->load->model('config_model');
+		
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 	
 	public function index(){

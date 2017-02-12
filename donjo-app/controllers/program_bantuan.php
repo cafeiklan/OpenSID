@@ -11,6 +11,7 @@ class Program_bantuan extends CI_Controller{
 		if($grup!=1 AND $grup!=2) redirect('siteman');
 		$this->load->model('header_model');
 		$this->load->model('program_bantuan_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	public function index(){

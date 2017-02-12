@@ -9,6 +9,7 @@ class user_setting extends CI_Controller{
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=(1 OR 2 OR 3 OR 4 OR 5)) redirect('login');
 		$this->load->model('header_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 	
 	function index(){

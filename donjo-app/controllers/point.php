@@ -11,6 +11,7 @@ class point extends CI_Controller{
 		$this->load->model('plan_point_model');
 
 		$this->load->database();
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 
 	}
 

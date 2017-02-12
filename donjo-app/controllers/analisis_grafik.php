@@ -11,6 +11,7 @@ class Analisis_grafik extends CI_Controller{
 		$this->load->model('header_model');
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=1) redirect('siteman');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 	
 	function clear($id=0){

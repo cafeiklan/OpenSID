@@ -10,6 +10,7 @@ function __construct(){
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=1 AND $grup!=2 AND $grup!=3) redirect('siteman');
 		$this->load->model('header_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 
 		//Initialize Session ------------
 		$_SESSION['success']  = 0;

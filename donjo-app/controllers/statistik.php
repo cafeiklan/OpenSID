@@ -11,6 +11,8 @@ function __construct(){
 		if($grup!=1 AND $grup!=2 AND $grup!=3) redirect('siteman');
 		$this->load->model('header_model');
 		$_SESSION['per_page']= 500;
+		
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 
 	}
 

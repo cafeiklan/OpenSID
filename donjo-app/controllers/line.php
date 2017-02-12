@@ -9,7 +9,8 @@ class line extends CI_Controller{
 
 		$this->load->model('header_model');
 		$this->load->model('plan_line_model');
-		//$this->output->enable_profiler(1);
+		
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 		// Load library ion auth
 /*		$this->load->library('ion_auth');
 		$this->load->library('session');

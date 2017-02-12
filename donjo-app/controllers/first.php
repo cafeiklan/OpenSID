@@ -21,6 +21,8 @@ class First extends CI_Controller{
 		$this->load->model('web_widget_model');
 		$this->load->model('laporan_penduduk_model');
 		$this->load->model('track_model');
+		
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function auth(){

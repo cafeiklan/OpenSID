@@ -11,6 +11,7 @@ class Hom_Desa extends CI_Controller{
 		if($grup!=1 AND $grup!=2) redirect('siteman');
 		$this->load->model('header_model');
 		$this->load->model('config_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function index(){

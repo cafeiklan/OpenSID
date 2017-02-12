@@ -34,6 +34,7 @@ class Data_persil extends CI_Controller{
 		$this->load->model('config_model');
 		$this->load->model('data_persil_model');
 		$this->load->model('penduduk_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function clear(){

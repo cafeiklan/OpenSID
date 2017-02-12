@@ -9,6 +9,7 @@ class gallery extends CI_Controller{
 		if($grup!=1 AND $grup!=2 AND $grup!=3 AND $grup!=4) redirect('siteman');
 		$this->load->model('header_model');
 		$this->load->model('web_gallery_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 	}
 
 	function clear(){

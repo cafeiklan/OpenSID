@@ -14,6 +14,7 @@ class Database extends CI_Controller{
 		$this->load->model('import_model');
 		$this->load->model('export_model');
 		$this->load->model('database_model');
+		if(config_item('enable_profiler')) $this->output->enable_profiler(TRUE);
 
 	}
 
