@@ -3,27 +3,19 @@
 	function __construct(){
 		parent::__construct();
 	}
-
+	
 	function get_data(){
 		$sql   = "SELECT * FROM config WHERE 1";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
-
+	
 	function insert(){
-		$data = $_POST;
-		$data['id'] = 1; // Hanya ada satu row data desa
-		// Data lokasi peta default. Diperlukan untuk menampilkan widget peta lokasi
-		$data['lat'] = '-8.488005310891758';
-		$data['lng'] = '116.0406072534065';
-		$data['zoom'] = '19';
-		$data['map_tipe'] = 'roadmap';
-		unset($data['old_logo']);
-		$outp = $this->db->insert('config',$data);
+		$outp = $this->db->insert('config',$_POST);
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-
+	
 	function update($id=0){
 		$data = $_POST;
 		$lokasi_file = $_FILES['logo']['tmp_name'];
@@ -40,162 +32,147 @@
 		}else{
 			unset($data['logo']);
 		}
-
+		
 		unset($data['file_logo']);
 		unset($data['old_logo']);
-
+		
 		$this->db->where('id',$id);
 		$outp = $this->db->update('config',penetration($data));
-
+		
 		$pamong['pamong_nama'] = $data['nama_kepala_desa'];
 		$pamong['pamong_nip'] = $data['nip_kepala_desa'];
 		$this->db->where('pamong_id','707');
 		$outp = $this->db->update('tweb_desa_pamong',$pamong);
-
+		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-
+		
 	function update_kantor(){
 		$data = $_POST;
 		$id = "1";
 		$this->db->where('id',$id);
 		$outp = $this->db->update('config',$data);
-
+		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-
+	
 	function update_wilayah(){
 		$data = $_POST;
 		$id = "1";
 		$this->db->where('id',$id);
 		$outp = $this->db->update('config',$data);
-
+		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-
+	
 	function kosong_pend(){
 		$a="TRUNCATE tweb_wil_clusterdesa";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE tweb_keluarga";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE tweb_rtm";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE tweb_penduduk";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE log_penduduk";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE log_surat";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE log_perubahan_penduduk";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE log_bulanan";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE garis";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE lokasi";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE area";
-		$b = $this->db->simple_query($a);
-
-		$a="TRUNCATE point";
-		$b = $this->db->simple_query($a);
-
-		$a="TRUNCATE line";
-		$b = $this->db->simple_query($a);
-
-		$a="TRUNCATE polygon";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_master";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_indikator";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_parameter";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_periode";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_respon";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_respon_hasil";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_klasifikasi";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE analisis_kategori_indikator";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE kelompok";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE kelompok_anggota";
-		$b = $this->db->simple_query($a);
-		$a="TRUNCATE data_persil";
-		$b = $this->db->simple_query($a);
-		$a="TRUNCATE tweb_penduduk_map";
-		$b = $this->db->simple_query($a);
-		$a="TRUNCATE sys_traffic";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 	}
-
+	
 	function kosong_web(){
 		$a="TRUNCATE tweb_wil_clusterdesa";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE tweb_keluarga";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE tweb_penduduk";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 	}
-
+	
 	function upgrade(){
-
+	
 		$a="DROP TABLE tweb_rtm";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="DROP TABLE hasil_analisis_keluarga";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="DROP TABLE analisis_keluarga";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="DROP TABLE klasifikasi_analisis_keluarga";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="DROP TABLE master_analisis_keluarga";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="DROP TABLE sub_analisis_keluarga";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="DROP TABLE tipe_analisis";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="DROP TABLE tweb_rtm_hubungan";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="UPDATE tweb_penduduk SET id_rtm = 0, rtm_level = 0 WHERE 1";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="CREATE TABLE IF NOT EXISTS analisis_keluarga (
 			  id int(16) NOT NULL AUTO_INCREMENT,
 			  id_kel int(11) NOT NULL,
@@ -205,7 +182,7 @@
 			  tahun varchar(4) NOT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 
 		$a="CREATE TABLE IF NOT EXISTS hasil_analisis_keluarga (
@@ -220,9 +197,9 @@
 			  verifikasi varchar(1) DEFAULT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
-
+		
 		$a="CREATE TABLE IF NOT EXISTS klasifikasi_analisis_keluarga (
 			  id int(11) NOT NULL AUTO_INCREMENT,
 			  nama varchar(50) DEFAULT NULL,
@@ -242,7 +219,7 @@
 			  tipe tinyint(2) NOT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="INSERT INTO klasifikasi_analisis_keluarga (id, nama, dari, sampai, dari1, sampai1, dari2, sampai2, dari3, sampai3, dari4, sampai4, dari5, sampai5, jenis, tipe) VALUES
 			(1, 'Sangat Miskin', 0, 0.37, 0, 0.33, 0, 0.35, 0, 0.35, 0, 0.35, 0, 0.36, 1, 0),
@@ -250,7 +227,7 @@
 			(3, 'Hampir Miskin', 0.52, 0.68, 0.5, 0.66, 0.51, 0.67, 0.51, 0.67, 0.51, 0.67, 0.52, 0.67, 1, 0),
 			(4, 'Rentan Miskin', 0.68, 0.83, 0.66, 0.83, 0.67, 0.83, 0.67, 0.83, 0.67, 0.83, 0.67, 0.83, 1, 0),
 			(5, 'Tidak Miskin', 0.83, 1, 0.83, 1, 0.83, 1, 0.83, 1, 0.83, 1, 0.83, 1, 1, 0);";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="CREATE TABLE IF NOT EXISTS master_analisis_keluarga (
 			  id int(3) DEFAULT NULL,
@@ -264,7 +241,7 @@
 			  aktif tinyint(4) NOT NULL DEFAULT '1',
 			  jenis tinyint(4) NOT NULL DEFAULT '1'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="INSERT INTO master_analisis_keluarga (id, nama, bobot, b1, b2, b3, b4, b5, aktif, jenis) VALUES
 			(1, 'Pendapatan perkapita perbulan', 36, 15, 24, 23, 26, 28, 1, 1),
@@ -275,7 +252,7 @@
 			(6, 'Penggunaan / Pemakaian Alat KB', 31, 0, 12, 0, 1, 11, 1, 1),
 			(7, 'Status penguasaan bangunan tempat tinggal yang ditempati', 30, 13, 23, 24, 25, 24, 1, 1),
 			(8, 'Jumlah keluarga dalam rumah tangga', 29, 7, 21, 21, 22, 5, 1, 1),
-			(9, 'Luas lantai bangunan tempat tinggal _______________ mï¿½', 28, 0, 20, 22, 21, 20, 1, 1),
+			(9, 'Luas lantai bangunan tempat tinggal _______________ m²', 28, 0, 20, 22, 21, 20, 1, 1),
 			(10, 'Jenis lantai tempat tinggal terluas (60% lebih) terbuat dari :', 27, 11, 15, 20, 23, 21, 1, 1),
 			(11, 'Jenis dinding tempat tinggal terluas (60% lebih) terbuat dari :', 26, 10, 19, 17, 20, 22, 1, 1),
 			(12, 'Jenis atap tempat tinggal terluas (60% lebih) terbuat dari :', 25, 9, 13, 18, 19, 23, 1, 1),
@@ -286,7 +263,7 @@
 			(17, 'Tempat pembuangan akhir tinja', 20, 0, 2, 5, 4, 14, 1, 1),
 			(18, 'Jarak tempat pembuangan akhir tinja dari sumber air minum', 19, 0, 1, 4, 3, 13, 1, 1),
 			(19, 'Kepemilikan aset (selain tanah, bangunan dan emas)', 18, 0, 17, 10, 24, 6, 1, 1),
-			(20, 'kepemilikan tanah (selain yang ditempati), berapa luasannya _______________ mï¿½', 17, 12, 6, 7, 10, 27, 1, 1),
+			(20, 'kepemilikan tanah (selain yang ditempati), berapa luasannya _______________ m²', 17, 12, 6, 7, 10, 27, 1, 1),
 			(21, 'kepemilikan emas, berapa gram kepemilikan emas ____10 gram___', 16, 0, 5, 2, 9, 7, 1, 1),
 			(22, 'Cara memperoleh aset', 15, 0, 16, 9, 8, 9, 1, 1),
 			(23, 'Kepemilikan sarana tekekomunikasi', 14, 0, 7, 3, 2, 8, 1, 1),
@@ -303,7 +280,7 @@
 			(34, 'Terdapat anggota keluarga menderita Penyakit Kronis', 3, 0, 0, 0, 0, 0, 1, 1),
 			(35, 'Dukungan saluran irigasi', 2, 0, 0, 0, 0, 25, 1, 1),
 			(36, 'Pemanfaatan waktu luang', 1, 0, 0, 0, 0, 0, 1, 1);";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="CREATE TABLE IF NOT EXISTS sub_analisis_keluarga (
 			  id int(11) NOT NULL AUTO_INCREMENT,
@@ -313,7 +290,7 @@
 			  nilai int(2) DEFAULT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=159 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="INSERT INTO sub_analisis_keluarga (id, id_master, no_jawaban, nama, nilai) VALUES
 			(1, 1, 1, '> 1.000.000', 4),
@@ -351,8 +328,8 @@
 			(33, 7, 5, 'Milik Orang tua/sanak/saudara', 1),
 			(34, 8, 1, '1 keluarga', 2),
 			(35, 8, 2, '> 1 keluarga', 1),
-			(36, 9, 1, '=> 8 mï¿½/orang', 2),
-			(37, 9, 2, '< 8 mï¿½/orang', 1),
+			(36, 9, 1, '=> 8 m²/orang', 2),
+			(37, 9, 2, '< 8 m²/orang', 1),
 			(38, 10, 1, 'Marmer/ batu alam', 6),
 			(39, 10, 2, 'Keramik', 5),
 			(40, 10, 3, 'Tegel', 4),
@@ -474,7 +451,7 @@
 			(156, 35, 5, 'tidak ada saluran pembuangan', 1),
 			(157, 36, 1, 'Produktif', 2),
 			(158, 36, 2, 'Non Produktif', 1);";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="tipe_analisis (
 			  id tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -483,7 +460,7 @@
 			  max int(6) NOT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="INSERT INTO tipe_analisis (id, nama, aktif, max) VALUES
 			(1, 'Perkotaan', 0, 673),
@@ -491,7 +468,7 @@
 			(3, 'Pesisir Bergunung', 1, 1483),
 			(4, 'Pegunungan', 0, 1721),
 			(5, 'Bonorawan', 0, 1938);";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="CREATE TABLE IF NOT EXISTS tweb_rtm (
 		  id int(11) NOT NULL AUTO_INCREMENT,
@@ -501,37 +478,37 @@
 		  kelas_sosial int(11) NOT NULL,
 		  PRIMARY KEY (id)
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="CREATE TABLE IF NOT EXISTS tweb_rtm_hubungan (
 			  id tinyint(4) NOT NULL AUTO_INCREMENT,
 			  nama varchar(20) NOT NULL,
 			  PRIMARY KEY (id)
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="INSERT INTO tweb_rtm_hubungan (id, nama) VALUES
 			(1, 'Kepala Rumah Tangga'),
 			(2, 'Anggota');";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="ALTER TABLE tweb_penduduk ADD id_rtm INT NOT NULL AFTER kk_level, ADD rtm_level INT NOT NULL AFTER id_rtm;";
-		$b = $this->db->simple_query($a);
-
+		$b = mysql_query($a);
+		
 		$a="TRUNCATE tweb_rtm";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE hasil_analisis_keluarga";
-		$b = $this->db->simple_query($a);
+		$b = mysql_query($a);
 
 		$a="TRUNCATE analisis_keluarga";
-		$b = $this->db->simple_query($a);
-
-
+		$b = mysql_query($a);
+		
+		
 		if($b) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 
 	}
-
-
+	
+	
 }

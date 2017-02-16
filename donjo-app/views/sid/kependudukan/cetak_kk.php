@@ -25,7 +25,7 @@
 	</tr>
 	<tr>
 	<td>Alamat</td>
-	<td>: <?php echo strtoupper($kepala_kk['alamat_plus_dusun']) ?> </td>
+	<td>: <?php echo strtoupper($kepala_kk['dusun']) ?> </td>
 	<td>Kabupaten/Kota</td>
 	<td>: <?php echo $desa['nama_kabupaten'] ?></td>
 	</tr>
@@ -36,7 +36,7 @@
 	<td>: <?php echo strtoupper($desa['kode_pos']) ?></td>
 	</tr>
 	<tr>
-	<td>Kelurahan/<?php echo ucwords(config_item('sebutan_desa'))?></td>
+	<td>Kelurahan/Desa</td>
 	<td>: <?php echo strtoupper($desa['nama_desa']) ?></td>
 	<td>Provinsi</td>
 	<td>: <?php echo strtoupper($desa['nama_propinsi']) ?></td>
@@ -61,19 +61,19 @@
 	</thead>
 	<tbody>
 	<?php  foreach($main as $data): ?>
-
+	
 	<tr class="data">
 		<td align="center" width="2"><?php echo $data['no']?></td>
 		<td><?php echo strtoupper($data['nama'])?></td>
 		<td><?php echo $data['nik']?></td>
-		<td><?php echo $data['sex']?></td>
-		<td><?php echo $data['tempatlahir']?></td>
-		<td><?php echo $data['tanggallahir']?></td>
-		<td><?php echo $data['agama']?></td>
-		<td><?php echo $data['pendidikan']?></td>
+		<td><?php echo $data['sex']?></td>  
+		<td><?php echo $data['tempatlahir']?></td> 
+		<td><?php echo $data['tanggallahir']?></td> 
+		<td><?php echo $data['agama']?></td> 
+		<td><?php echo $data['pendidikan']?></td> 
 		<td><?php echo $data['pekerjaan']?></td>
 	</tr>
-
+	
 	<?php  endforeach; ?>
 	</tbody>
 </table>
@@ -103,11 +103,11 @@
 <td align="center" width="2"><?php echo $data['no']?></td>
 <td><?php echo $data['status_kawin']?></td>
 <td><?php echo $data['hubungan']?></td>
-<td><?php echo $data['warganegara']?></td>
+<td><?php echo $data['warganegara']?></td>  
 <td><?php echo $data['dokumen_pasport']?></td>
-<td><?php echo $data['dokumen_kitas']?></td>
-<td><?php echo strtoupper($data['nama_ayah'])?></td>
-<td><?php echo strtoupper($data['nama_ibu'])?></td>
+<td><?php echo $data['dokumen_kitas']?></td> 
+<td><?php echo strtoupper($data['nama_ayah'])?></td> 
+<td><?php echo strtoupper($data['nama_ibu'])?></td> 
 <td align="center"><?php echo $data['golongan_darah']?></td>
 </tr>
 <?php  endforeach; ?>
@@ -117,27 +117,41 @@
 <br>
 
 <table width="100%" cellpadding="3" cellspacing="4">
+
 <tr>
-	<td width="25%"></td>
-	<td width="50%"></td>
-	<td width="25%" align="center"><?php echo $desa['nama_desa'] ?>, <?php echo tgl_indo(date("Y m d"))?></td>
-	</tr>
+<td width="100"></td>
+<td width="400"></td>
+<td align="center" width="150"><?php echo $desa['nama_desa'] ?>, <?php echo tgl_indo(date("Y m d"))?></td>
 <tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+</tr><tr><td width="23%" align="center">KEPALA KELUARGA</td><td width="30%"></td>
+<td width="50"></td>
+</tr> 
+
 <tr>
-	<td width="25%" align="center">KEPALA KELUARGA</td>
-	<td width="50%"></td>
-	<td align="center" width="150">KEPALA <?php echo strtoupper(config_item('sebutan_desa'))?> <?php echo strtoupper($desa['nama_desa']) ?></td>
-	</tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td></tr>
+<td width="100"></td>
+<td width="400"></td>
+<td align="center" width="150">KEPALA DESA <?php echo strtoupper($desa['nama_desa']) ?></td>
+<td width="50"></td>
+</tr>
+
 <tr>
-	<td width="25%" align="center"><?php echo strtoupper($kepala_kk['nama'])?></td>
-	<td width="50%"></td>
-	<td width="25%" align="center" width="150"><?php echo strtoupper($desa['nama_kepala_desa']) ?></td>
-	</tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td  align="center"><?php echo strtoupper($kepala_kk['nama'])?></td></tr>
+
+<tr>
+<td width="100"></td>
+<td width="400"></td>
+<td align="center" width="150"><?php echo strtoupper($desa['nama_kepala_desa']) ?></td>
+<td width="50"></td>
+</tr>
+
 </table>
+
+<p style="font-family:verdana,arial,sans-serif;font-size:10px;"></p>
+
 </div>
    <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
 </div>

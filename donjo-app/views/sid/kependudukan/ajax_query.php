@@ -1,6 +1,4 @@
 <?php php
-// FIXME: Berkas ini sepertinya tidak digunakan lagi.
-//			Jadi dibiarkan dulu untuk sementara.
 $q=$_GET["q"];
 
 $con = mysql_connect('localhost', 'root', '');
@@ -29,4 +27,4 @@ while($row = mysql_fetch_array($result))
 echo "</table>";
 
 mysql_close($con);
-?>
+?> 

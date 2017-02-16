@@ -15,7 +15,7 @@ width: 260,
 noResultsText :'Tidak ada nama / nik yang sesuai..',
 onSelect: function() {
 $('#'+'main').submit();
-}
+}  
 });
 });
 </script>
@@ -24,7 +24,7 @@ $('#'+'main').submit();
 <table class="inner">
 <tr style="vertical-align:top">
 
-<td style="background:#fff;padding:0px;">
+<td style="background:#fff;padding:0px;"> 
 
 <div class="content-header">
 <h3>Form Manajemen KK : <?php echo $kepala_kk['nama']?></h3>
@@ -53,11 +53,11 @@ $('#'+'main').submit();
 <div align="center">
 <h3> KARTU KELUARGA </h3>
 <h4> SALINAN </h4>
-<h4>No. <?php echo unpenetration($kepala_kk['no_kk'])?> </h4>
+<h4>No. <?php echo unpenetration($kepala_kk['no_kk'])?> </h4> 
 </div>
 <tr>
 <td width="100">Alamat</td>
-<td width="200">: <?php if(isset($kepala_kk['alamat_plus_dusun'])) echo strtoupper($kepala_kk['alamat_plus_dusun'])  ?></td>
+<td width="200">: <?php echo strtoupper(unpenetration(ununderscore($kepala_kk['dusun'])))  ?></td>
 <td width="120">Kabupaten</td>
 <td width="150">: <?php echo strtoupper(unpenetration($desa['nama_kabupaten'])) ?></td>
 </tr>
@@ -107,11 +107,11 @@ $('#'+'main').submit();
 <td align="center" width="2"><?php echo $data['no']?></td>
 <td><?php echo strtoupper(unpenetration($data['nama']))?></td>
 <td><?php echo $data['nik']?></td>
-<td><?php echo $data['sex']?></td>
-<td><?php echo $data['tempatlahir']?></td>
-<td><?php echo $data['tanggallahir']?></td>
-<td><?php echo $data['agama']?></td>
-<td><?php echo $data['pendidikan']?></td>
+<td><?php echo $data['sex']?></td>  
+<td><?php echo $data['tempatlahir']?></td> 
+<td><?php echo $data['tanggallahir']?></td> 
+<td><?php echo $data['agama']?></td> 
+<td><?php echo $data['pendidikan']?></td> 
 <td><?php echo $data['pekerjaan']?></td>
 </tr>
 <?php  endforeach; ?>
@@ -142,11 +142,11 @@ $('#'+'main').submit();
 <td align="center" width="2"><?php echo $data['no']?></td>
 <td><?php echo $data['status_kawin']?></td>
 <td><?php echo $data['hubungan']?></td>
-<td><?php echo $data['warganegara']?></td>
+<td><?php echo $data['warganegara']?></td> 
 <td><?php echo $data['dokumen_pasport']?></td>
-<td><?php echo $data['dokumen_kitas']?></td>
-<td><?php echo strtoupper($data['nama_ayah'])?></td>
-<td><?php echo strtoupper($data['nama_ibu'])?></td>
+<td><?php echo $data['dokumen_kitas']?></td>  
+<td><?php echo strtoupper($data['nama_ayah'])?></td> 
+<td><?php echo strtoupper($data['nama_ibu'])?></td> 
 <td><?php echo $data['golongan_darah']?></td>
 </tr>
 <?php  endforeach; ?>
@@ -199,18 +199,17 @@ $('#'+'main').submit();
 
 </div>
 <div class="ui-layout-south panel bottom">
-<div class="left">
+<div class="left"> 
 <a href="<?php echo site_url()?>keluarga" class="uibutton icon prev">Kembali</a>
 </div>
 <div class="right">
 <div class="uibutton-group">
 
 <a href="<?php echo site_url("keluarga/cetak_kk/$id_kk")?>" target="_blank" class="uibutton special">Cetak</a>
-<a href="<?php echo site_url("keluarga/doc_kk/$id_kk")?>" target="_blank" class="uibutton confirm">Export</a>
 </div>
 </div>
-</div>
-</form>
+</div> 
+</form> 
 </div>
 </td></tr>
 </table>

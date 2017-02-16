@@ -96,7 +96,6 @@
 
 	function insert(){
 		$data = $_POST;
-		/*	
 		  $lokasi_file = $_FILES['simbol']['tmp_name'];
 		  $tipe_file   = $_FILES['simbol']['type'];
 		  $nama_file   = $_FILES['simbol']['name'];
@@ -107,17 +106,16 @@
 				$outp = $this->db->insert('point',$data);
 			}
 		  } else {
-				$data['simbol'] = "house.png";	*/	
-		//	}
+				unset($data['simbol']);
 				$outp = $this->db->insert('point',$data);
+			}
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
 	
 	function update($id=0){
 		  $data = $_POST;
-/*		
-		$lokasi_file = $_FILES['simbol']['tmp_name'];
+		  $lokasi_file = $_FILES['simbol']['tmp_name'];
 		  $tipe_file   = $_FILES['simbol']['type'];
 		  $nama_file   = $_FILES['simbol']['name'];
 		  if (!empty($lokasi_file)){
@@ -129,8 +127,8 @@
 			}
 			$_SESSION['success']=1;
 		  }
-	*/		
-			//unset($data['simbol']);
+			
+			unset($data['simbol']);
 			$this->db->where('id',$id);
 			$outp = $this->db->update('point',$data);
 	
@@ -183,7 +181,6 @@
 	}
 
 	function insert_sub_point($parrent=0){
-	/*
 		  $lokasi_file = $_FILES['simbol']['tmp_name'];
 		  $tipe_file   = $_FILES['simbol']['type'];
 		  $nama_file   = $_FILES['simbol']['name'];
@@ -200,20 +197,18 @@
 				$_SESSION['success']=-1;
 			}
 		  }else{
-			$data['simbol'] = "house.png";
-			*/
 			$data = $_POST;
+			unset($data['simbol']);
 			$data['parrent'] = $parrent;
 			$data['tipe'] = 2;
 			$outp = $this->db->insert('point',$data);
-//}
+}
 	if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
 	
 	function update_sub_point($id=0){
 		  $data = $_POST;
-			/*
 		  $lokasi_file = $_FILES['simbol']['tmp_name'];
 		  $tipe_file   = $_FILES['simbol']['type'];
 		  $nama_file   = $_FILES['simbol']['name'];
@@ -228,10 +223,9 @@
 		  }else{
 			
 			unset($data['simbol']);
-			*/
 			$this->db->where('id',$id);
 			$outp = $this->db->update('point',$data);
-//	}
+	}
 	if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 }
@@ -283,13 +277,6 @@
 
 	}
 	
-	function list_simbol(){
-		$sql   = "SELECT * FROM gis_simbol WHERE 1";
-		$query = $this->db->query($sql);
-		$data  = $query->result_array();
-		return $data;
-
-	}
 	function list_point_atas(){
 	
 		//$sql   = "SELECT m.*,s.nama as sub_point,s.simbol as s_simbol FROM point m LEFT JOIN point s ON m.id = s.parrent WHERE m.parrent = 1 AND m.enabled = 1 AND (s.enabled = 1 OR s.enabled IS NULL) AND m.tipe = 1";

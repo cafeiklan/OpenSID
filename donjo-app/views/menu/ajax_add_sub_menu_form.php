@@ -5,7 +5,7 @@ $(function(){
 		<?php foreach($link as $data){?>
 	   {id:'artikel/<?php echo $data['id']?>',name:'<?php echo $data['judul']?>',info:'Halaman Berisi <?php echo $data['judul']?>'},
 		<?php }?>
-	   {id:'gallery',name:'Gallery',info:'Halaman Galeri'},
+	   {id:'gallery',name:'Gallery',info:'Halaman Gallery'},
 		    ];
 link.total = link.results.length;
 
@@ -16,7 +16,7 @@ $('#link').flexbox(link, {
     noResultsText :'Tidak ada no link yang sesuai..',
 	    onSelect: function() {
 		$('#'+'main').submit();
-    }
+    }  
 });
 });
 </script>
@@ -33,6 +33,10 @@ $('#link').flexbox(link, {
 	<td>
 		<div id="link" name="link"></div>
 	</td>
+</tr>
+<tr id="manual">
+<th>Link Manual</th>
+<td><textarea name="manual_link" style="resize: none; height:100px; width:350px;" size="500" maxlength='500'><?php echo $submenu['link']?></textarea></td>
 </tr>
 </table>
 <div class="buttonpane" style="text-align: right; width:400px;position:absolute;bottom:0px;">

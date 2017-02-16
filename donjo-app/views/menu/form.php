@@ -6,7 +6,7 @@ $(function(){
 		<?php foreach($link as $data){?>
 	   {id:'artikel/<?php echo $data['id']?>',name:'<?php echo $data['judul']?>',info:'Halaman Berisi <?php echo $data['judul']?>'},
 		<?php }?>
-	   {id:'gallery',name:'Gallery',info:'Halaman Galeri'},
+	   {id:'gallery',name:'Gallery',info:'Halaman Gallery'},
 		    ];
 link.total = link.results.length;
 
@@ -17,7 +17,7 @@ $('#link').flexbox(link, {
     noResultsText :'Tidak ada no link yang sesuai..',
 	    onSelect: function() {
 		$('#'+'manual').hide();
-    }
+    }  
 });
 });
 </script>
@@ -37,7 +37,7 @@ $('#link').flexbox(link, {
 </div>
 </fieldset>
 </td>
-<td style="background:#fff;padding:0px;">
+<td style="background:#fff;padding:0px;"> 
 <div id="contentpane">
 <form id="validasi" action="<?php echo $form_action?>" method="POST">
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
@@ -59,9 +59,13 @@ $('#link').flexbox(link, {
 		<div id="link" name="link"></div> *)kosongi kolom auto link jika yang diisi kolom manual link.
 	</td>
 </tr>
+<tr id="manual">
+<th>Link Manual</th>
+<td><textarea name="manual_link" style="resize: none; height:100px; width:350px;" size="500" maxlength='500'><?php  if($menu['link_tipe']==1){echo $menu['link'];}?></textarea></td>
+</tr>
 </table>
 </div>
-
+   
 <div class="ui-layout-south panel bottom">
 <div class="left">
 <a href="<?php echo site_url()?>menu/index/<?php echo $tip?>" class="uibutton icon prev">Kembali</a>

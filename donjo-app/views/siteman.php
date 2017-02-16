@@ -2,17 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title><?php echo config_item('login_title') ?></title>
+  <title>SID 3.04 Login</title>
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/login-new.css" media="screen" type="text/css" />
 </head>
 <body>
 	<div id="loginform">
-		<a href="<?php echo site_url()?>first">
+		<a href="<?php echo site_url()?>/index.php/first">
 		<div id="facebook">
 			<div id="sid">SID</div>
 			<div id="connect">ver.</div>
 			<div id="logo"><img src="<?php echo base_url()?>assets/images/SID-e1351656852451.png"></div>
-			<div id="desa"><?php echo ucwords(config_item('sebutan_desa'))?> <?php echo unpenetration($desa['nama_desa'])?></div>
+			<div id="desa">Desa <?php echo unpenetration($desa['nama_desa'])?></div>
 			<div id="kec">Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?></div>
 			<div id="kab">Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?></div>
 		</div>
@@ -24,7 +24,7 @@
 		<input name="username" type="text" placeholder="username" value="" required>
 		<input name="password" type="password" placeholder="password" value="" required>
 		<button type="submit" id="but">LOGIN</button>
-			<?php  if($_SESSION['siteman']==-1){ ?>
+			<?php if($_SESSION['siteman']==-1){ ?>
 			<div id="note">
 				Login Gagal. Username atau Password yang Anda masukkan salah!
 			</div>

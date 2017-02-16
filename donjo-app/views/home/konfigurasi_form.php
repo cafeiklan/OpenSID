@@ -1,27 +1,27 @@
-<div id="pageC">
+<div id="pageC"> 
 	<table class="inner">
 	<tr style="vertical-align:top">
-<td style="background:#fff;padding:0px;">
+<td style="background:#fff;padding:0px;"> 
 <div class="content-header">
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?php echo config_item('google_key'); ?>"></script>
-
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    
 </div>
 <div id="contentpane">
-<div class="ui-layout-north panel"><h3>Identitas <?php echo ucwords(config_item('sebutan_desa'))?></h3>
+<div class="ui-layout-north panel"><h3>Konfigurasi</h3>
 </div>
-    <form action="<?php echo $form_action?>" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo site_url("hom_desa/update/$main[id]")?>" method="POST" enctype="multipart/form-data">
     <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
         <table class="form">
             <tr>
-                <th width="110">Nama <?php echo ucwords(config_item('sebutan_desa'))?></th>
+                <th width="110">Nama Desa</th>
                 <td><input name="nama_desa" type="text" class="inputbox" size="25" value="<?php echo unpenetration($main['nama_desa'])?>"/> Kode <input name="kode_desa" type="text" class="inputbox" size="6" value="<?php echo $main['kode_desa']?>"/> Kode POS <input name="kode_pos" type="text" class="inputbox" size="8" value="<?php echo $main['kode_pos']?>"/></td>
             </tr>
             <tr>
-                <th>Nama Kepala <?php echo ucwords(config_item('sebutan_desa'))?></th>
+                <th>Nama Kepala Desa</th>
                 <td><input name="nama_kepala_desa" type="text" class="inputbox" size="40" value="<?php echo unpenetration($main['nama_kepala_desa'])?>"/></td>
             </tr>
             <tr>
-                <th>Alamat Kantor <?php echo ucwords(config_item('sebutan_desa'))?></th>
+                <th>Alamat Kantor Desa</th>
                 <td><input name="alamat_kantor" type="text" class="inputbox" size="40" value="<?php echo unpenetration($main['alamat_kantor'])?>"/></td>
             </tr>
             <tr>
@@ -49,9 +49,9 @@
                 <td>
 				<div class="userbox-avatar">
 				<?php if($main['logo']){?>
-					<img src="<?php echo LogoDesa($main['logo'])?>" alt=""/>
+					<img src="<?php echo base_url()?>assets/images/logo/<?php echo $main['logo']?>" alt=""/>
 				<?php }else{?>
-					<img src="<?php echo base_url()?>assets/files/logo/home.png" alt=""/>
+					<img src="<?php echo base_url()?>assets/images/logo/home.png" alt=""/>
 				<?php }?>
 				</div>
 				</td>
@@ -62,14 +62,14 @@
                 <td><input type="file" name="logo" /> <span style="color: #aaa;">(Kosongkan jika tidak ingin mengubah logo)</span></td>
             </tr>
              <tr>
-                <th>Kantor / Wilayah <?php echo ucwords(config_item('sebutan_desa'))?></th>
-                <td><a href="<?php echo site_url("hom_desa/ajax_kantor_maps")?>" class="uibutton confirm" target="ajax-modalz" rel="window-lok" header="Lokasi <?php echo $main['nama_desa']?>" title="Lokasi <?php echo $main['nama_desa']?>">Kantor <?php echo ucwords(config_item('sebutan_desa'))?></a><a href="<?php echo site_url("hom_desa/ajax_wilayah_maps")?>" class="uibutton confirm" target="ajax-modalz" rel="window-wil" header="Wilayah <?php echo $main['nama_desa']?>" title="Wilayah <?php echo $main['nama_desa']?>">Wilayah <?php echo ucwords(config_item('sebutan_desa'))?></a></td>
+                <th>Kantor / Wilayah Desa</th>
+                <td><a href="<?php echo site_url("hom_desa/ajax_kantor_maps")?>" class="uibutton confirm" target="ajax-modalz" rel="window-lok" header="Lokasi <?php echo $main['nama_desa']?>" title="Lokasi <?php echo $main['nama_desa']?>">Kantor Desa</a><a href="<?php echo site_url("hom_desa/ajax_wilayah_maps")?>" class="uibutton confirm" target="ajax-modalz" rel="window-wil" header="Wilayah <?php echo $main['nama_desa']?>" title="Wilayah <?php echo $main['nama_desa']?>">Wilayah Desa</a></td>
             </tr>
         </table>
     </div>
-
+    
     <div class="ui-layout-south panel bottom">
-        <div class="left">
+        <div class="left">     
         </div>
         <div class="right">
             <div class="uibutton-group">

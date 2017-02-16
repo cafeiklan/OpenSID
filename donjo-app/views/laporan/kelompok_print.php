@@ -11,63 +11,57 @@
 <!-- Print Body -->
 <div id="body">
 
-	   <table  width="100%"><?php foreach($config as $data){?>
-				<tbody><tr>
+	   <table  width="100%"><?php foreach($config as $data){?>	
+				<tbody><tr>			
 				<td width="37%"><h4>PEMERINTAH KABUPATEN/KOTA <?php echo unpenetration($data['nama_kabupaten'])?></h4></td>
-
-				<td align= "right" width="17%"><h4>LAMPIRAN A - 9</h4></td>		</tr>
-				<tr>
+																	
+				<td align= "right" width="17%"><h4>LAMPIRAN A - 9</h4></td>		</tr>	
+				<tr>				
 					<td></td>
-					<td width="100%"><h3>LAPORAN BULANAN <?php echo strtoupper(config_item('sebutan_desa'))?>/KELURAHAN</h3></td>
-
-
+					<td width="100%"><h3>LAPORAN BULANAN DESA/KELURAHAN</h3></td>
+					
+									
 				</tr>
 				</tbody></table>
 				<br>
 				<table>
-				<tbody><tr>
-					<td><?php echo ucwords(config_item('sebutan_desa'))?>/Kelurahan</td>
+				<tbody><tr>						
+					<td>Desa/Kelurahan</td>
 					<td width="3%">:</td>
 					<td width="38.5%"><?php echo unpenetration($data['nama_desa'])?></h4></td>
-					<td></td>
+					<td></td>	
 
 				</tr>
-				<tr>
+				<tr>					
 					<td>Kecamatan</td>
 					<td width="3%">:</td>
 					<td width="38.5%"><?php echo unpenetration($data['nama_kecamatan'])?></td>
-					<td></td>
-			<?php }?>
+					<td></td>	
+			<?php }?>	
 				</tr>
-				<tr>
+				<tr>						
 					<td>Laporan Bulan</td>
 					<td width="3%">:</td>
 			<?php $bln = date("m");?>
 					<td><?php echo $bln?> </td>
-					<td width="40%"></td>
+					<td width="40%"></td>	
 				</tr>
 				<?php if($dusun){?>
-				<tr>
+				<tr>						
 					<td>Dusun</td>
 					<td width="3%">:</td>
 					<td>
 					<?php echo $dusun?>
 					</td>
-					<td width="40%"></td>
+					<td width="40%"></td>	
 				</tr>
 				<?php }?>
 		</tbody></table>
 		<br>
 	<table class="border thick">
-
+	
 <thead>
-<?php if($_SESSION['dusun']!=''){?>
-<tr>
-	<h3>DATA PILAH <?php echo strtoupper(config_item('sebutan_dusun'))?> <?php echo $_SESSION['dusun'] ?></h3>
-</tr>
-<?php } ?>
 <tr class="border thick">
-	<th rowspan="2"><div align="center"><?php echo strtoupper(config_item('sebutan_dusun'))?></div></th>
 	<th rowspan="2"><div align="center">RW</div></th>
 	<th rowspan="2"><div align="center">RT</div></th>
 	<th colspan="2"><div align="center">KK</div></th>
@@ -79,18 +73,18 @@
 <tr>
 	<th><div align="center">L</div></th>
 	<th><div align="center">P</div></th>
-	<th><div align="center">Dibawah 1 Tahun</div></th>
-	<th><div align="center">1-5 Tahun</div></th>
-	<th><div align="center">6-12 Tahun</div></th>
-	<th><div align="center">13-15 Tahun</div></th>
-	<th><div align="center">16-18 Tahun</div></th>
-	<th><div align="center">Diatas 60 Tahun</div></th>
+	<th><div align="center">Bayi(<1thn)</div></th>
+	<th><div align="center">Balita(1-5thn)</div></th>
+	<th><div align="center">SD(6-12thn)</div></th>
+	<th><div align="center">SMP(13-15thn)</div></th>
+	<th><div align="center">SMA(16-18thn)</div></th>
+	<th><div align="center">Lansia(>60thn)</div></th>
 	<th><div align="center">L</div></th>
 	<th><div align="center">P</div></th>
 </tr>
 </thead>
 <tbody>
-<?php
+<?php 
 	$bayi=0;
 	$balita=0;
 	$sd=0;
@@ -103,7 +97,6 @@
 	$hamil=0;
 ?>
 <?php foreach($main as $data){?>
-<td align="right"><?php echo $data['dusunnya']?></td>
 <td align="right"><?php echo $data['rw']?></td>
 <td align="right"><?php echo $data['rt']?></td>
 <td align="right"><?php echo $data['L']?></td>
@@ -118,7 +111,7 @@
 <td align="right"><?php echo $data['sakit_L']?></td>
 <td align="right"><?php echo $data['sakit_P']?></td>
 <td align="right"><?php echo $data['hamil']?></td>
-<?php
+<?php 
 	$bayi=$bayi+$data['bayi'];
 	$balita=$balita+$data['balita'];
 	$sd=$sd+$data['sd'];
@@ -133,10 +126,10 @@
 </tr>
   <?php }?>
   </tbody>
-
+  
 <thead>
 	<tr>
-		<th colspan="5" align="center"><div align="center">Total</div></th>
+		<th colspan="4" align="center"><div align="center">Total</div></th>
 		<th><div align="right"><?php  echo $bayi;?></div></th>
 		<th><div align="right"><?php  echo $balita;?></div></th>
 		<th><div align="right"><?php  echo $sd;?></div></th>
@@ -149,7 +142,7 @@
 		<th><div align="right"><?php  echo $hamil;?></div></th>
 	</tr>
 </thead>
-</table>
+</table>   
 
 
 <p>&nbsp;</p>
