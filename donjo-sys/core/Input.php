@@ -1,4 +1,4 @@
-<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -630,22 +630,9 @@ class CI_Input {
 			unset($_COOKIE['$Version']);
 			unset($_COOKIE['$Path']);
 			unset($_COOKIE['$Domain']);
-			// Work-around for PHP bug #66827 (https://bugs.php.net/bug.php?id=66827)
-			
-			
-			
-			$sess_cookie_name = config_item('cookie_prefix').config_item('sess_cookie_name');
-			if (isset($_COOKIE[$sess_cookie_name]) && ! is_string($_COOKIE[$sess_cookie_name]))
-			{
-				unset($_COOKIE[$sess_cookie_name]);
-			}
+
 			foreach ($_COOKIE as $key => $val)
 			{
-				
-				if ($key === $sess_cookie_name && config_item('sess_encrypt_cookie'))
-				{
-					continue;
-				}
 				$_COOKIE[$this->_clean_input_keys($key)] = $this->_clean_input_data($val);
 			}
 		}

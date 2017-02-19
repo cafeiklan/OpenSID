@@ -1,4 +1,4 @@
-<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -45,15 +45,20 @@ if ( ! function_exists('site_url'))
 		return $CI->config->site_url($uri);
 	}
 }
-if ( ! function_exists('demode'))
-{
-	function demode()
-	{
-		$demode = "1";
-		
-		return $demode;
-	}
-}
+
+// ------------------------------------------------------------------------
+
+/**
+ * Base URL
+ * 
+ * Create a local URL based on your basepath.
+ * Segments can be passed in as a string or an array, same as site_url
+ * or a URL to a file can be passed in, e.g. to an image file.
+ *
+ * @access	public
+ * @param string
+ * @return	string
+ */
 if ( ! function_exists('base_url'))
 {
 	function base_url($uri = '')
@@ -471,31 +476,26 @@ if ( ! function_exists('prep_url'))
  */
 if ( ! function_exists('url_title'))
 {
-	function url_title($str, $separator = 'dash', $lowercase = FALSE)
+	function url_title($str, $separator = '-', $lowercase = FALSE)
 	{
 		if ($separator == 'dash') 
 		{
-			$search		= '_';
-			$replace	= '-';
+		    $separator = '-';
 		}
-		else
+		else if ($separator == 'underscore')
 		{
-			$search		= '-';
-			$replace	= '_';
+		    $separator = '_';
 		}
 		
 		$q_separator = preg_quote($separator);
 
 		$trans = array(
-						'&\#\d+?;'				=> '',
-						'&\S+?;'				=> '',
-						'\s+'					=> $replace,
-						'[^a-z0-9\-\._]'		=> '',
-						$replace.'+'			=> $replace,
-						$replace.'$'			=> $replace,
-						'^'.$replace			=> $replace,
-						'\.+$'					=> ''
-					);
+			'&.+?;'                 => '',
+			'[^a-z0-9 _-]'          => '',
+			'\s+'                   => $separator,
+			'('.$q_separator.')+'   => $separator
+		);
+
 		$str = strip_tags($str);
 
 		foreach ($trans as $key => $val)
