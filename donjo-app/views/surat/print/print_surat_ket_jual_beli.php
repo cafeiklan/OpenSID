@@ -21,14 +21,14 @@
 
 
 <div align="center"><u><h4 class="kop">SURAT KETERANGAN JUAL BELI</h4></u></div>
-<div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?>/PEM/<?php echo date("Y")?></h4></div>
+<div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
 
 <table width="100%">
 
-<td class="indentasi">Yang bertanda tangan dibawah ini <?php echo $input['jabatan']?> <?php echo unpenetration($desa['nama_desa'])?> Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>
-Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?> Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa :  </td></tr>
+<td class="indentasi">Yang bertanda tangan dibawah ini <?php echo $input['jabatan']?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
+Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
 </table>
 
 <div id="isi3">

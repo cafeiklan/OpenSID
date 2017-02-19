@@ -1,25 +1,34 @@
 <?php $this->load->view('print/headjs.php');?>
+
 <body>
 <div id="content" class="container_12 clearfix">
 <div id="content-main" class="grid_7">
+
 <link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
 <div>
 <table width="100%">
-<tr> <img src="<?php echo base_url()?>assets/files/logo/<?php echo $desa['logo']?>" alt="" class="logo"></tr>
+
+<tr> <img src="<?php echo LogoDesa($desa['logo']);?>" alt="" class="logo"></tr>
+
 <div class="header">
 <h4 class="kop">PEMERINTAH KABUPATEN <?php echo strtoupper(unpenetration($desa['nama_kabupaten']))?> </h4>
 <h4 class="kop">KECAMATAN <?php echo strtoupper(unpenetration($desa['nama_kecamatan']))?> </h4>
 <h4 class="kop">DESA <?php echo strtoupper(unpenetration($desa['nama_desa']))?></h4>
 <h5 class="kop2"><?php echo (unpenetration($desa['alamat_kantor']))?> </h5>
+
 <div style="text-align: center;">
 <hr /></div></div>
+
+
 <div align="center"><u><h4 class="kop">SURAT PENGANTAR LAPORAN KEHILANGAN</h4></u></div>
 <div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
+
 <table width="100%">
+
 <td class="indentasi">Yang bertanda tangan dibawah ini <?php echo unpenetration($input['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
-Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa: </td></tr>
+Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
 </table>
 <div id="isi3">
 <table width="100%">
@@ -53,7 +62,7 @@ No. KK: <?php echo $data['no_kk']?> dengan NIK: <?php echo $data['nik']?>, kepal
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr><td width="23%"></td><td width="30%"></td><td align="center"><?php echo unpenetration($desa['nama_desa'])?>, <?php echo $tanggal_sekarang?></td></tr>
+<tr><td width="23%"></td><td width="30%"></td><td  align="center"><?php echo unpenetration($desa['nama_desa'])?>, <?php echo $tanggal_sekarang?></td></tr>
 <tr><td width="23%" align="center">Pemegang Surat</td><td width="30%"></td><td align="center"><?php echo unpenetration($input['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?></td></tr>
 <tr></tr>
 <tr></tr>
@@ -87,8 +96,8 @@ No. KK: <?php echo $data['no_kk']?> dengan NIK: <?php echo $data['nik']?>, kepal
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr><td align="center">( <?php echo unpenetration($data['nama'])?> )<td></td><td align="center">( <?php echo unpenetration($input['pamong'])?> )</td></tr>
-</table> </div></div>
+<tr><td  align="center">( <?php echo unpenetration($data['nama'])?> )<td></td><td align="center">( <?php echo unpenetration($input['pamong'])?> )</td></tr>
+</table>  </div></div>
 <div id="aside">
 </div>
 </div>

@@ -18,26 +18,22 @@
 <div style="text-align: center;">
 <hr /></div></div>
 
-</table>
-<table width="100%">
-</table>
-<table width="100%">
 <div align="center"><u><h4 class="kop">BIODATA PENDUDUK</h4></u></div>
-<div align="center"><h4 class="kop3">Nomor : 471.2/<?php echo $input['nomor']?>/PEM/<?php echo date("Y")?></h4></div>
+<div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
 
 <div id="isi">
 <table width="100%">
 <tr><td><b>I. DATA KELUARGA</b></td></tr>
-<tr><td width="40%">Nama Kepala Keluarga</td><td width="3%">:</td><td width="64%"><b><?php echo unpenetration($kk['kepala_kk'])?></td></tr>
+<tr><td width="40%">Nama Kepala Keluarga</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($kk['kepala_kk'])?></td></tr>
 <tr><td>Nomor Kartu Keluarga</td><td>:</td><td><?php echo $kk['no_kk']?></td></tr>
-<tr><td>Alamat Keluarga</td><td>:</td><td> <?php echo $data['alamat']?> RT. <?php echo $kk['rt']?> RW. <?php echo $kk['rw']?> DUSUN <?php echo ununderscore(unpenetration($kk['dusun']))?> Desa <?php echo unpenetration($desa['nama_desa'])?> Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?> Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?> </td></tr>
+<tr><td>Alamat Keluarga</td><td>:</td><td>RT. <?php echo $kk['rt']?>, RW. <?php echo $kk['rw']?>, Dusun <?php echo ununderscore(unpenetration($kk['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?> </td></tr>
 </table>
 <br/>
 <table width="100%">
 <tr><td ><b>II.	DATA INDIVIDU</b></td></tr>
-<tr><td width="40%">Nama Lengkap</td><td width="3%">:</td><td width="64%"><b><?php echo unpenetration($data['nama'])?></td></tr>
+<tr><td width="40%">Nama Lengkap</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($data['nama'])?></td></tr>
 <tr><td >NIK</td><td>:</td><td><?php echo $data['nik']?></td></tr>
 <tr><td>Alamat Sebelumnya</td><td>:</td><td><?php echo $input['alamat_sebelumnya']?></td></tr>
 <tr><td>Nomor Paspor</td><td>:</td><td><?php echo $input['no_paspor']?></td></tr>
@@ -101,20 +97,22 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-</table>
-<table width="100%">
-<tr><td></td><td width="50%"></td><td  align="center"><b><u><?php echo unpenetration($input['pamong'])?></td></tr>
-<tr><td></td><td width="50%"></td><td align="center"><?php echo unpenetration($input['pamong_nip'])?></td></tr>
-</table>
-
-</div>
-</div>
-
-</div>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr><td> <td></td><td align="center">( <?php echo unpenetration($input['pamong'])?> )</td></tr>
+</table>  </div></div>
 <div id="aside">
-
 </div>
-<div id="footer" class="container_12">
-</div></div>
+</div>
 </body>
 </html>

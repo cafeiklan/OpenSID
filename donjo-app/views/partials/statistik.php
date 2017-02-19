@@ -26,9 +26,9 @@ $(function () {
 					legend: {
                         enabled:false
 					},
- series: [{
- type: 'column',
- name: 'Jumlah',
+            series: [{
+                type: 'column',
+                name: 'Jumlah Populasi',
 				shadow:1,
 				border:1,
                 data: [
@@ -41,72 +41,58 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <?php }else{?>
 
 <script type="text/javascript">
 $(function () {
- var chart;
- 
- $(document).ready(function () {
- 	
- chart = new Highcharts.Chart({
- chart: {
- renderTo: 'container'
- },
- title:0,
- plotOptions: {
- pie: {
- allowPointSelect: true,
- cursor: 'pointer',
- showInLegend: true
- }
- },
-legend: {
-	maxHeight: 100,
-},
- series: [{
- type: 'pie',
- name: 'Jumlah',
+    var chart;
+
+    $(document).ready(function () {
+
+    	// Build the chart
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container'
+            },
+            title:0,
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Jumlah Populasi',
 				shadow:1,
 				border:1,
- data: [
-	<?php foreach($stat as $data){?>
-		<?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL"){?>
-			['<?php echo ucwords(($data['nama']))?>',<?php echo $data['jumlah']?>],
-		<?php }?>
-	<?php }?>
- ]
- }]
- });
- });
- 
+                data: [
+						<?php  foreach($stat as $data){?>
+							<?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL"){?>
+								['<?php echo $data['nama']?>',<?php echo $data['jumlah']?>],
+							<?php }?>
+						<?php }?>
+                ]
+            }]
+        });
+    });
+
 });
 </script>
 <?php }?>
 <script src="<?php echo base_url()?>assets/js/highcharts/highcharts.js"></script>
 <script src="<?php echo base_url()?>assets/js/highcharts/highcharts-more.js"></script>
 <script src="<?php echo base_url()?>assets/js/highcharts/exporting.js"></script>
-<style>
-	tr.hide{
-		display:none;
-	}
-</style>
-<script>
-$(function(){
-	$('#showData').click(function(){ 
-		$('tr.hide').show();
-		$('#showData').hide();	
-	});
-});
-</script>
 <?php
+
 	echo "
 	<div class=\"box box-danger\">
 		<div class=\"box-header with-border\">
-			<h3 class=\"box-title\">Statistik Berdasar<br>". strtoupper($heading)."</h3>
+			<h3 class=\"box-title\">Grafik Data Demografi Berdasar ". $heading."</h3>
 			<div class=\"box-tools pull-right\">
 				<div class=\"btn-group-xs\">";
 					$strC = ($tipe==1)? "btn-primary":"btn-default";
@@ -117,12 +103,13 @@ $(function(){
 			</div>
 		</div>
 		<div class=\"box-body\">
-			<div id=\"container\" style=\"height:620px;\"></div>
+			<div id=\"container\"></div>
 			<div id=\"contentpane\">
 				<div class=\"ui-layout-north panel top\"></div>
 			</div>
 		</div>
 	</div>
+
 	<div class=\"box box-danger\">
 		<div class=\"box-header with-border\">
 			<h3 class=\"box-title\">Tabel Data Demografi Berdasar ". $heading."</h3>
@@ -133,46 +120,44 @@ $(function(){
 				<tr>
 					<th rowspan=\"2\">No</th>
 					<th rowspan=\"2\">Kelompok</th>
-					<th colspan=\"2\">Jumlah</th>
-					<th colspan=\"2\">Laki-laki</th>
-					<th colspan=\"2\">Perempuan</th>
-					</tr>
+					<th colspan=\"2\">Jumlah</th>";
+          if($jenis_laporan == 'penduduk'){
+            echo "<th colspan=\"2\">Laki-laki</th>
+            <th colspan=\"2\">Perempuan</th>";
+          }
+					echo "
+        </tr>
 				<tr>
-					<th>n</th><th>%</th>
-					<th>n</th><th>%</th>
-					<th>n</th><th>%</th>
+					<th style='text-align:right'>n</th><th style='text-align:right'>%</th>";
+          if($jenis_laporan == 'penduduk'){
+  					echo "<th style='text-align:right'>n</th><th style='text-align:right'>%</th>
+  					<th style='text-align:right'>n</th><th style='text-align:right'>%</th>";
+          }
+          echo "
 				</tr>
 				</thead>
 				<tbody>";
 				$i=0; $l=0; $p=0;
-				$hide="";$h=0;
-				$jm = count($stat);
 				foreach($stat as $data){
-					$h++;
-					if($h > 10 AND $jm > 11)$hide="hide";
-					echo "<tr class=\"$hide\">
+					echo "<tr>
 						<td class=\"angka\">".$data['no']."</td>
 						<td>".$data['nama']."</td>
 						<td class=\"angka\">".$data['jumlah']."</td>
-						<td class=\"angka\">".$data['persen']."</td>
-						<td class=\"angka\">".$data['laki']."</td>
-						<td class=\"angka\">".$data['persen1']."</td>
-						<td class=\"angka\">".$data['perempuan']."</td>
-						<td class=\"angka\">".$data['persen2']."</td>
-					</tr>";
-					$i=$i+$data['jumlah']; 
+						<td class=\"angka\">".$data['persen']."</td>";
+          if($jenis_laporan == 'penduduk'){
+            echo "<td class=\"angka\">".$data['laki']."</td>
+            <td class=\"angka\">".$data['persen1']."</td>
+            <td class=\"angka\">".$data['perempuan']."</td>
+            <td class=\"angka\">".$data['persen2']."</td>";
+          }
+					echo "</tr>";
+					$i=$i+$data['jumlah'];
 					$l=$l+$data['laki']; $p=$p+$data['perempuan'];
 				}
 				echo "
 				</tbody>
 			</table>";
-			if($hide=="hide"){
-				echo "
-				<div style='margin-left:20px;'>
-				<button class='uibutton special' id='showData'>Selengkapnya...</button>
-				</div>
-				";
-			}
+
 		echo "
 		</div>
 	</div>";

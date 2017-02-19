@@ -63,12 +63,13 @@ padding:5px;
 <input name="nomor" type="text" class="inputbox required" size="12"/>
 </td>
 </tr>
+
 <tr>
 <th>IDENTITAS KEDUA</th>
 </tr>
 <tr>
 <th>Identitas dalam (nama kartu)</th>
-<td><input name="kartu" type="text" class="inputbox required" size="55"/></td>
+<td><input name="kartu" type="text" class="inputbox required" size="15"/></td>
 </tr>
 <tr>
 <th>Nomor identitas</th>
@@ -88,8 +89,8 @@ padding:5px;
 <td><input name="sex" type="text" class="inputbox required" size="10"/></td>
 </tr>
 <tr>
-<th>Alamat RT RW Dusun</th>
-<td><input name="alamat" type="text" class="inputbox required" size="60"/></td>
+<th>Alamat</th>
+<td><input name="alamat" type="text" class="inputbox required" size="40"/></td>
 </tr>
 <tr>
 <th>Agama</th>
@@ -100,9 +101,8 @@ padding:5px;
 <td><input name="pekerjaan" type="text" class="inputbox required" size="15"/></td>
 </tr>
 <tr>
-<th>Surat Keterangan ini dibuat untuk keperluan</th>
-<td><input name="keperluan" type="text" class="inputbox required" size="60"/></td>
-</td>
+<th>Keterangan</th>
+<td><input name="keterangan" type="text" class="inputbox required" size="60"/></td>
 </tr>
 <tr>
 <th>Perbedaan</th>
@@ -110,24 +110,16 @@ padding:5px;
 </tr>
 
 <tr>
-<th>Staf Pemerintah Desa</th>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
 <?php }?>
 </select>
 </td>
 </tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
 <tr>
 <th>Sebagai</th>
 <td>
@@ -151,7 +143,7 @@ padding:5px;
 <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>
 </div> </form>

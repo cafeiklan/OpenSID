@@ -38,17 +38,17 @@
         </div>
         <table class="list">
 		<thead>
- <tr>
- <th>No</th>
- <th><input type="checkbox" class="checkall"/></th>
- <th width="35">Aksi</th>
-				<th>Nomor RT</th>
-				<th>NIK Ketua RT</th>
-				<th>Nama Ketua RT</th>
-				<th>Jumlah KK</th>
-				<th width="50" >Jiwa</th>
-				<th width="50" >LK</th>
-				<th width="50" >PR</th>
+            <tr>
+                <th>No</th>
+                <th><input type="checkbox" class="checkall"/></th>
+                <th width="35">Aksi</th>
+				<th align="left" align="center">Nomor RT</th>
+				<th align="left" align="center">NIK Ketua RT</th>
+				<th align="left" align="center">Nama Ketua RT</th>
+				<th align="left" align="center">Jumlah KK</th>
+				<th width="50" align="left" align="center">Jiwa</th>
+				<th width="50" align="left" align="center">LK</th>
+				<th width="50" align="left" align="center">PR</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -74,17 +74,17 @@
 		
 		
 		<thead>
- <tr>
- <th>No</th>
- <th><input type="checkbox" class="checkall"/></th>
- <th width="50">Total</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th>total_kk</th>
-				<th>total_jiwa</th>
-				<th>total_lk</th>
-				<th>total_pr</th>
+            <tr>
+                <th>No</th>
+                <th><input type="checkbox" class="checkall"/></th>
+                <th width="50">Total</th>
+				<th align="left" align="center"></th>
+				<th align="left" align="center"></th>
+				<th align="left" align="center"></th>
+				<th align="left" align="center">total_kk</th>
+				<th align="left" align="center">total_jiwa</th>
+				<th align="left" align="center">total_lk</th>
+				<th align="left" align="center">total_pr</th>
 				
 				
 			</tr>

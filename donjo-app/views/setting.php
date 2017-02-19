@@ -30,29 +30,29 @@
 			<th align="left">Password Baru [Ulangi]</th>
 			<td><input name="pass_baru1" type="password" class="inputbox" size="20"/></td>
 		</tr>
- <tr>
- <th align="left" class="top">Foto</th>
- <td>
+            <tr>
+                <th align="left" class="top">Foto</th>
+                <td>
 				<div class="userbox-avatar">
 				<?if($main['foto']){?>
-					<img src="<?php echo base_url()?>assets/files/user_pict/kecil_<?php echo $main['foto']?>" alt=""/>
+					<img src="<?php echo AmbilFoto($main['foto'])?>" alt=""/>
 				<?}else{?>
 					<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 				<?}?>
 				</div>
 				</td>
 				<input type="hidden" name="old_foto" value="<?php echo $main['foto']?>">
- </tr>
- <tr>
- <th>Ganti Foto</th>
- <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
- </tr>
+            </tr>
+            <tr>
+                <th>Ganti Foto</th>
+                <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
+            </tr>
 	</table>
 </div>
 <div class="ui-layout-south panel bottom bawah">
 	<div class="right">
- <div class="uibutton-group">
- <button class="uibutton" type="button" onclick="$('#window').dialog('close');">Close</button><button class="uibutton confirm" type="submit">Simpan</button>
+        <div class="uibutton-group">
+        <button class="uibutton" type="button" onclick="$('#window').dialog('close');">Close</button><button class="uibutton confirm" type="submit">Simpan</button>
 		</div>
 	</div>
 </div>

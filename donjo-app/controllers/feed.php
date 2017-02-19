@@ -1,5 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 class Feed extends CI_Controller{
+
 	function __construct(){
 		parent::__construct();
 		session_start();
@@ -7,6 +8,7 @@ class Feed extends CI_Controller{
 		$this->load->model('feed_model');
 		$this->load->model('config_model');
 	}
+	
 	public function index(){
 		$header = $this->header_model->get_data();
 		$data["data_config"] = $this->config_model->get_data();

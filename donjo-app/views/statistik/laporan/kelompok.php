@@ -167,8 +167,9 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 </div>
 <div class="right">
 <div class="uibutton-group">
-
+<button class="uibutton" type="reset">Clear</button>
 <button class="uibutton confirm" type="submit" >Cetak</button>
+
 </div>
 </div>
 	</form>

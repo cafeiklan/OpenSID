@@ -18,36 +18,30 @@
 <div style="text-align: center;">
 <hr /></div></div>
 
-</table>
-<table width="100%">
-</table>
-<table width="100%">
-</table>
-<table width="100%">
 <div align="center"><u><h4 class="kop">SURAT KETERANGAN RUJUK/CERAI</h4></u></div>
-<tr><th align="center"><?< class="kop">Nomor : 474.2/<?php echo $input['nomor']?>/KESRA/<?php echo date("Y")?></th></tr>
+<div align="center"><h4 class="kop">NO: <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
 
 <table width="100%">
-</table>
-<table width="100%">
-<td class="indentasi">Yang bertanda tangan dibawah ini <?php echo unpenetration($input['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>  Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?> Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?> Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa :  </td></tr>
+
+<td class="indentasi">Yang bertanda tangan dibawah ini <?php echo unpenetration($input['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
+Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
 </table><div id="isi3">
 <table width="100%">
-<tr><td width="23%">Nama</td><td width="3%">:</td><td width="64%"><b><?php echo unpenetration($pribadi['nama']); ?></td></tr>
+<tr><td width="23%">Nama</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($pribadi['nama']); ?></td></tr>
 <tr><td width="23%">Bin</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($pribadi['nama_ayah']); ?></td></tr>
 <tr><td>Tempat dan Tgl. Lahir</td><td>:</td><td><?php echo $pribadi['tempatlahir']; ?>, <?php echo tgl_indo($pribadi['tanggallahir']); ?></td></tr>
 <tr><td width="23%">Warga Negara</td><td width="3%">:</td><td width="64%"><?php echo $pribadi['wn']; ?></td></tr>
 <tr><td>Agama</td><td>:</td><td><?php echo $pribadi['agama']; ?></td></tr>
 <tr><td width="23%">Pekerjaan</td><td width="3%">:</td><td width="64%"><?php echo $pribadi['pek']; ?></td></tr>
-<tr><td width="23%">Alamat</td><td width="3%">:</td><td width="64%"> <?php echo $pribadi['alamat']?> RT. <?php echo $pribadi['rt']?> RW. <?php echo $pribadi['rw']?> Dusun <?php echo unpenetration(ununderscore($pribadi['dusun']))?> Desa <?php echo unpenetration($desa['nama_desa'])?> Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?> Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
+<tr><td width="23%">Alamat</td><td width="3%">:</td><td width="64%">RT. <?php echo $pribadi['rt']?>, RW. <?php echo $pribadi['rw']?>, Dusun <?php echo unpenetration(ununderscore($pribadi['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
 				<tr></tr>
 				<tr></tr>
 				<tr></tr>
 				<tr></tr>
-				<tr><td colspan="3"><b>telah rujuk/ cerai *) dengan : </td></tr>
-<tr><td width="23%">Nama</td><td width="3%">:</td><td width="64%"><b><?php echo unpenetration($input['nama_pasangan']); ?></td></tr>
+				<tr><td colspan="3">telah rujuk/ cerai *) dengan : </td></tr>
+<tr><td width="23%">Nama</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($input['nama_pasangan']); ?></td></tr>
 <tr><td width="23%">Binti</td><td width="3%">:</td><td width="64%"><?php echo $input['nama_ayah_pasangan']; ?></td></tr>
 <tr><td>Tempat dan Tgl. Lahir</td><td>:</td><td><?php echo $input['tempatlahir_pasangan']; ?>, <?php echo tgl_indo(tgl_indo_in($input['tanggallahir_pasangan'])); ?></td></tr>
 <tr><td width="23%">Warga Negara</td><td width="3%">:</td><td width="64%"><?php echo $input['wn_pasangan']; ?></td></tr>
@@ -106,14 +100,15 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr><td><td></td><td td align="center"><b><u><?php echo unpenetration($input['pamong'])?> </td></tr>
-<tr><td><td></td><td td align="center"><?php echo unpenetration($input['pamong_nip'])?> </td></tr>
+<tr></tr>
+<tr><td><td></td><td align="center">( <?php echo unpenetration($input['pamong']);?> )</td></tr>
 <tr><td colspan="3">*)coret yang tidak perlu<td></td>
 </table>  </div></div>
-
-
+</div>
 <div id="aside">
+
 </div>
-</div>
+<div id="footer" class="container_12">
+</div></div>
 </body>
 </html>

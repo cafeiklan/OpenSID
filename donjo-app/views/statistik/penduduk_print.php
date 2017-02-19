@@ -14,20 +14,40 @@
 <table>
     <tbody><tr>
         <td align="center" >
-            <img src="1_files/logo-pemprov-diy-print.jpg" alt="" style="float: left;">
+            <img src="<?php echo LogoDesa($config['logo']);?>" alt="" style="float: left;">
             <h1>PEMERINTAH KABUPATEN <?php echo strtoupper($config['nama_kabupaten'])?> </h1>
             <h1 style="text-transform: uppercase;"></h1>
             <h1>KECAMATAN <?php echo strtoupper($config['nama_kecamatan'])?> </h1>
-	    <h1>DESA <?php echo strtoupper($config['nama_desa'])?></h1>
+	    <h1><?php echo strtoupper(config_item('sebutan_desa'))." ".strtoupper($config['nama_desa'])?></h1>
             <h1>LAPORAN DATA STATISTIK KEPENDUDUKAN MENURUT <?php echo strtoupper($stat)?></h1>
         </td>
     </tr>
     <tr>
         <td style="padding: 5px 20px;">
 		<br>
- <table>
- <tbody>
- </tbody>
+            <table>
+                <tbody><tr>
+                    <td class="top" width="60%">
+                        <div class="nowrap">
+                            <label style="width: 100px;">Laporan. No</label>
+                            <label>:</label>
+                            <span><?php echo date("d-m-Y")?>-00001</span>
+                        </div>
+                    </td>
+                    <td class="top">
+                        <div class="nowrap">
+                            <label style="width: 100px;"></label>
+                            <label>:</label>
+                            <span>-</span>
+                        </div>
+                        <div class="nowrap">
+                            <label style="width: 100px;"></label>
+                            <label>:</label>
+                            <span>-</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
 			</table>
             <table class="noborder">
                 <tbody><tr>
@@ -73,7 +93,7 @@
         <?php  foreach($main as $data): ?>
 		<tr>
           <td class="thick" align="center" width="2"><?php echo $data['no']?></td>
-          <td class="thick"><?php echo $data['nama']?></td>
+          <td class="thick"><?php echo strtoupper($data['nama'])?></td>
           <td class="thick"><?php echo $data['jumlah']?></td>
 		  <?php  if($lap<20){?>
 		  <td class="thick"><?php echo $data['laki']?></td>
@@ -96,41 +116,46 @@
                 </tr>
             </tbody></table>
 		<br>
- <table class="noborder">
- <tbody><tr>
- <td class="top" align="center" width="30%">
- <div class="nowrap"><label></label></div>
- <div class="nowrap"><label><br></label></div>
- <div style="height: 70px;"></div>
- <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
- <div class="nowrap"><label></label></div>
- </td>
- <td class="top" align="center" width="40%">
- <div class="nowrap"><label>&nbsp;</label></div>
- <div class="nowrap"><label><br></label></div>
- </td>
- <td class="top" align="center" width="30%"> 
- <div class="nowrap"><label>&nbsp;</label></div>
- <div class="nowrap"><label><br>KEPALA DESA <?php echo strtoupper($config['nama_desa'])?></label></div>
- <div style="height: 50px;"></div>
- <div class="nowrap"><strong style="text-transform: uppercase;"><?php echo strtoupper($config['nama_kepala_desa'])?></strong></div>
- </td>
- </tr> 
- </tbody></table>
- <br>
- <table class="noborder">
- <tbody><tr>
- <td class="top">
- <div class="nowrap" style="font-style:italic;">
- <label></label>
- <label>:</label>
- <strong>-</strong>
- </div>
- </td>
- </tr>
- </tbody></table>
- 
- </td>
- </tr>
-</tbody></table> 
+            <table class="noborder">
+                <tbody><tr>
+                    <td class="top" align="center" width="30%">
+                        <div class="nowrap"><label></label></div>
+                        <div class="nowrap"><label><br></label></div>
+                        <div style="height: 70px;"></div>
+                        <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
+                        <div class="nowrap"><label></label></div>
+                    </td>
+                    <td class="top" align="center" width="40%">
+                        <div class="nowrap"><label>&nbsp;</label></div>
+                        <div class="nowrap"><label><br></label></div>
+                    </td>
+                    <td class="top" align="center" width="30%">
+                        <div class="nowrap"><label>&nbsp;</label></div>
+                        <div class="nowrap"><label><br>KEPALA <?php echo (strtoupper(config_item('sebutan_desa'))." ".strtoupper($config['nama_desa']))?></label></div>
+                        <div style="height: 50px;"></div>
+                        <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
+                        <div class="nowrap"><label>NIP. </label></div>
+                    </td>
+                </tr>
+            </tbody></table>
+            <br>
+            <table class="noborder">
+                <tbody><tr>
+                    <td class="top">
+                        <div class="nowrap" style="font-style:italic;">
+                            <label></label>
+                            <label>:</label>
+                            <strong>-</strong>
+                        </div>
+                    </td>
+                </tr>
+            </tbody></table>
+
+        </td>
+    </tr>
+</tbody></table>
+</div>
+   <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
+</div>
+
 </body></html>

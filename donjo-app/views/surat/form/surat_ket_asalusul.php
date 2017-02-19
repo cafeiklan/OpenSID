@@ -41,13 +41,13 @@ padding:5px;
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Asal Usul (N-2)</h3>
+<h3>Surat Keterangan Asal Usul</h3>
 </div>
 
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
-<th>NIK / Nama Pengantin</th>
+<th>NIK / Nama</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
@@ -66,24 +66,74 @@ padding:5px;
 </td>
 </tr>
 <tr>
-<th>Staf Pemerintah Desa</th>
+<th>DATA AYAH (Isi jika ayah bukan warga <?php echo strtolower(config_item('sebutan_desa'))?> ini)</th>
+<td></td>
+</tr>
+<tr>
+<th>Nama</th>
+<td><input name="nama_ayah" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Tempat Tanggal Lahir</th>
+<td><input name="tempatlahir_ayah" type="text" class="inputbox " size="30"/>
+<input name="tanggallahir_ayah" type="text" class="inputbox  datepicker" size="20"/></td>
+</tr>
+<tr>
+<th>Warganegara</th>
+<td><input name="wn_ayah" type="text" class="inputbox " size="15"/></td>
+</tr>
+<tr>
+<th>Agama</th>
+<td><input name="agama_ayah" type="text" class="inputbox " size="15"/></td>
+</tr>
+<tr>
+<th>Pekerjaan</th>
+<td><input name="pek_ayah" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Tempat Tinggal</th>
+<td><input name="alamat_ayah" type="text" class="inputbox " size="40"/></td>
+</tr>
+<tr>
+<th>DATA IBU (Isi jika ibu bukan warga <?php echo strtolower(config_item('sebutan_desa'))?> ini)</th>
+<td></td>
+</tr>
+<tr>
+<th>Nama</th>
+<td><input name="nama_ibu" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Tempat Tanggal Lahir</th>
+<td><input name="tempatlahir_ibu" type="text" class="inputbox " size="30"/>
+<input name="tanggallahir_ibu" type="text" class="inputbox  datepicker" size="20"/></td>
+</tr>
+<tr>
+<th>Warganegara</th>
+<td><input name="wn_ibu" type="text" class="inputbox " size="15"/></td>
+</tr>
+<tr>
+<th>Agama</th>
+<td><input name="agama_ibu" type="text" class="inputbox " size="15"/></td>
+</tr>
+<tr>
+<th>Pekerjaan</th>
+<td><input name="pek_ibu" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Tempat Tinggal</th>
+<td><input name="alamat_ibu" type="text" class="inputbox " size="40"/></td>
+</tr>
+<tr>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
-<select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<select name="pamong"  class="inputbox required" >
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
 <?php }?>
 </select>
 </td>
 </tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
 <tr>
 <th>Sebagai</th>
 <td>
@@ -107,7 +157,7 @@ padding:5px;
 <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-						
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>
 </div> </form>

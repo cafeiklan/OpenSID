@@ -10,15 +10,15 @@
 				</ul>
 			</div>
 		</td>
-		<td style="background:#fff;padding:5px;"> 
+		<td style="background:#fff;padding:5px;">
 			<div class="content-header">
-					
+
 			</div>
 			<div id="contentpane">
 			<div class="ui-layout-north panel">
 			<h3>Manajemen Surat Keluar</h3>
 			</div>
-					
+
 			<div class="ui-layout-north panel">
 			</div>
 			<div class="ui-layout-center" id="maincontent" style="padding: 5px;">
@@ -26,68 +26,87 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<?php if($o==2): ?>
+							<th width="135px">Aksi</th>
+							<?php  if($o==2): ?>
 							<th align="left" width='100'>Nomor Surat</th>
-							<?php elseif($o==1): ?>
+							<?php  elseif($o==1): ?>
 							<th align="left" width='100'>Nomor Surat</th>
-							<?php else: ?>
+							<?php  else: ?>
 							<th align="left" width='100'>Nomor Surat</th>
-							<?php endif; ?>
+							<?php  endif; ?>
+
 							<th align="left">Jenis Surat</th>
-							 <?php if($o==4): ?>
+
+							 <?php  if($o==4): ?>
 							<th align="left">Nama Penduduk</th>
-							<?php elseif($o==3): ?>
+							<?php  elseif($o==3): ?>
 							<th align="left">Nama Penduduk</th>
-							<?php else: ?>
+							<?php  else: ?>
 							<th align="left">Nama Penduduk</th>
-							<?php endif; ?>
-							<th align="left" width='160'>Nama Staf Pemerintah Desa</th>
-							<?php if($o==6): ?>
+							<?php  endif; ?>
+
+							<th align="left" width='160'>Ditandatangani Oleh	</th>
+
+							<?php  if($o==6): ?>
 							<th align="left" width='160'>Tanggal</th>
-							<?php elseif($o==5): ?>
+							<?php  elseif($o==5): ?>
 							<th align="left" width='160'>Tanggal</th>
-							<?php else: ?>
+							<?php  else: ?>
 							<th align="left" width='160'>Tanggal</th>
-							<?php endif; ?>
+							<?php  endif; ?>
+
 							<th align="left">User</th>
+
 						</tr>
 					</thead>
 					<tbody>
-						<?php 
-						foreach($main as $data): 
-							$berkas = $data["berkas"]."_".$data["nik"]."_".date("Y-m-d").".rtf";
-							$theFile = str_replace("\\","/",FCPATH."surat\\arsip\\").$berkas; 
+						<?php
+						foreach($main as $data):
+							if ($data['nama_surat']):
+								$berkas = $data['nama_surat'];
+							else:
+								$berkas = $data["berkas"]."_".$data["nik"]."_".date("Y-m-d").".rtf";
+							endif;
+							$theFile = FCPATH.LOKASI_ARSIP.$berkas;
+							$lampiran = FCPATH.LOKASI_ARSIP.$data['lampiran'];
 							?>
 							<tr>
 								<td align="center" width="2"><?php echo $data['no']?></td>
-								<?php
-								if(is_file($theFile)){
-									echo "<td><a target=\"_blank\" href=\"". base_url("surat/arsip/".$berkas."")."\">".$data['no_surat']." <span class=\"icon-download icon-large\"></span></a></td>";
-								}else{
-									echo "<td>".$data['no_surat']."</td>";
-								}
-								?>
+								<td>
+									<div class="uibutton-group">
+										<?php
+											if(is_file($theFile)){?>
+												<a href="<?php echo base_url(LOKASI_ARSIP.$berkas)?>" class="uibutton tipsy south" title="Cetak"><span class="icon-download icon-large"> Cetak </span></a>
+										<?php	}?>
+										<?php
+											if(is_file($lampiran)){?>
+												<a href="<?php echo base_url(LOKASI_ARSIP.$data['lampiran'])?>" target="_blank" class="uibutton tipsy south" title="Lampiran"><span class="icon-download icon-large"> Lampiran </span></a>
+										<?php	}?>
+										<a href="<?php echo site_url("keluar/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
+									</div>
+								</td>
+								<td><?php echo $data['no_surat']?></td>
 								<td><?php echo $data['format']?></td>
 								<td><?php echo unpenetration($data['nama'])?></td>
 								<td><?php echo $data['pamong']?></td>
 								<td><?php echo tgl_indo2($data['tanggal'])?></td>
 								<td><?php echo $data['nama_user']?></td>
 							</tr>
-						<?php 
-						endforeach; 
+						<?php
+						endforeach;
 						?>
 					</tbody>
 				</table>
 			</div>
 			<div class="ui-layout-south panel bottom">
-				<div class="left"> 
+				<div class="left">
 					<div class="table-info">
 					<form id="paging" action="<?php echo site_url('keluar')?>" method="post">
 						<label>Tampilkan</label>
 						<select name="per_page" onchange="$('#paging').submit()" >
-							<option value="20" <?php selected($per_page,20); ?> >20</option>
-							<option value="50" <?php selected($per_page,50); ?> >50</option>
-							<option value="100" <?php selected($per_page,100); ?> >100</option>
+							<option value="20" <?php  selected($per_page,20); ?> >20</option>
+							<option value="50" <?php  selected($per_page,50); ?> >50</option>
+							<option value="100" <?php  selected($per_page,100); ?> >100</option>
 						</select>
 						<label>Dari</label>
 						<label><strong><?php echo $paging->num_rows?></strong></label>
@@ -97,25 +116,25 @@
 				</div>
 				<div class="right">
 					<div class="uibutton-group">
-						<?php if($paging->start_link): ?>
-						<a href="<?php echo site_url("keluar/index/$paging->start_link/$o")?>" class="uibutton" >First</a>
-						<?php endif; ?>
-						<?php if($paging->prev): ?>
-						<a href="<?php echo site_url("keluar/index/$paging->prev/$o")?>" class="uibutton" >Prev</a>
-						<?php endif; ?>
+						<?php  if($paging->start_link): ?>
+						<a href="<?php echo site_url("keluar/index/$paging->start_link/$o")?>" class="uibutton"  >First</a>
+						<?php  endif; ?>
+						<?php  if($paging->prev): ?>
+						<a href="<?php echo site_url("keluar/index/$paging->prev/$o")?>" class="uibutton"  >Prev</a>
+						<?php  endif; ?>
 					</div>
 					<div class="uibutton-group">
-						<?php for($i=$paging->start_link;$i<=$paging->end_link;$i++): ?>
-						<a href="<?php echo site_url("keluar/index/$i/$o")?>" <?php jecho($p,$i,"class='uibutton special'")?> class="uibutton"><?php echo $i?></a>
-						<?php endfor; ?>
+						<?php  for($i=$paging->start_link;$i<=$paging->end_link;$i++): ?>
+						<a href="<?php echo site_url("keluar/index/$i/$o")?>" <?php  jecho($p,$i,"class='uibutton special'")?> class="uibutton"><?php echo $i?></a>
+						<?php  endfor; ?>
 							</div>
 							<div class="uibutton-group">
-						<?php if($paging->next): ?>
+						<?php  if($paging->next): ?>
 						<a href="<?php echo site_url("keluar/index/$paging->next/$o")?>" class="uibutton">Next</a>
-						<?php endif; ?>
-						<?php if($paging->end_link): ?>
+						<?php  endif; ?>
+						<?php  if($paging->end_link): ?>
 									<a href="<?php echo site_url("keluar/index/$paging->end_link/$o")?>" class="uibutton">Last</a>
-						<?php endif; ?>
+						<?php  endif; ?>
 					</div>
 				</div>
 			</div>

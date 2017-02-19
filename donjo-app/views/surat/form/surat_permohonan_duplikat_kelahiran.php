@@ -46,7 +46,7 @@ padding:5px;
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
-<th>NIK / Nama Anak (Pemohon)</th>
+<th>NIK / Nama</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
@@ -66,19 +66,19 @@ padding:5px;
 </tr>
 <tr>
         <th>Hari lahir, Pukul</th>
-        <td><input name="hari_bayi" type="text" class="inputbox required " size="25"/>
+        <td><input name="hari_bayi" type="text" class="inputbox required " size="10"/>
         <input name="jam_bayi" type="text" class="inputbox required " size="10"/></td>
 </tr>
 <tr>
         <th>Tempat Lahir</th>
-        <td><input name="tempatlahir_bayi" type="text" class="inputbox required" size="30"/></td>
+        <td><input name="tempatlahir_bayi" type="text" class="inputbox required" size="15"/></td>
 </tr>
 <tr>
 <th>DATA PELAPOR :</th>
 </tr>
 <tr>
         <th>Nama</th>
-        <td><input name="nama_pelapor" type="text" class="inputbox required" size="40"/></td>
+        <td><input name="nama_pelapor" type="text" class="inputbox required" size="30"/></td>
 </tr>
 <tr>
         <th>NIK</th>
@@ -90,7 +90,7 @@ padding:5px;
 </tr>
 <tr>
         <th>Tempat Lahir</th>
-        <td><input name="tempatlahir_pelapor" type="text" class="inputbox required" size="30"/></td>
+        <td><input name="tempatlahir_pelapor" type="text" class="inputbox required" size="15"/></td>
 </tr>
 <tr>
         <th>Tanggal lahir</th>
@@ -98,18 +98,18 @@ padding:5px;
 </tr>
 <tr>
         <th>Pekerjaan</th>
-        <td><input name="pek_pelapor" type="text" class="inputbox required" size="35"/></td>
+        <td><input name="pek_pelapor" type="text" class="inputbox required" size="15"/></td>
 </tr>
 <tr>
         <th>Alamat</th>
-        <td><input name="alamat_pelapor" type="text" class="inputbox required" size="60"/></td>
+        <td><input name="alamat_pelapor" type="text" class="inputbox required" size="40"/></td>
 </tr>
 
 <tr>
-<th>Staf Pemerintah Desa</th>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
@@ -117,14 +117,6 @@ padding:5px;
 </select>
 </td>
 </tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
 <tr>
 <th>Sebagai</th>
 <td>
@@ -149,7 +141,7 @@ padding:5px;
 <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>
 </div> </form>

@@ -53,7 +53,6 @@
 <th align="center">Nama</th>
 <th align="center">Enabled</th>
 <th width="100">Warna</th>
-<th>Simbol</th>
 <th></th>
 </tr>
 </thead>

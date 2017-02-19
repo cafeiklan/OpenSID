@@ -41,18 +41,6 @@
 <th>Tahun Pelaksanaan</th>
 <td><input name="tahun_pelaksanaan" type="text" class="inputbox" size="4" value="<?php echo $analisis_periode['tahun_pelaksanaan']?>"/></td>
 </tr>
-<?php if($analisis_periode == null){?>
-<tr>
-<th>Duplikat data pendataan sebelumnya</th>
-<td>
-<div class="uiradio">
-<input type="radio" id="x1" name="duplikasi" value="1"><label for="x1"> Ya </label>
-<input type="radio" id="x2" name="duplikasi" value="0" checked><label for="x2"> Tidak </label>
-</div>
-</td>
-</tr> 
-<?php } ?>
-
 <tr>
 <th>Keterangan</th>
 <td><textarea name="keterangan" style="resize:none;width:500px;height:40px;"/><?php echo $analisis_periode['keterangan']?></textarea></td>
@@ -67,7 +55,7 @@
 </div>
 <div class="right">
 <div class="uibutton-group">
-
+<button class="uibutton" type="reset">Clear</button>
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

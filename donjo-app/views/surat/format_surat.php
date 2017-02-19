@@ -13,11 +13,11 @@ width: 360,
 noResultsText :'Tidak ada surat yang sesuai..',
 onSelect: function() {
 $('#'+'main').submit();
-} 
+}
 });
 });
 </script>
-<div id="pageC"> 
+<div id="pageC">
 	<div id="contentpane">
 		<div class="ui-layout-north panel">
 		</div>
@@ -27,7 +27,7 @@ $('#'+'main').submit();
 				<form action="<?php echo site_url()?>surat/search" id="main" name="main" method="POST">
 					<div id="nik" name="nik"></div>
 				</form>
-				
+
 				<hr>
 				<br>
 			</div>

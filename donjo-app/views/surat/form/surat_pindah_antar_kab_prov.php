@@ -65,87 +65,28 @@ padding:5px;
 </td>
 </tr>
 <tr>
-<tr>
-<tr>
 <th>Alamat Tujuan Pindah</th>
 <td>
 <input name="alamat_tujuan" type="text" class="inputbox required" size="45"/>
 </td>
 </tr>
 <tr>
-</tr>
-			<tr>
-				<th>RW</th>
-				<td>
-					<input name="rw_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>RT</th>
-				<td>
-					<input name="rt_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Dusun</th>
-				<td>
-					<input name="dusun_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Kelurahan</th>
-				<td>
-					<input name="kelurahan_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Kecamatan</th>
-				<td>
-					<input name="kecamatan_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Kabupaten</th>
-				<td>
-					<input name="kabupaten_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Provinsi</th>
-				<td>
-					<input name="kantor_tujuan" type="text" class="inputbox required" size="40"/>
-				</td>
-			</tr>
-			<tr>
-				<th>Berlaku</th>
-				<td>					
-					<input name="berlaku_dari" type="text" class="inputbox required datepicker" size="20"/> sampai <input name="berlaku_sampai" type="text" class="inputbox datepicker " size="20"/>
-				</td>
-			</tr>
 <th>Jumlah Keluarga yang Pindah</th>
 <td>
 <input name="jumlah" type="text" class="inputbox required" size="5"/> orang
 </td>
 </tr>
 <tr>
-<th>Staf Pemerintah Desa</th>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
 <?php }?>
 </select>
 </td>
 </tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
 <tr>
 <th>Sebagai</th>
 <td>
@@ -169,7 +110,7 @@ padding:5px;
 <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>
 </div> </form>

@@ -2,7 +2,7 @@
 $(function(){
     if ($('input[name=group]:checked').next('label').text()=='SKPD' || $('input[name=group]:checked').next('label').text()=='UPTD'){
             $('tr.skpd_uptd').show();
-    } 
+    }
     $('input[name=group]').click(function(){
         if ($(this).next('label').text()=='SKPD' || $(this).next('label').text()=='UPTD'){
             $('tr.skpd_uptd').show();
@@ -12,7 +12,7 @@ $(function(){
     });
     if ($('input[name=group]:checked').next('label').text()=='SKPD'){
             $('tr.skpd').show();
-    } 
+    }
     $('input[name=group]').click(function(){
         if ($(this).next('label').text()=='SKPD'){
             $('tr.skpd').show();
@@ -22,7 +22,7 @@ $(function(){
     });
     if ($('input[name=group]:checked').next('label').text()=='UPTD'){
             $('tr.uptd').show();
-    } 
+    }
     $('input[name=group]').click(function(){
         if ($(this).next('label').text()=='UPTD'){
             $('tr.uptd').show();
@@ -59,7 +59,7 @@ tr.uptd{
             </div>
         </div>
 		</td>
-		<td style="background:#fff;padding:5px;"> 
+		<td style="background:#fff;padding:5px;">
 
 <div class="content-header">
     <h3>Form Manajemen User</h3>
@@ -96,11 +96,11 @@ tr.uptd{
             <tr>
                 <th>Nomor HP</th>
                 <td><input name="nomor_hp" type="text" class="inputbox" size="20"  value="<?php echo $user['phone']?>"/></td>
-            </tr>   
+            </tr>
             <tr>
                 <th>Mail</th>
                 <td><input name="email" type="text" class="inputbox" size="20"  value="<?php echo $user['email']?>"/></td>
-            </tr>         
+            </tr>
             <tr class="skpd_uptd">
                 <th>Nama Bendahara</th>
                 <td><input name="nama_bendahara" type="text" class="inputbox" size="50" value="<?php echo $user['nama_bendahara']?>"/></td>
@@ -122,32 +122,32 @@ tr.uptd{
                 <td>
 				<div class="userbox-avatar">
 				<?php if($user['foto']){?>
-					<img src="<?php echo base_url()?>assets/files/user_pict/kecil_<?php echo $user['foto']?>" alt=""/>
+					<img src="<?php echo AmbilFoto($user['foto'])?>" alt=""/>
 				<?php }else{?>
 					<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 				<?php }?>
 				</div>
 				</td>
 				<input type="hidden" name="old_foto" value="<?php echo $user['foto']?>">
- </tr>
- <tr>
- <th>Ganti Foto</th>
- <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
- </tr>
- </table>
- </div>
- 
- <div class="ui-layout-south panel bottom">
- <div class="left"> 
- <a href="<?php echo site_url()?>man_user" class="uibutton icon prev">Kembali</a>
- </div>
- <div class="right">
- <div class="uibutton-group">
- 
- <button class="uibutton confirm" type="submit" >Simpan</button>
- </div>
- </div>
- </div> </form>
+            </tr>
+            <tr>
+                <th>Ganti Foto</th>
+                <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ui-layout-south panel bottom">
+        <div class="left">
+            <a href="<?php echo site_url()?>man_user" class="uibutton icon prev">Kembali</a>
+        </div>
+        <div class="right">
+            <div class="uibutton-group">
+                <button class="uibutton" type="reset">Clear</button>
+                <button class="uibutton confirm" type="submit" >Simpan</button>
+            </div>
+        </div>
+    </div> </form>
 </div>
 </td></tr></table>
 </div>

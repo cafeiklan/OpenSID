@@ -65,7 +65,9 @@
 			});
 				
 </script>
+
 <?php
+	
 	echo "
 	<div class=\"box box-danger\">
 		<div class=\"box-header with-border\">
@@ -79,6 +81,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class=\"box box-danger\">
 		<div class=\"box-header with-border\">
 			<h3 class=\"box-title\">Tabel Statistik Kependudukan berdasarkan Indeks Kemiskinan</h3>
@@ -111,3 +114,4 @@
 		</div>
 	</div>";
 ?>
+

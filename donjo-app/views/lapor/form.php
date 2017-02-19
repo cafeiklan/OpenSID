@@ -1,24 +1,35 @@
+
 <div id="pageC">
 <table class="inner">
 <tr style="vertical-align:top">
 <td class="side-menu">
+
+
 </td>
+
 <td style="background:#fff;padding:0px;"> 
 <div class="content-header">
 <h3>Komentar</h3>
 </div>
+
+
 <div id="contentpane">
 <form id="validasi" action="<?php echo $form_action?>" method="POST" enctype="multipart/form-data">
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+
+
 <table class="form">
+
 <tr>
 <th>Pengirim</th>
 <td><input class="inputbox" type="text" name="owner" value="<?php echo $komentar['owner']?>" size="60"/></td>
 </tr>
+
 <tr>
 <th>Email</th>
 <td><input class="inputbox" type="text" name="email" value="<?php echo $komentar['email']?>" size="60"/></td>
 </tr>
+
 <tr>
 <td colspan="2">
 <textarea name="komentar" rows="15" cols="80" style="width: 100%; height: 100%">
@@ -26,6 +37,7 @@
 </textarea>
 </td>
 </tr>
+
 <tr>
 <th>Status</th>
 <td>
@@ -37,15 +49,17 @@
 </div>
 </td>
 </tr>
+
 </table>
- 
+
+   
 <div class="ui-layout-south panel bottom">
 <div class="left">
 <a href="<?php echo site_url()?>komentar" class="uibutton icon prev">Kembali</a>
 </div>
 <div class="right">
 <div class="uibutton-group">
-
+<button class="uibutton" type="reset">Clear</button>
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

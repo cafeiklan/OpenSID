@@ -39,7 +39,7 @@ table.form.detail td{
 	<td style="background:#fff;">
 		<div id="contentpane">
 			<div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-				<h3>Formulir Layanan: Surat Pengantar</h3>
+				<h3>Formulir Layanan: Surat Keterangan</h3>
 				<div id="form-cari-pemohon">
 					<form action="" id="main" name="main" method="POST" class="formular">
 					<table class="form">
@@ -65,27 +65,27 @@ table.form.detail td{
 							<th width="40%">Nomor Surat</th>
 							<td width="60%"><input name="nomor" type="text" class="inputbox required" size="12"/></td>
 						</tr>
-						
 						<tr>
-							<th>Surat Keterangan ini dibuat untuk keperluan</th>
-							<td width="60%"><input name="keperluan" type="text" class="inputbox required" size="50"/></td>
+							<th>Keperluan</th>
+							<td><textarea name="keperluan" class=" required" style="resize: none; height:80px; width:300px;" size="500"></textarea></td>
 						</tr>
-						<tr>							
-							<th>Staf Pemerintah Desa</th>
+						<tr>
+							<th>Keterangan</th>
+							<td><input name="keterangan" type="text" class="inputbox" size="40"/></td>
+						</tr>
+						<tr>
+							<th>Berlaku</th>
+							<td><input name="berlaku_dari" type="text" class="inputbox required datepicker" size="20"/> sampai <input name="berlaku_sampai" type="text" class="inputbox datepicker " size="20"/></td>
+						</tr>
+						<tr>
+							<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 							<td><select name="pamong"  class="inputbox required">
-								<option value="">Pilih Staf Pemerintah Desa</option>
+								<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 								<?php foreach($pamong AS $data){?>
 									<option value="<?php echo $data['pamong_nama']?>"><?php echo $data['pamong_nama']?>(<?php echo $data['jabatan']?>)</option>
 								<?php }?>
-								<tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
+								</select></td>
+						</tr>
 						<tr>
 							<th>Sebagai</th>
 							<td><select name="jabatan"  class="inputbox required">
@@ -106,7 +106,7 @@ table.form.detail td{
 						<div class="uibutton-group">
 							<button class="uibutton" type="reset">Clear</button>
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 						</div>
 					</div>
 				</div>

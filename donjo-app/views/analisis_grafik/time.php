@@ -15,11 +15,11 @@
 						type: 'line'
 					},
 					title: {
-						text: 'Statistik'
+						text: 'Statistik <?php //=$stat?>'
 					},
 					xAxis: {
 						title: {
-							text: ''
+							text: '<?php //=$stat?>'
 						},
                         categories: [<?php  $i=0;foreach($periode as $data){$i++;?><?php echo "'$data[nama]'";?>,<?php }?>]
 					},
@@ -73,10 +73,10 @@ tr#total{
     <div class="ui-layout-south panel bottom" style="max-height: 150px;overflow:auto;">
         <table class="list">
 		<thead>
- <tr>
- <th>No</th>
-				<th>Statistik</th>
-				<?php $i=0;foreach($periode as $data){$i++;?><th><?php echo "$data[nama]";?></th><?php }?>
+            <tr>
+                <th>No</th>
+				<th align="left" align="center">Statistik</th>
+				<?php  $i=0;foreach($periode as $data){$i++;?><th align="left" align="center"><?php echo "$data[nama]";?></th><?php }?>
 			</tr>
 		</thead>
 		<tbody>

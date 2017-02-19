@@ -1,4 +1,5 @@
 <?php
+
 	echo "
 	<div class=\"box box-danger\">
 		<div class=\"box-header with-border\">
@@ -53,3 +54,4 @@
 		</div>
 	</div>";
 ?>
+

@@ -8,6 +8,9 @@
 </script>
 
 <div id="pageC">
+	<table class="inner">
+<tr style="vertical-align:top">
+		<td style="background:#fff;padding:0px;"> 
 <div class="content-header">
 </div>
 <div id="contentpane">    

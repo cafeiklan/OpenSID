@@ -66,13 +66,13 @@ padding:5px;
 </tr>
 <tr>
 	<th>Sebab-sebab</th>
-	<td><textarea name="sebab" class=" required" style="resize: none; height:30px; width:300px;" size="300" ></textarea></td>
+	<td><textarea name="sebab" class=" required" style="resize: none; height:100px; width:250px;" size="300" ></textarea></td>
 </tr>
 <tr>
-<th>Staf Pemerintah Desa</th>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
@@ -80,14 +80,6 @@ padding:5px;
 </select>
 </td>
 </tr>
-<th>N I P</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih No NIP</option>
-<?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['pamong_nip'])?></option>
-<?php }?>
-</select>
 <tr>
 <th>Sebagai</th>
 <td>
@@ -111,7 +103,7 @@ padding:5px;
 <div class="uibutton-group">
 <button class="uibutton" type="reset">Clear</button>
 
-							
+							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
 							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>

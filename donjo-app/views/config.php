@@ -1,6 +1,7 @@
-<?php
+<?php 
 
 $base=base_url();
+
 echo "<?php xml version=\"1.0\"?>\n";
 echo "<cu3er>
 	<settings>

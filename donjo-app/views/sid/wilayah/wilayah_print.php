@@ -3,34 +3,22 @@
 <title>Data Wilayah</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url()?>assets/css/report.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="container" style="min-width:800px;max-width:1024px;">
-<table width="100%">
-<tr> <img src="<?php echo base_url()?>assets/files/logo/<?php echo $desa['desa']['logo']?>" alt="" class="logo"></tr>
-<div class="header">
-<h4 class="kop">PEMERINTAH KABUPATEN <?php echo strtoupper(unpenetration($desa['desa']['nama_kabupaten']))?> </h4>
-<h4 class="kop">KECAMATAN <?php echo strtoupper(unpenetration($desa['desa']['nama_kecamatan']))?> </h4>
-<h4 class="kop">DESA <?php echo strtoupper(unpenetration($desa['desa']['nama_desa']))?></h4>
-<h5 class="kop2"><?php echo (unpenetration($desa['desa']['alamat_kantor']))?> </h5>
-<hr />
+<div id="container">
+
+<!-- Print Body --><div id="body"><div class="header" align="center"><label align="left"><?php echo get_identitas()?></label>
+<h3> Tabel Data Kependudukan berdasarkan Populasi Per Wilayah </h3>
+<h4> Kabupaten <?php echo $desa['desa']['nama_kabupaten']?>, Kecamatan <?php echo $desa['desa']['nama_kecamatan']?>, <?php echo ucwords(config_item('sebutan_desa'))?> <?php echo $desa['desa']['nama_desa']?></h4>
 </div>
-<div align="center">
 <br>
-<h2>Data Kependudukan berdasarkan Wilayah</h2>
-<br>
-</div>
-</table>
-<div class="clear"></div>
-<div id="body">
- <table class="border thick">
+    <table class="border thick">
 	<thead>
 		<tr class="border thick">
                 <th>No</th>
-				<th width="100">Nama Dusun</th>
-				<th width="100">Nama Kadus</th>
+				<th width="100">Nama <?php echo ucwords(config_item('sebutan_dusun'))?></th>
+				<th width="100">Nama Kepala <?php echo ucwords(config_item('sebutan_dusun'))?></th>
 				<th width="50">RW</th>
 				<th width="50">RT</th>
 				<th width="50">KK</th>
@@ -43,10 +31,10 @@
         <?php  foreach($main as $data): ?>
 		<tr>
           <td align="center" width="2"><?php echo $data['no']?></td>
-			
+
 			<td><?php echo strtoupper(unpenetration(ununderscore($data['dusun'])))?></td>
-			<td><?php echo $data['nama_kadus']?></td> 
-	
+			<td><?php echo $data['nama_kadus']?></td>
+
 			<td align="right"><?php echo $data['jumlah_rw']?></td>
 			<td align="right"><?php echo $data['jumlah_rt']?></td>
 			<td align="right"><?php echo $data['jumlah_kk']?></td>
@@ -56,7 +44,7 @@
 		</tr>
         <?php  endforeach; ?>
 		</tbody>
-		
+
             <tr style="background-color:#BDD498;font-weight:bold;">
                 <td colspan="3" align="left"><label>TOTAL</label></td>
 				<td align="right"><?php echo $total['total_rw']?></td>
@@ -70,6 +58,7 @@
 </table>
 </div>
 <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
+   <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
 </div>
 
 </body></html>

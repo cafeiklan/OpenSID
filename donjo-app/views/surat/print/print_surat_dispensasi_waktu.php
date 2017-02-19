@@ -1,23 +1,32 @@
 <?php $this->load->view('print/headjs.php');?>
+
 <body>
 <div id="content" class="container_12 clearfix">
 <div id="content-main" class="grid_7">
+
 <link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
 <div>
 <table width="100%">
-<tr> <img src="<?php echo base_url()?>assets/files/logo/<?php echo $desa['logo']?>" alt="" class="logo"></tr>
+
+<tr> <img src="<?php echo LogoDesa($desa['logo']);?>" alt="" class="logo"></tr>
+
 <div class="header">
 <h4 class="kop">PEMERINTAH KABUPATEN <?php echo strtoupper($desa['nama_kabupaten'])?> </h4>
 <h4 class="kop">KECAMATAN <?php echo strtoupper($desa['nama_kecamatan'])?> </h4>
 <h4 class="kop">DESA <?php echo strtoupper($desa['nama_desa'])?></h4>
 <h5 class="kop2"><?php echo ($desa['alamat_kantor'])?> </h5>
+
 <div style="text-align: center;">
 <hr /></div></div>
+
+
 <div align="center"><u><h4>SURAT DISPENSASI WAKTU</h4></u></div>
 <div align="center"><h4>NO: <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
+
 <table width="100%">
+
 <td class="indentasi">Berdasarkan permohonan yang bersangkutan tanggal <?php echo $tanggal_sekarang;?> dan pertimbangan dari kepala Kantor Urusan Agama
 Kecamatan <?php echo $desa['nama_kecamatan']?> tanggal <?php echo $tanggal_kua;?>, maka kami Camat <?php echo $desa['nama_kecamatan']?> </td></tr>
 </table>
@@ -89,7 +98,7 @@ Kecamatan <?php echo $desa['nama_kecamatan']?> tanggal <?php echo $tanggal_kua;?
 <tr></tr>
 <tr><td><td></td><td><?php echo $desa['nama_camat']?></td></tr>
 <tr><td colspan="3">*)nama lengkap<td></td></tr>
-</table> </div></div>
+</table>  </div></div>
 <div id="aside">
 </div>
 </div>

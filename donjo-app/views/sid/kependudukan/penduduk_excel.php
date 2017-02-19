@@ -1,7 +1,6 @@
 <?php
-$tgl =  date('d_m_Y');
 header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=penduduk_$tgl.xls");
+header("Content-Disposition: attachment; filename=Penduduk.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 ?>
@@ -16,6 +15,9 @@ header("Expires: 0");
 .textx{
   mso-number-format:"\@";
 }
+td,th{
+	font-size:8pt;
+}
 </style>
 </head>
 <body>
@@ -25,7 +27,6 @@ header("Expires: 0");
 <label align="left"><?php echo get_identitas()?></label>
 <h3> DATA PENDUDUK </h3>
 </div>
-<br>
     <table border=1 class="border thick">
 	<thead>
 		<tr class="border thick">
@@ -33,22 +34,22 @@ header("Expires: 0");
 			<th>NIK</th>
 			<th>Nama</th>
 			<th>No. KK</th>
-			<th>Dusun</th>
-			<th>RW</th>
-			<th>RT</th>
-			<th>Pendidikan (dLm KK)</th>
-			<th>Pendidikan (sdg ditemph)</th>
-			<th>Pekerjaan</th>
-			<th>Tanggal Lahir</th>
-			<th>Tempat Lahir</th>
+			<th ><?php echo ucwords(config_item('sebutan_dusun'))?></th>
+			<th >RW</th>
+			<th >RT</th>
+			<th >Pendidikan (dLm KK)</th>
+			<th >Pendidikan (sdg ditemph)</th>
+			<th >Pekerjaan</th>
+			<th >Tanggal Lahir</th>
+			<th >Tempat Lahir</th>
 			<th>Umur</th>
-			<th>Kawin</th>
-			<th>Hub. Keluarga</th>
-			<th>Gol. Darah</th>
-			<th>Nama Ayah</th>
-			<th>Nama Ibu</th>
-			<th>Status</th>
-							
+			<th >Kawin</th>
+			<th >Hub. Keluarga</th>
+			<th >Gol. Darah</th>
+			<th >Nama Ayah</th>
+			<th >Nama Ibu</th>
+			<th >Status</th>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -78,8 +79,7 @@ header("Expires: 0");
 	</tbody>
 </table>
 </div>
-   
    <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
 </div>
-
-</body></html>
+</body>
+</html>

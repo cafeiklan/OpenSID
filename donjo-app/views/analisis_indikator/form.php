@@ -82,18 +82,7 @@ display:none;
 <?php  }?>
 </div>
 </td>
-</tr> 
-<tr>
-<th>Publikasi Indikator</th>
-<td>
-<div class="uiradio">
-<?php $ch='checked';?>
-<input type="radio" id="agp2" name="is_publik" value="1"/<?php if($analisis_indikator['is_publik'] == '1'){echo $ch;}?>><label for="agp2">Ya</label>
-<input type="radio" id="agp1" name="is_publik" value="0"/<?php if($analisis_indikator['is_publik'] == '0' OR $analisis_indikator['is_publik'] == ''){echo $ch;}?>><label for="agp1">Tidak</label>
-</div>
-*) Tampilkan Agregasi Indikator di halaman depan (menu Data Desa -> Data Analisis).
-</td>
-</tr>
+</tr>  
 </table>
 </div>
    
@@ -103,7 +92,7 @@ display:none;
 </div>
 <div class="right">
 <div class="uibutton-group">
-
+<button class="uibutton" type="reset">Clear</button>
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

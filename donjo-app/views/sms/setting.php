@@ -55,18 +55,18 @@ table.form.detail td{
 		<tr>
 			<td width="100">Isi Pesan Autoreply</td><td><textarea name="autoreply_text" class=" required" style="resize: none; height:100px; width:250px;" size="300" maxlength='160'><?php  if($main){echo $main['autoreply_text'];} ?></textarea></td>
 		</tr>
- </table>
- </div>
- 
- <div class="ui-layout-south panel bottom">
- 
- <div class="right">
- <div class="uibutton-group">
- 
- <button class="uibutton confirm" type="submit" >Simpan</button>
- </div>
- </div>
- </div> </form>
+        </table>
+    </div>
+   
+    <div class="ui-layout-south panel bottom">
+        
+        <div class="right">
+            <div class="uibutton-group">
+                <button class="uibutton" type="reset">Clear</button>
+                <button class="uibutton confirm" type="submit" >Simpan</button>
+            </div>
+        </div>
+    </div> </form>
 </div>
 </td></tr></table>
 </div>

@@ -56,14 +56,14 @@ table.form.detail td{
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Kelahiran Sejak 1 Januari 1986 Pengganti Ponis Pengadilan</h3>
+<h3>Surat Keterangan Kelahiran</h3>
 </div>
 
   <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr></tr>
 <tr>
-<th>NIK / Nama Anak</th>
+<th>NIK / Nama Ibu</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
@@ -79,15 +79,60 @@ table.form.detail td{
 <td><input name="nomor" type="text" class="inputbox required" size="12"/></td>
 </tr>
 <tr>
-<th>Anak Ke</th>
-<td><input name="anak_ke" type="text" class="inputbox required" size="50"/></td>
+	<th>DATA KELAHIRAN :</th>
+</tr>
+<tr>
+	<th>Hari/ Tanggal/ Jam</th>
+	<td><input name="hari" type="text" class="inputbox required" size="10"/> /
+	<input name="tanggal" type="text" class="inputbox required datepicker" size="10"/> /
+	<input name="jam" type="text" class="inputbox required" size="10"/></td>
+</tr>
+<tr>
+	<th>Tempat kelahiran</th>
+	<td><input name="tempat_lahir_bayi" type="text" class="inputbox required" size="10"/>
+</td>
+</tr>
+<tr>
+	<th>Nama Bayi</th>
+	<td><input name="nama_bayi" type="text" class="inputbox required" size="30"/></td>
+</tr>
+<tr>
+	<th>Jenis Kelamin Bayi</th>
+	<td><input name="sex_bayi" type="text" class="inputbox required" size="10"/></td>
 </tr>
 
 <tr>
-<th>Staf Pemerintah Desa</th>
+	<th>DATA PELAPOR :</th>
+</tr>
+<tr>
+	<th>Nama</th>
+	<td><input name="nama_pelapor" type="text" class="inputbox required" size="30"/></td>
+</tr>
+<tr>
+	<th>NIK</th>
+	<td><input name="nik_pelapor" type="text" class="inputbox required" size="10"/></td>
+</tr>
+<tr>
+	<th>Umur</th>
+	<td><input name="umur_pelapor" type="text" class="inputbox required" size="5"/> tahun</td>
+</tr>
+<tr>
+	<th>Pekerjaan</th>
+	<td><input name="pek_pelapor" type="text" class="inputbox required" size="10"/></td>
+</tr>
+<tr>
+	<th>Alamat</th>
+	<td><input name="alamat_pelapor" type="text" class="inputbox required" size="40"/></td>
+</tr>
+<tr>
+	<th>Hubungan Pelapor dengan Bayi</th>
+	<td><input name="hubungan" type="text" class="inputbox required" size="20"/></td>
+</tr>
+<tr>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
@@ -100,23 +145,14 @@ table.form.detail td{
 <td>
 <select name="jabatan"  class="inputbox required">
 <option value="">Pilih Jabatan</option>
+
 <?php foreach($pamong AS $data){?>
 <option ><?php echo unpenetration($data['jabatan'])?></option>
 <?php }?>
 </select>
 </td>
 </tr>
-<tr>
-<th>NIP/NIAP</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih NIP/NIAP</option>
-<?php foreach($pamong AS $data){?>
-<option> <?php echo unpenetration($data['pamong_nip'])?> </option>
-<?php }?>
-</select>
-</td>
-</tr>
+
         </table>
     </div>
 
@@ -129,7 +165,7 @@ table.form.detail td{
                 <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
             </div>
         </div>
     </div> </form>

@@ -41,32 +41,106 @@ padding:5px;
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Tentang Orang Tua (N-4)</h3>
+<h3>Surat Keterangan Tentang Orang Tua</h3>
 </div>
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
-<th>NIK / Nama Anak</th>
+<th>NIK / Nama</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
 </form>
 </tr>
+
 <form id="validasi" action="<?php echo $form_action?>" method="POST" target="_blank">
-<input type="hidden" name="nik" value="<?php echo $individu['id']?>"  class="inputbox required">
+<input type="hidden" name="nik" value="<?php echo $individu['id']?>">
 <?php if($individu){ //bagian info setelah terpilih?>
   <?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
 <?php }?>
 <tr>
 <th>Nomor Surat</th>
-<td><input name="nomor" type="text" class="inputbox required" size="12"/></td>
+<td>
+<input name="nomor" type="text" class="inputbox required" size="12"/>
+</td>
 </tr>
 <tr>
-<th>Staf Pemerintah Desa</th>
+	<th>DATA AYAH (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+</tr>
+<tr>
+<th>Nama Lengkap</th>
+<td>
+<input name="nama_ayah" type="text" class="inputbox" size="40"/>
+</td>
+</tr>
+<tr>
+<th>Tempat Tanggal Lahir</th>
+<td>
+<input name="tempat_lahir_ayah" type="text" class="inputbox" size="30"/>
+<input name="tgl_lahir_ayah" type="text" class="inputbox datepicker" size="30"/>
+</td>
+</tr><tr>
+<th>Warganegara</th>
+<td>
+<input name="wn_ayah" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Agama</th>
+<td>
+<input name="agama_ayah" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Pekerjaan</th>
+<td>
+<input name="pekerjaan_ayah" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Tempat Tinggal</th>
+<td>
+<input name="tempat_tinggal_ayah" type="text" class="inputbox" size="40"/>
+</td>
+</tr>
+<tr>
+	<th>DATA IBU (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+</tr>
+<tr>
+<th>Nama Lengkap</th>
+<td>
+<input name="nama_ibu" type="text" class="inputbox" size="40"/>
+</td>
+</tr>
+<tr>
+<th>Tempat Tanggal Lahir</th>
+<td>
+<input name="tempat_lahir_ibu" type="text" class="inputbox" size="30"/>
+<input name="tgl_lahir_ibu" type="text" class="inputbox datepicker" size="20"/>
+</td>
+</tr><tr>
+<th>Warganegara</th>
+<td>
+<input name="wn_ibu" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Agama</th>
+<td>
+<input name="agama_ibu" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Pekerjaan</th>
+<td>
+<input name="pekerjaan_ibu" type="text" class="inputbox" size="40"/>
+</td>
+</tr><tr>
+<th>Tempat Tinggal</th>
+<td>
+<input name="tempat_tinggal_ibu" type="text" class="inputbox" size="40"/>
+</td>
+</tr>
+<tr>
+<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah Desa</option>
-
+<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo unpenetration($data['pamong_nama'])?></font> (<?php echo unpenetration($data['jabatan'])?>)</option>
 <?php }?>
@@ -79,38 +153,27 @@ padding:5px;
 <select name="jabatan"  class="inputbox required">
 <option value="">Pilih Jabatan</option>
 <?php foreach($pamong AS $data){?>
-<option ><?php echo unpenetration($data['jabatan'])?></option>
+<option ><?php echo $data['jabatan']?></option>
 <?php }?>
 </select>
 </td>
 </tr>
-<tr>
-<th>NIP/NIAP</th>
-<td>
-<select name="pamong_nip"  class="inputbox required">
-<option value="">Pilih NIP/NIAP</option>
-<?php foreach($pamong AS $data){?>
-<option> <?php echo unpenetration($data['pamong_nip'])?> </option>
-<?php }?>
-</select>
-</td>
-</tr>
-        </table>
-    </div>
+</table>
+</div>
 
-    <div class="ui-layout-south panel bottom">
-        <div class="left">
-            <a href="<?php echo site_url()?>surat" class="uibutton icon prev">Kembali</a>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
+<div class="ui-layout-south panel bottom">
+<div class="left">
+<a href="<?php echo site_url()?>surat" class="uibutton icon prev">Kembali</a>
+</div>
+<div class="right">
+<div class="uibutton-group">
+<button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
-							
-            </div>
-        </div>
-    </div> </form>
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
+</div>
+</div>
+</div> </form>
 </div>
 </td></tr></table>
 </div>

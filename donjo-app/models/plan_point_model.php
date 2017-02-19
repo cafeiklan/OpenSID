@@ -39,10 +39,11 @@
 	}
 	
 	function paging($p=1,$o=0){
-		$sql = "SELECT COUNT(id) AS id FROM point WHERE tipe = 0 ";
-		$sql .= $this->search_sql(); 
-		$query = $this->db->query($sql);
-		$row = $query->row_array();
+	
+		$sql      = "SELECT COUNT(id) AS id FROM point  WHERE tipe = 0 ";
+		$sql     .= $this->search_sql();     
+		$query    = $this->db->query($sql);
+		$row      = $query->row_array();
 		$jml_data = $row['id'];
 		
 		$this->load->library('paging');
@@ -66,7 +67,7 @@
 	
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		$sql = "SELECT * FROM point WHERE tipe = 0 ";
+		$sql   = "SELECT * FROM point WHERE tipe = 0  ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
@@ -95,17 +96,41 @@
 
 	function insert(){
 		$data = $_POST;
-		
-		
+		/*	
+		  $lokasi_file = $_FILES['simbol']['tmp_name'];
+		  $tipe_file   = $_FILES['simbol']['type'];
+		  $nama_file   = $_FILES['simbol']['name'];
+		  if (!empty($lokasi_file)){
+			if ($tipe_file == "image/png" OR $tipe_file == "image/gif"){
+				UploadSimbol($nama_file);
+				$data['simbol'] = $nama_file;
+				$outp = $this->db->insert('point',$data);
+			}
+		  } else {
+				$data['simbol'] = "house.png";	*/	
+		//	}
 				$outp = $this->db->insert('point',$data);
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
 	
 	function update($id=0){
-		 $data = $_POST;
-		
-			
+		  $data = $_POST;
+/*		
+		$lokasi_file = $_FILES['simbol']['tmp_name'];
+		  $tipe_file   = $_FILES['simbol']['type'];
+		  $nama_file   = $_FILES['simbol']['name'];
+		  if (!empty($lokasi_file)){
+			if ($tipe_file == "image/png" OR $tipe_file == "image/gif"){
+				UploadSimbol($nama_file);
+				$data['simbol'] = $nama_file;
+				$this->db->where('id',$id);
+				$outp = $this->db->update('point',$data);
+			}
+			$_SESSION['success']=1;
+		  }
+	*/		
+			//unset($data['simbol']);
 			$this->db->where('id',$id);
 			$outp = $this->db->update('point',$data);
 	
@@ -158,20 +183,55 @@
 	}
 
 	function insert_sub_point($parrent=0){
+	/*
+		  $lokasi_file = $_FILES['simbol']['tmp_name'];
+		  $tipe_file   = $_FILES['simbol']['type'];
+		  $nama_file   = $_FILES['simbol']['name'];
+		  if (!empty($lokasi_file)){
+			if ($tipe_file == "image/png" OR $tipe_file == "image/gif"){
+				UploadSimbol($nama_file);
+				$data = $_POST;
+				$data['simbol'] = $nama_file;
+				$data['parrent'] = $parrent;
+				$data['tipe'] = 2;
+				$outp = $this->db->insert('point',$data);
+				if($outp) $_SESSION['success']=1;
+			} else {
+				$_SESSION['success']=-1;
+			}
+		  }else{
+			$data['simbol'] = "house.png";
+			*/
 			$data = $_POST;
 			$data['parrent'] = $parrent;
 			$data['tipe'] = 2;
 			$outp = $this->db->insert('point',$data);
+//}
 	if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
 	
 	function update_sub_point($id=0){
-		 $data = $_POST;
+		  $data = $_POST;
+			/*
+		  $lokasi_file = $_FILES['simbol']['tmp_name'];
+		  $tipe_file   = $_FILES['simbol']['type'];
+		  $nama_file   = $_FILES['simbol']['name'];
+		  if (!empty($lokasi_file)){
+			if ($tipe_file == "image/png" OR $tipe_file == "image/gif"){
+				UploadSimbol($nama_file);
+				$data['simbol'] = $nama_file;
+				$this->db->where('id',$id);
+				$outp = $this->db->update('point',$data);
+			}
+			$_SESSION['success']=1;
+		  }else{
 			
+			unset($data['simbol']);
+			*/
 			$this->db->where('id',$id);
 			$outp = $this->db->update('point',$data);
-	}
+//	}
 	if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 }
@@ -222,11 +282,13 @@
 		return $data;
 
 	}
+	
 	function list_simbol(){
-		$sql = "SELECT * FROM gis_simbol WHERE 1";
+		$sql   = "SELECT * FROM gis_simbol WHERE 1";
 		$query = $this->db->query($sql);
-		$data = $query->result_array();
+		$data  = $query->result_array();
 		return $data;
+
 	}
 	function list_point_atas(){
 	

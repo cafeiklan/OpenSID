@@ -16,11 +16,11 @@
 						defaultSeriesType: 'column'
 					},
 					title: {
-						text: 'Statistik 
+						text: 'Statistik <?php //=$stat?>'
 					},
 					xAxis: {
 						title: {
-							text: '
+							text: '<?php //=$stat?>'
 						},
                         categories: [
 						<?php  $i=0;foreach($main as $data){$i++;?>
@@ -110,10 +110,10 @@ tr#total{
     <div class="ui-layout-south panel bottom" style="max-height: 150px;overflow:auto;">
         <table class="list">
 		<thead>
- <tr>
- <th>No</th>
-				<th>Statistik</th>
-				<th>Jumlah</th>
+            <tr>
+                <th>No</th>
+				<th align="left" align="center">Statistik</th>
+				<th align="left" align="center">Jumlah</th>
 			</tr>
 		</thead>
 		<tbody>

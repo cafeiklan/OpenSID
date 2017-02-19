@@ -68,7 +68,7 @@ padding:5px;
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Persetujuan Mempelai (N-3)</h3>
+<h3>Surat Persetujuan Mempelai</h3>
 </div>
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;" >
 
@@ -76,13 +76,14 @@ padding:5px;
 		<form action="<?php echo $surat_url ?>" id="main" name="main" method="POST" class="formular">
 		<table class="form">
 			<tr>
-				<th>DATA SUAMI (Berasal dari desa)			:</th>
+				<th colspan="2">DATA SUAMI (Berasal dari <?php echo strtolower(config_item('sebutan_desa'))?>) :</th>
 			</tr>
 			<tr>
-				<th width="40%">Nama Suami</th>
-				<td width="60%">
-					<div id="id_suami" name="id_suami"></div>
-					*) Diisi jika suami berasal dari dalam desa
+				<th width="25%">Nama Suami</th>
+				<td>
+					<div id="id_suami" name="id_suami">
+						*) Diisi jika suami berasal dari dalam <?php echo strtolower(config_item('sebutan_desa'))?>
+					</div>
 				</td>
 			</tr>
 
@@ -91,8 +92,8 @@ padding:5px;
 			if($suami != ''){
 				?>
 				<tr>
-					<th width="40%">Tempat Tanggal Lahir (Umur)</th>
-					<td width="60%">
+					<th>Tempat Tanggal Lahir (Umur)</th>
+					<td>
 						<?php echo $laki['tempatlahir']?> <?php echo tgl_indo($suami['tanggallahir'])?> (<?php echo $suami['umur']?> Tahun)
 					</td>
 				</tr>
@@ -113,13 +114,14 @@ padding:5px;
 			?>
 
 			<tr>
-				<th>DATA ISTRI (Berasal dari desa)			:</th>
+				<th colspan="2">DATA ISTRI (Berasal dari <?php echo strtolower(config_item('sebutan_desa'))?>) :</th>
 			</tr>
 			<tr>
-				<th width="40%">Nama Istri</th>
-				<td width="60%">
-					<div id="id_istri" name="istri" value="10"></div>
-					*) Diisi jika istri berasal dari dalam desa
+				<th>Nama Istri</th>
+				<td>
+					<div id="id_istri" name="istri" value="10">
+						*) Diisi jika istri berasal dari dalam <?php echo strtolower(config_item('sebutan_desa'))?>
+					</div>
 				</td>
 			</tr>
 
@@ -128,8 +130,8 @@ padding:5px;
 			if($istri != ''){
 				?>
 				<tr>
-					<th width="40%">Tempat Tanggal Lahir (Umur)</th>
-					<td width="60%">
+					<th>Tempat Tanggal Lahir (Umur)</th>
+					<td>
 						<?php echo $istri['tempatlahir']?> <?php echo tgl_indo($istri['tanggallahir'])?> (<?php echo $istri['umur']?> Tahun)
 					</td>
 				</tr>
@@ -160,11 +162,88 @@ padding:5px;
 <table class="form">
 
 	<tr>
-		<th>Nomor Surat</th>
+		<th width="25%">Nomor Surat</th>
 		<td><input name="nomor" type="text" class="inputbox required" size="30"/></td>
 	</tr>
-	
-	
+
+	<?php
+	if($suami == ''){
+		?>
+		<tr>
+			<th colspan="2">DATA SUAMI (Berasal dari luar <?php echo strtolower(config_item('sebutan_desa'))?>) :</th>
+		<tr>
+			<th>Nama Lengkap</th>
+			<td><input name="nama_suami" type="text" class="inputbox " size="30"/>*) Diisi jika suami berasal dari luar <?php echo strtolower(config_item('sebutan_desa'))?></td>
+		</tr>
+		<tr>
+			<th>Bin</th>
+			<td><input name="bin_suami" type="text" class="inputbox " size="30"/></td>
+		</tr>
+		<tr>
+			<th>Tempat Tanggal Lahir</th>
+			<td><input name="tempatlahir_suami" type="text" class="inputbox " size="30"/>
+			<input name="tanggallahir_suami" type="text" class="inputbox  datepicker" size="20"/></td>
+		</tr>
+		<tr>
+			<th>Warganegara</th>
+			<td><input name="wn_suami" type="text" class="inputbox " size="15"/></td>
+		</tr>
+		<tr>
+			<th>Agama</th>
+			<td><input name="agama_suami" type="text" class="inputbox " size="15"/></td>
+		</tr>
+		<tr>
+			<th>Pekerjaan</th>
+			<td><input name="pekerjaan_suami" type="text" class="inputbox " size="30"/></td>
+		</tr>
+		<tr>
+			<th>Tempat Tinggal</th>
+			<td><input name="tempat_tinggal_suami" type="text" class="inputbox " size="40"/></td>
+		</tr>
+	<?php
+	}
+	?>
+
+
+	<?php
+	if($istri == ''){
+		?>
+		<tr>
+			<th colspan="2">DATA ISTRI (Berasal dari luar <?php echo strtolower(config_item('sebutan_desa'))?>) :</th>
+		</tr>
+		<tr>
+			<th>Nama Lengkap</th>
+			<td><input name="nama_istri" type="text" class="inputbox " size="30"/>*) Diisi jika istri berasal dari luar <?php echo strtolower(config_item('sebutan_desa'))?></td>
+		</tr>
+		<tr>
+			<th>Bin</th>
+			<td><input name="bin_istri" type="text" class="inputbox " size="30"/></td>
+		</tr>
+		<tr>
+			<th>Tempat Tanggal Lahir</th>
+			<td><input name="tempatlahir_istri" type="text" class="inputbox " size="30"/>
+			<input name="tanggallahir_istri" type="text" class="inputbox  datepicker" size="20"/></td>
+		</tr>
+		<tr>
+			<th>Warganegara</th>
+			<td><input name="wn_istri" type="text" class="inputbox " size="15"/></td>
+		</tr>
+		<tr>
+			<th>Agama</th>
+			<td><input name="agama_istri" type="text" class="inputbox " size="15"/></td>
+		</tr>
+		<tr>
+			<th>Pekerjaan</th>
+			<td><input name="pekerjaan_istri" type="text" class="inputbox " size="30"/></td>
+		</tr>
+		<tr>
+			<th>Tempat Tinggal</th>
+			<td><input name="tempat_tinggal_istri" type="text" class="inputbox " size="40"/></td>
+		</tr>
+	<?php
+	}
+	?>
+
 </table>
 </div>
 
@@ -176,7 +255,8 @@ padding:5px;
 <div class="uibutton-group">
 <button class="uibutton" type="reset">Clear</button>
 
-														<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
+							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
+							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
 </div>
 </div>
 </div> </form>

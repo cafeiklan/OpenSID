@@ -83,7 +83,6 @@ source: keyword
 <th align="left"><a href="<?php echo site_url("polygon/index/$p/3")?>">Aktif<span class="ui-icon ui-icon-triangle-2-n-s">
 <?php  endif; ?>&nbsp;</span></a></th>
 <th width="100">Warna</th>
-<th>Simbol</th>
 <th></th>
 </tr>
 </thead>

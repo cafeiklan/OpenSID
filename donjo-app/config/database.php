@@ -1,11 +1,16 @@
-<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'sid3.10';
+$konfigurasi_db = KonfigurasiDatabase();
+if(is_file($konfigurasi_db)) {
+  include($konfigurasi_db);
+}else{
+  $db['default']['hostname'] = 'localhost';
+  $db['default']['username'] = 'root';
+  $db['default']['password'] = '';
+  $db['default']['database'] = 'sid3.04';
+}
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

@@ -1,15 +1,15 @@
  <table class="list">
 		<thead>
- <tr>
- <th>No</th>
-				<th>Nama Dusun</th>
-				<th>Nama Kadus</th>
-				<th width="50" >RW</th>
-				<th width="50" >RT</th>
-				<th width="50" >KK</th>
-				<th width="50" >Jiwa</th>
-				<th width="50" >LK</th>
-				<th width="50" >PR</th>
+            <tr>
+                <th>No</th>
+				<th align="left" align="center">Nama Dusun</th>
+				<th align="left" align="center">Nama Kadus</th>
+				<th width="50" align="left" align="center">RW</th>
+				<th width="50" align="left" align="center">RT</th>
+				<th width="50" align="left" align="center">KK</th>
+				<th width="50" align="left" align="center">Jiwa</th>
+				<th width="50" align="left" align="center">LK</th>
+				<th width="50" align="left" align="center">PR</th>
 				
 				
 			</tr>
@@ -35,18 +35,18 @@
         <?php  endforeach; ?>
 		</tbody>
 		<thead>
- <tr>
- <th>No</th>
- <th><input type="checkbox" class="checkall"/></th>
- <th width="50">Total</th>
-				<th></th>
-				<th></th>
-				<th><?php echo $total['total_rw']?></th>
-				<th><?php echo $total['total_rt']?></th>
-				<th><?php echo $total['total_kk']?></th>
-				<th><?php echo $total['total_warga']?></th>
-				<th><?php echo $total['total_warga_l']?></th>
-				<th><?php echo $total['total_warga_p']?></th>
+            <tr>
+                <th>No</th>
+                <th><input type="checkbox" class="checkall"/></th>
+                <th width="50">Total</th>
+				<th align="left" align="center"></th>
+				<th align="left" align="center"></th>
+				<th align="left" align="center"><?php echo $total['total_rw']?></th>
+				<th align="left" align="center"><?php echo $total['total_rt']?></th>
+				<th align="left" align="center"><?php echo $total['total_kk']?></th>
+				<th align="left" align="center"><?php echo $total['total_warga']?></th>
+				<th align="left" align="center"><?php echo $total['total_warga_l']?></th>
+				<th align="left" align="center"><?php echo $total['total_warga_p']?></th>
 			</tr>
 		</thead>
 		

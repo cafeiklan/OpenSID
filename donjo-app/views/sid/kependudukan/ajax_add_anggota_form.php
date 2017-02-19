@@ -1,6 +1,3 @@
-
-<script src="<?php echo base_url()?>assets/js/jquery.validate.min.js"></script>
-<script src="<?php echo base_url()?>assets/js/validasi.js"></script>
 <script>
 $(function(){
     var nik = {};
@@ -13,10 +10,10 @@ nik.total = nik.results.length;
 
 $('#nik').flexbox(nik, {
 	resultTemplate: '<div><label>No nik : </label>{name}</div><div>{info}</div>',
-	watermark: 'Ketik nama / NIK di sini..',
- width: 260,
- noResultsText :'Tidak ada nama / NIK yang sesuai..',
-	 onSelect: function() {
+	watermark: 'Ketik nama / nik di sini..',
+    width: 260,
+    noResultsText :'Tidak ada nama / nik yang sesuai..',
+	    onSelect: function() {
 $('#'+'main').submit();
     }  
 });
@@ -40,7 +37,7 @@ $('#'+'main').submit();
 <th align="left">Hubungan</th>
 <td><select name="kk_level" class="required">
 <option value=""> --- </option>
-<?php foreach($hubungan as $data){ if($data['id']!=1){?>
+<?php foreach($hubungan as $data){?>
 	<option value="<?php echo $data['id']?>"><?php echo $data['hubungan']?></option>
 <?php }?></select>
 </td>

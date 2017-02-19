@@ -1,4 +1,4 @@
-<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('session','database');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','donjolib','date','pict');
+$autoload['helper'] = array('url','donjolib','date','pict','opensid');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','donjolib','date','pict');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('sid_ini');
 
 
 /*

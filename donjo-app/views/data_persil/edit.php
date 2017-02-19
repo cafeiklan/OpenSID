@@ -1,4 +1,25 @@
 <?php
+/*
+ * Copyright 2015 Isnu Suntoro <isnusun@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
 ?>
 <div id="pageC">
 <table class="inner">
@@ -11,7 +32,7 @@
 		<td class="contentpane">
 			<legend>Form Penulisan Program Bantuan</legend>
 			<div class="contentpane">
-				<?php 
+				<?php
 				if(validation_errors()){
 					echo "
 					<div class=\"error\" style=\"border:solid 2px #c00;color:#c00;margin:1em 0;\">
@@ -24,12 +45,13 @@
 					</div>
 					";
 				}
-				
+
 				if($_SESSION["success"] == 1){
 					echo "Simpan Berhasil";
 				}
 				$data= $program[0];
 				$cid = $data["sasaran"];
+
 				 ?>
 				<?php echo form_open("program_bantuan/update/".$data["id"])."\n"; ?>
 					<div class="form-group">
@@ -61,7 +83,7 @@
 						Mulai <input type="text" class="inputbox required" style="width:200px" name="sdate" id="sdate" placeholder="" value="<?php echo date("m/d/Y",strtotime($data["sdate"])); ?>"/>
 						s.d <input type="text" class="inputbox required" style="width:200px" name="edate" id="edate" placeholder="" value="<?php echo date("m/d/Y",strtotime($data["edate"])); ?>"/>
 					</div>
-					
+
 					<div class="form-group">
 						<div class="uibutton-group">
 						<input type="submit" class="uibutton confirm" name="tombol" id="tombol" value="Simpan"/>
@@ -80,50 +102,53 @@
 </table>
 <script>
 $(document).ready(function () {
- var daysToAdd = 4;
- $("#sdate").datepicker({
- onSelect: function (selected) {
- var dtMax = new Date(selected);
- dtMax.setDate(dtMax.getDate() + daysToAdd); 
- var dd = dtMax.getDate();
- var mm = dtMax.getMonth() + 1;
- var y = dtMax.getFullYear();
- var dtFormatted = mm + '/'+ dd + '/'+ y;
- $("#edate").datepicker("option", "minDate", dtFormatted);
- }
- });
- 
- $("#edate").datepicker({
- onSelect: function (selected) {
- var dtMax = new Date(selected);
- dtMax.setDate(dtMax.getDate() - daysToAdd); 
- var dd = dtMax.getDate();
- var mm = dtMax.getMonth() + 1;
- var y = dtMax.getFullYear();
- var dtFormatted = mm + '/'+ dd + '/'+ y;
- $("#sdate").datepicker("option", "maxDate", dtFormatted)
- }
- });
+    var daysToAdd = 4;
+    $("#sdate").datepicker({
+        onSelect: function (selected) {
+            var dtMax = new Date(selected);
+            dtMax.setDate(dtMax.getDate() + daysToAdd);
+            var dd = dtMax.getDate();
+            var mm = dtMax.getMonth() + 1;
+            var y = dtMax.getFullYear();
+            var dtFormatted = mm + '/'+ dd + '/'+ y;
+            $("#edate").datepicker("option", "minDate", dtFormatted);
+        }
+    });
+
+    $("#edate").datepicker({
+        onSelect: function (selected) {
+            var dtMax = new Date(selected);
+            dtMax.setDate(dtMax.getDate() - daysToAdd);
+            var dd = dtMax.getDate();
+            var mm = dtMax.getMonth() + 1;
+            var y = dtMax.getFullYear();
+            var dtFormatted = mm + '/'+ dd + '/'+ y;
+            $("#sdate").datepicker("option", "maxDate", dtFormatted)
+        }
+    });
 });</script>
+
 <script type="text/javascript" src="<?php echo base_url()?>assets/tiny_mce/tiny_mce_src.js"></script>
 <script type="text/javascript">
 tinyMCE.init({
- 
+        // General options
 		mode : "textareas",
 		theme : "advanced",
 		relative_urls: false,
 		language : "en",
 		skin : "o2k7",
- plugins : "jbimages,lists,pagebreak,table,advlink,preview,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",
- 
- theme_advanced_buttons1 : "pastetext,pasteword,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,jbimages,cleanup,help,code,|,preview,|,forecolor,backcolor|,fullscreen",
- theme_advanced_toolbar_location : "top",
- theme_advanced_toolbar_align : "left",
- theme_advanced_statusbar_location : "bottom",
- theme_advanced_resizing : true,
- 
- skin : "o2k7",
- skin_variant : "blue"
+        plugins : "jbimages,lists,pagebreak,table,advlink,preview,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",
+
+        // Theme options
+        theme_advanced_buttons1 : "pastetext,pasteword,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,jbimages,cleanup,help,code,|,preview,|,forecolor,backcolor|,fullscreen",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true,
+
+        // Skin options
+        skin : "o2k7",
+        skin_variant : "blue"
 });
 </script>
 </div>

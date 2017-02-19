@@ -8,6 +8,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div id="rightcolumn">
 				<div class="innertube">
 					<?php $this->load->view('partials/side.right.php');?>

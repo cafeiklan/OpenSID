@@ -43,13 +43,13 @@
         </div>
         <table class="list">
 		<thead>
- <tr>
- <th>No</th>
-				<th>Statistik</th>
-				<th>Jumlah</th>
-				<th width="60">Laki-laki</th>
-				<th width="60">Perempuan</th>
- 
+            <tr>
+                <th>No</th>
+				<th align="left" align="center">Statistik</th>
+				<th align="left" align="center">Jumlah</th>
+				<th align="left" align="center" width="60">Laki-laki</th>
+				<th align="left" align="center" width="60">Perempuan</th>
+            
 			</tr>
 		</thead>
 		<tbody>

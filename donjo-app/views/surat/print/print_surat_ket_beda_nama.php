@@ -19,62 +19,47 @@
 <div style="text-align: center;">
 <hr /></div></div>
 
-</table>
-<table width="100%">
-</table>
-<table width="100%">
+
 <div align="center"><u><h4 class="kop">SURAT KETERANGAN BEDA IDENTITAS</h4></u></div>
-<div align="center"><h4 class="kop3">Nomor : 471.2/<?php echo $input['nomor']?>/PEM/<?php echo date("Y")?></h4></div>
+<div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?></h4></div>
 </table>
 <div class="clear"></div>
 
 <table width="100%">
 
-<tr><td class="indentasi">Yang bertanda tangan dibawah ini <?php  echo unpenetration($input['jabatan'])?> <?php  echo unpenetration($desa['nama_desa'])?> Kecamatan <?php  echo unpenetration($desa['nama_kecamatan'])?> Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?> Provinsi <?php  echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
+<td class="indentasi">Yang bertanda tangan dibawah ini <?php  echo unpenetration($input['jabatan'])?> <?php  echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php  echo unpenetration($desa['nama_kecamatan'])?>,
+Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php  echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
 </table>
 
 <div id="isi3">
 <table width="100%">
 <tr></tr>
-<tr><td<b><h4 colspan="3">I. Identitas dalam Kartu Keluarga</h4></b></td></tr>
-<tr><td width="30%">Nama Lengkap</td><td width="3%">:</td><td width="64%"><b><?php  echo unpenetration($data['nama'])?></td></tr>
+<tr><td colspan="3">I. Identitas dalam KK</td></tr>
+<tr><td width="30%">Nama Lengkap</td><td width="3%">:</td><td width="64%"><?php  echo unpenetration($data['nama'])?></td></tr>
 <tr><td>Tempat dan Tgl. Lahir </td><td>:</td><td><?php echo ($data['tempatlahir'])?>, <?php echo tgl_indo($data['tanggallahir'])?> </td></tr>
 <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $data['sex']?></td></tr>
-<tr><td>Alamat/ Tempat Tinggal</td><td>:</td><td><?php echo $data['alamat']?> RT. <?php echo $data['rt']?> RW. <?php echo $data['rw']?> Dusun <?php  echo unpenetration(ununderscore($data['dusun']))?> Desa <?php  echo unpenetration($desa['nama_desa'])?> Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?> Kabupaten <?php  echo unpenetration($desa['nama_kabupaten'])?></td></tr>
+<tr><td>Alamat/ Tempat Tinggal</td><td>:</td><td>RW. <?php echo $data['rw']?>, RT. <?php echo $data['rt']?>, Dusun <?php  echo unpenetration(ununderscore($data['dusun']))?>, Desa <?php  echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php  echo unpenetration($desa['nama_kabupaten'])?></td></tr>
 <tr><td>Agama</td><td>:</td><td><?php  echo $data['agama']?></td></tr>
 <tr><td>Pekerjaan</td><td>:</td><td><?php echo $data['pekerjaan']?></td></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
-</table>
-<table width="100%">
-<tr><td<b><h4 colspan="3">II. Identitas dalam</b></td> <?php  echo $input['kartu']?>
-<tr></tr>
+<tr><td colspan="3">II. Identitas dalam <?php  echo $input['kartu']?></td><td width="3%"></td><td width="64%"></td></tr>
 <tr><td width="30%">No Identitas</td><td width="3%">:</td><td width="64%"><?php  echo $input['identitas']?></td></tr>
 <tr><td>Nama</td><td>:</td><td><?php  echo $input['nama']?></td></tr>
-<tr><td>Tempat dan Tanggal Lahir<td>:</td><td><?php echo ($input['tempatlahir'])?>, <?php echo tgl_indo(tgl_indo_in($input['tanggallahir']))?> </td></tr>
+<tr><td>Tempat dan Tanggal Lahir<td>:</td><td><?php echo ($input['tempatlahir'])?> <?php echo tgl_indo(tgl_indo_in($input['tanggallahir']))?> </td></tr>
 <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $input['sex']?></td></tr>
 <tr><td>Alamat/ Tempat Tinggal</td><td>:</td><td><?php echo $input['alamat']?></td></tr>
 <tr><td>Agama</td><td>:</td><td><?php echo $input['agama']?></td></tr>
 <tr><td>Pekerjaan</td><td>:</td><td><?php echo $input['pekerjaan']?></td></tr>
+<tr><td>Keterangan</td><td>:</td><td><?php echo $input['keterangan']?></td></tr>
 </table>
 <table width="100%">
 <tr></tr>
 <tr></tr>
 <tr><td class="indentasi">Adalah benar-benar warga Desa <?php  echo unpenetration($desa['nama_desa'])?> dan merupakan orang yang sama namun terdapat perbedaan <?php  echo $input['perbedaan'] ?> seperti tersebut di atas. Adapun data yang benar dan dipakai seperti yang tercantum di Kartu Keluarga (KK). </td></tr>
-</table>
-<table width="100%">
-<tr></tr>
-<tr></tr>
-<tr><td class="indentasi">Surat Keterangan ini dibuat untuk Keperluan : <b><?php echo $input['keperluan']?>
-<tr></tr>
-</table>
-<table width="100%">
-<tr></tr>
-<tr></tr>
 <tr><td class="indentasi">Demikian surat keterangan ini dibuat dengan sesungguhnya agar dapat dipergunakan sebagaimana mestinya</td></tr>
 <tr></tr>
-</table>
 <tr></tr>
 <tr></tr>
 <tr></tr>
@@ -119,19 +104,10 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-</table>
-<table width="100%">
-</table>
-<table width="100%">
-<tr><td></td><td width="50%"></td><td  align="center"><b><u><?php echo unpenetration($input['pamong'])?></td></tr>
-<tr><td></td><td width="50%"></td><td align="center"><?php echo unpenetration($input['pamong_nip'])?></td></tr>					
+<tr><td> <td></td><td align="center">( <?php echo unpenetration($input['pamong'])?> )</td></tr>
 </table>  </div></div>
-</div>
 <div id="aside">
-
 </div>
-<div id="footer" class="container_12">
-</div></div>
+</div>
 </body>
 </html>
-
