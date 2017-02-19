@@ -12,19 +12,10 @@ function __construct(){
 		$_SESSION['per_page']= 500;
 	
 	}	
-
-	function index($lap=0,$p=1,$o=0){
-	
-		$data['p']        = $p;
-		$data['o']        = $o;
-		
-		if(isset($_POST['per_page'])) 
-			$_SESSION['per_page']=$_POST['per_page'];
-		$data['per_page'] = $_SESSION['per_page'];
-		
-		$data['paging']  = $this->laporan_penduduk_model->paging($lap,$p,$o);
-		$data['main']    = $this->laporan_penduduk_model->list_data($lap,$o, $data['paging']->offset, $data['paging']->per_page);
+	function index($lap=0,$o=0){
+		$data['main']    = $this->laporan_penduduk_model->list_data($lap,$o);
 		$data['lap']=$lap;
+		$data['o']=$o;
 		
 		switch($lap){
 			case 0: $data['stat'] = "Pendidikan dalam KK"; break;

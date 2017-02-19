@@ -8,9 +8,6 @@
 </script>
 
 <div id="pageC">
-	<table class="inner">
-<tr style="vertical-align:top">
-		<td style="background:#fff;padding:0px 10px;"> 
 <div class="content-header">
 </div>
 <div id="contentpane">    
@@ -40,9 +37,10 @@
                 <th width="10"><input type="checkbox" class="checkall"/></th>
                 <th width="80">Aksi</th>
 				<?php }?>
-                <th width="400">Jawaban</th>
-                <th width="20">Nilai</th>
-                <th></th>
+ <th width="80">Kode</th>
+ <th width="400">Jawaban</th>
+ <th width="20">Nilai</th>
+ <th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -56,13 +54,14 @@
           <td><div class="uibutton-group">
             <a href="<?php echo site_url("analisis_indikator/form_parameter/$analisis_indikator[id]/$data[id]")?>" class="uibutton tipsy south"  title="Ubah Data" target="ajax-modal" rel="window" header="Form Data Parameter"><span class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("analisis_indikator/delete_parameter/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
 			</div>
-          </td>
-		  <?php }?>
-          <td><?php echo $data['jawaban']?></td>
-          <td><?php echo $data['nilai']?></td>
-          <td></td>
-		  </tr>
-        <?php  endforeach; ?>
+ </td>
+		 <?php }?>
+ <td><?php echo $data['kode_jawaban']?></td>
+ <td><?php echo $data['jawaban']?></td>
+ <td><?php echo $data['nilai']?></td>
+ <td></td>
+		 </tr>
+ <?php endforeach; ?>
 		</tbody>
         </table>
     </div>

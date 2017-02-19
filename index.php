@@ -1,26 +1,14 @@
 <?php
-
-	define('ENVIRONMENT', 'development');
-	//define('ENVIRONMENT', 'production');
-/*
- *---------------------------------------------------------------
- * ERROR REPORTING
- *---------------------------------------------------------------
-	*
- * Different environments will require different levels of error reporting.
- * By default development will show errors but testing and live will hide them.
- */
-
+define('ENVIRONMENT', 'p');
 if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
-		case 'development':
+		case 'd':
 			error_reporting(E_ALL);
 		break;
-	
-		case 'testing':
-		case 'production':
+		case 't':
+		case 'p':
 			error_reporting(0);
 		break;
 

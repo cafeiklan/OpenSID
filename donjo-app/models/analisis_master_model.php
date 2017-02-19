@@ -78,15 +78,14 @@ class analisis_master_model extends CI_Model{
 			case 4: $order_sql = ' ORDER BY u.nama DESC'; break;
 			case 5: $order_sql = ' ORDER BY g.nama'; break;
 			case 6: $order_sql = ' ORDER BY g.nama DESC'; break;
-			default:$order_sql = ' ORDER BY u.nama';
+			default:$order_sql = ' ORDER BY u.id';
 		}
 	
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query
-		$sql   = "SELECT u.*,s.subjek FROM analisis_master u LEFT JOIN analisis_ref_subjek s ON u.subjek_tipe = s.id   WHERE 1 ";
-			
+		$sql = "SELECT u.*,s.subjek FROM analisis_master u LEFT JOIN analisis_ref_subjek s ON u.subjek_tipe = s.id WHERE 1 ";
+
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
 		$sql .= $this->state_sql();
@@ -143,8 +142,7 @@ class analisis_master_model extends CI_Model{
 		
 		if(count($id_cb)){
 			foreach($id_cb as $id){
-				$sql  = "DELETE FROM analisis_master WHERE id=?";
-				$outp = $this->db->query($sql,array($id));
+				$this->delete($id);
 			}
 		}
 		else $outp = false;
@@ -152,7 +150,34 @@ class analisis_master_model extends CI_Model{
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-	
+	function sub_delete($id=''){
+		
+		$sql = "DELETE FROM analisis_parameter WHERE id_indikator IN(SELECT id FROM analisis_indikator WHERE id_master = ?)";
+		$this->db->query($sql,$id);
+		
+		$sql = "DELETE FROM analisis_respon WHERE id_periode IN(SELECT id FROM analisis_periode WHERE id_master=?)";
+		$this->db->query($sql,$id);
+		
+		
+		$sql = "DELETE FROM analisis_kategori_indikator WHERE id_master=?";
+		$this->db->query($sql,$id);
+		
+		$sql = "DELETE FROM analisis_klasifikasi WHERE id_master=?";
+		$this->db->query($sql,$id);
+		
+		
+		$sql = "DELETE FROM analisis_respon_hasil WHERE id_master=?";
+		$this->db->query($sql,$id);
+		
+		$sql = "DELETE FROM analisis_partisipasi WHERE id_master=?";
+		$this->db->query($sql,$id);
+		
+		$sql = "DELETE FROM analisis_periode WHERE id_master=?";
+		$this->db->query($sql,$id);
+		
+		$sql = "DELETE FROM analisis_indikator WHERE id_master=?";
+		$this->db->query($sql,$id);
+	}
 	function get_analisis_master($id=0){
 		$sql   = "SELECT * FROM analisis_master WHERE id=?";
 		$query = $this->db->query($sql,$id);
@@ -171,7 +196,9 @@ class analisis_master_model extends CI_Model{
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
-	
+	function list_analisis_child(){
+		$sql = "SELECT * FROM analisis_master WHERE subjek_tipe = 1";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }
-
-?>

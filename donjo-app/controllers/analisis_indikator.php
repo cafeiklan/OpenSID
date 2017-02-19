@@ -10,10 +10,10 @@ class analisis_indikator extends CI_Controller{
 		$this->load->model('header_model');
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=1) redirect('siteman');
+		$_SESSION['submenu'] = "Data Indikator";
+		$_SESSION['asubmenu'] = "analisis_indikator";
 	}
-	
-	function clear($id=0){
-		$_SESSION['analisis_master']=$id;
+	function clear(){
 		unset($_SESSION['cari']);
 		unset($_SESSION['filter']);
 		unset($_SESSION['tipe']);

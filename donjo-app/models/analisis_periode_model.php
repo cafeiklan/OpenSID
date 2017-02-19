@@ -113,6 +113,19 @@
 	
 	function insert(){
 		$data = $_POST;
+		$dp = $data['duplikasi'];
+		unset($data['duplikasi']);
+		
+		if($dp == 1){
+			$sqld = "SELECT id FROM analisis_periode WHERE id_master=? ORDER BY id DESC LIMIT 1";
+			$queryd = $this->db->query($sqld,$_SESSION['analisis_master']);
+			$dpd = $queryd->row_array();
+			$sblm = $dpd['id'];
+
+		}
+		
+		
+		
 		$akt =array();
 		$data['id_master']=$_SESSION['analisis_master'];
 		if($data['aktif']==1){
@@ -121,6 +134,28 @@
 			$this->db->update('analisis_periode',$akt);
 		}
 		$outp = $this->db->insert('analisis_periode',$data);
+		
+		if($dp == 1){
+			$sqld = "SELECT id FROM analisis_periode WHERE id_master=? ORDER BY id DESC LIMIT 1";
+			$queryd = $this->db->query($sqld,$_SESSION['analisis_master']);
+			$dpd = $queryd->row_array();
+			$skrg = $dpd['id'];
+			
+			
+			$sql 	= "SELECT id_subjek,id_indikator,id_parameter FROM analisis_respon WHERE id_periode = ? "; 
+			$query 	= $this->db->query($sql,$sblm);
+			$data	= $query->result_array();
+			
+			$i=0;
+			while($i<count($data)){
+				$data[$i]['id_periode'] = $skrg;
+				$i++;
+			}
+			$outp = $this->db->insert_batch('analisis_respon',$data);
+			$this->load->model('analisis_respon_model');
+			$this->analisis_respon_model->pre_update($skrg);
+		}
+		
 		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;

@@ -44,24 +44,24 @@ $('#id_kepala').flexbox(nik, {
 			<?php }?>
 			<tr>
 				<th>NIK / Nama Ketua RT</th>
-                <td>
-                    <div id="id_kepala" name="id_kepala"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-   
-    <div class="ui-layout-south panel bottom">
-        <div class="left">     
-            <a href="<?php echo site_url("sid_core/sub_rt/$id_dusun/$rw")?>" class="uibutton icon prev">Kembali</a>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
-                <button class="uibutton confirm" type="submit" >Simpan</button>
-            </div>
-        </div>
-    </div> </form>
+ <td>
+ <div id="id_kepala" name="id_kepala"></div>
+ </td>
+ </tr>
+ </table>
+ </div>
+ 
+ <div class="ui-layout-south panel bottom">
+ <div class="left"> 
+ <a href="<?php echo site_url("sid_core/sub_rt/$id_dusun/$rw")?>" class="uibutton icon prev">Kembali</a>
+ </div>
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <button class="uibutton confirm" type="submit" >Simpan</button>
+ </div>
+ </div>
+ </div> </form>
 </div>
 </td></tr></table>
 </div>

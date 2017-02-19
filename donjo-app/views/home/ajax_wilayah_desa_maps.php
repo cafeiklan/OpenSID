@@ -71,8 +71,6 @@
 		 });		 
 		 
 		$('#showData').click(function(){ 
-				document.getElementById('zoom').value = map.getZoom();
-				document.getElementById('map_tipe').value = map.getMapTypeId();
 		 		$('#dataPanel').empty();
 		 		if(null==creator.showData()){
 					this.form.submit();
@@ -92,17 +90,11 @@
   border: 1px solid #000;
 }
 </style>
-	<div id="map"></div>
-<form action="<?php echo $form_action?>" method="post">
-    <input type="hidden" name="lat" id="lat" value="<?php echo $desa['lat']?>"/>
-    <input type="hidden" name="lng" id="lng" value="<?php echo $desa['lng']?>"/>
-    <input type="hidden" name="zoom" id="zoom" value="<?php echo $desa['zoom']?>"/>
-    <input type="hidden" name="map_tipe" id="map_tipe"  value="<?php echo $desa['map_tipe']?>"/>
-	<input type="hidden" id="dataPanel" name="path"  value="<?php echo $desa['path']?>">
-	<div class="buttonpane" style="text-align: right; width:420px;position:absolute;bottom:0px;">
+<div id="map"></div>
+<div class="buttonpane" style="text-align: right; width:420px;position:absolute;bottom:0px;">
 	<div class="uibutton-group">
-		<input  class="uibutton" id="reset" value="Reset" type="button"/>
-		<input  class="uibutton confirm" id="showData"  value="Simpan" type="button"/>
+		<input class="uibutton" id="reset" value="Reset" type="button"/>
+		<button id="showData" class="uibutton confirm" type="button" onclick="$('#window-wil').dialog('close');$('p.wil').show();">Simpan</button>
 	</div>
 	</div>
 </form>

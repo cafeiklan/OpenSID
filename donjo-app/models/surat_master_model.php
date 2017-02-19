@@ -100,8 +100,8 @@
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query
-		$sql   = "SELECT u.* FROM tweb_surat_format u  WHERE 1 ";
+		
+		$sql = "SELECT u.* FROM tweb_surat_format u WHERE 1 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
@@ -127,84 +127,99 @@
 	
 	function insert(){
 		$data = $_POST;
-		if($data['id_tipe']!=1){
-		$data['act_analisis']=2;
-		$data['bobot']=0;
-		}
 		
-		$data['id_master']=$_SESSION['analisis_master'];
+		$data['url_surat'] = str_replace(" ","_",$data['nama']);
+		$data['url_surat'] = strtolower($data['url_surat']);
+		$data['url_surat'] = "surat_".$data['url_surat'];
 		$outp = $this->db->insert('tweb_surat_format',$data);
 		
+		$mypath="surat\\".$data['url_surat']."\\";
+		$path = "".str_replace("\\","/",$mypath)."/";
+		
+		if (!file_exists($path)) {
+			mkdir($path, 0777, true);
+		}
+		
+		
+		$raw="surat\\raw\\";
+		$raw_path = "".str_replace("\\","/",$raw);
+		$file = $raw_path."template.rtf";
+		$handle = fopen($file,'r');
+		
+		$buffer = stream_get_contents($handle);
+		//$handle = fopen($path.$data['url_surat'],'w+');
+		
+		$berkas = $path.$data['url_surat'].".rtf";
+		$handle = fopen($berkas,'w+');
+		fwrite($handle,$buffer);
+		fclose($handle);
+		
+		
+		$mypath="donjo-app\\views\\surat\\form\\";
+		$path_form = "".str_replace("\\","/",$mypath)."/";
+		
+		$raw="surat\\raw\\";
+		$raw_path = "".str_replace("\\","/",$raw);
+		$file = $raw_path."form.raw";
+		$handle = fopen($file,'r');
+		
+		$buffer = stream_get_contents($handle);
+		//$handle = fopen($path_form.$data['url_surat'],'w+');
+		
+		$berkas = $path_form.$data['url_surat'].".php";
+		$handle = fopen($berkas,'w+');
+		$buffer=str_replace("[nama_surat]","Surat $data[nama]",$buffer);
+		fwrite($handle,$buffer);
+		fclose($handle);
+		
+		
+		$mypath="donjo-app\\views\\surat\\print\\";
+		$path_form = "".str_replace("\\","/",$mypath)."/";
+		
+		$raw="surat\\raw\\";
+		$raw_path = "".str_replace("\\","/",$raw);
+		$file = $raw_path."print.raw";
+		$handle = fopen($file,'r');
+		
+		$buffer = stream_get_contents($handle);
+		//$handle = fopen($path_form.$data['url_surat'],'w+');
+		
+		$berkas = $path_form."print_".$data['url_surat'].".php";
+		$handle = fopen($berkas,'w+');
+		$nama_surat = strtoupper($data['nama']);
+		$buffer=str_replace("[nama_surat]","SURAT $nama_surat",$buffer);
+		fwrite($handle,$buffer);
+		fclose($handle);
+		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-	
 	function update($id=0){
 		$data = $_POST;
-
-		if($data['id_tipe']!=1){
-		$data['act_analisis']=2;
-		$data['bobot']=0;
-		}
-		
-		if($data['id_tipe']==3 OR $data['id_tipe']==4){
-				$sql  = "DELETE FROM tweb_surat_atribut WHERE id_indikator=?";
-				$this->db->query($sql,$id);
-		
-		}
-		
-		$data['id_master']=$_SESSION['analisis_master'];
 		$this->db->where('id',$id);
 		$outp = $this->db->update('tweb_surat_format',$data);
-
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
 	}
-	
-	function delete($id=''){
-		$sql  = "DELETE FROM tweb_surat_format WHERE id=?";
-		$outp = $this->db->query($sql,array($id));
+	function upload($url=""){
+		$tipe_file = $_FILES['foto']['type'];
+		$name = $_FILES['foto']['name'];
+		$name = substr($name,strlen($name)-4,4);
 		
-		if($outp) $_SESSION['success']=1;
-			else $_SESSION['success']=-1;
-	}
-	
-	function delete_all(){
-		$id_cb = $_POST['id_cb'];
 		
-		if(count($id_cb)){
-			foreach($id_cb as $id){
-				$sql  = "DELETE FROM tweb_surat_format WHERE id=?";
-				$outp = $this->db->query($sql,array($id));
-			}
+		if ($name != ".rtf"){
+			$_SESSION['success']=-1;
+		} else {
+			
+			$vdir_upload = "surat/$url/$url.rtf";
+			unlink($vdir_upload); 
+			move_uploaded_file($_FILES["foto"]["tmp_name"], $vdir_upload);
+			$_SESSION['success']=1;
 		}
-		else $outp = false;
 		
-		if($outp) $_SESSION['success']=1;
-			else $_SESSION['success']=-1;
 	}
-	
-	function p_insert($in=''){
-		$data = $_POST;
-		$data['id_indikator']=$in;
-		$outp = $this->db->insert('tweb_surat_atribut',$data);
-		
-		if($outp) $_SESSION['success']=1;
-			else $_SESSION['success']=-1;
-	}
-	
-	function p_update($id=0){
-		$data = $_POST;
-
-		$this->db->where('id',$id);
-		$outp = $this->db->update('tweb_surat_atribut',$data);
-
-		if($outp) $_SESSION['success']=1;
-			else $_SESSION['success']=-1;
-	}
-	
-	function p_delete($id=''){
-		$sql  = "DELETE FROM tweb_surat_atribut WHERE id=?";
+	function delete($id=''){
+		$sql = "DELETE FROM tweb_surat_format WHERE id=?";
 		$outp = $this->db->query($sql,array($id));
 		
 		if($outp) $_SESSION['success']=1;
@@ -216,7 +231,7 @@
 		
 		if(count($id_cb)){
 			foreach($id_cb as $id){
-				$sql  = "DELETE FROM tweb_surat_atribut WHERE id=?";
+				$sql = "DELETE FROM tweb_surat_format WHERE id=?";
 				$outp = $this->db->query($sql,array($id));
 			}
 		}
@@ -247,30 +262,34 @@
 		$data  = $query->row_array();
 		return $data;
 	}
-	
-	function get_analisis_master(){
-		$sql   = "SELECT * FROM analisis_master WHERE id=?";
-		$query = $this->db->query($sql,$_SESSION['analisis_master']);
-		return $query->row_array();
-	}	
-	
 	function get_tweb_surat_atribut($id=''){
 		$sql   = "SELECT * FROM tweb_surat_atribut WHERE id=?";
 		$query = $this->db->query($sql,$id);
 		return $query->row_array();
 	}	
-
-	function list_tipe(){
-		$sql   = "SELECT * FROM analisis_tipe_indikator";
-		$query = $this->db->query($sql);
-		return $query->result_array();
+	function favorit($id=0,$k=0){
+		
+		if($k==1)
+			$sql = "UPDATE tweb_surat_format SET favorit = 0 WHERE id=?";
+		else
+			$sql = "UPDATE tweb_surat_format SET favorit = 1 WHERE id=?";
+			
+		$outp = $this->db->query($sql,$id);
+		
+		if($outp) $_SESSION['success']=1;
+			else $_SESSION['success']=-1;
 	}
-	
-	function list_kategori(){
-		$sql   = "SELECT u.* FROM analisis_kategori_indikator u WHERE 1";
-		$sql .= $this->master_sql();
-		$query = $this->db->query($sql);
-		return $query->result_array();
+	function lock($id=0,$k=0){
+		
+		if($k==1)
+			$sql = "UPDATE tweb_surat_format SET kunci = 0 WHERE id=?";
+		else
+			$sql = "UPDATE tweb_surat_format SET kunci = 1 WHERE id=?";
+			
+		$outp = $this->db->query($sql,$id);
+		
+		if($outp) $_SESSION['success']=1;
+			else $_SESSION['success']=-1;
 	}
 }
 

@@ -97,13 +97,18 @@
 	function update($id=''){
 		if(empty($_POST['id_kepala']))
 			UNSET($_POST['id_kepala']);
-			
-		$data = $_POST;
+		}else{
+			$data['id_kepala']=$_POST['id_kepala'];
+			$temp = $this->wilayah_model->cluster_by_id($id);
+			$this->db->where('dusun',$temp['dusun']);
+			$this->db->where('rw','0');
+			$this->db->where('rt','0');
+			$outp = $this->db->update('tweb_wil_clusterdesa',$data);
+		}
+		UNSET($data);
 		$data['dusun']=$_POST['dusun'];
 		$temp = $this->wilayah_model->cluster_by_id($id);
 		$this->db->where('dusun',$temp['dusun']);
-		$this->db->where('rw','0');
-		$this->db->where('rt','0');
 		$outp = $this->db->update('tweb_wil_clusterdesa',$data);
 		
 		if($outp) $_SESSION['success']=1;
@@ -320,7 +325,7 @@
 		
 		if(count($id_cb)){
 			foreach($id_cb as $id){
-				$sql  = "DELETE FROM tweb_wil_clusterdesa WHERE  id = ?";
+				$sql = "DELETE FROM tweb_wil_clusterdesa WHERE id = ?";
 				$outp = $this->db->query($sql,$id);
 			}
 		}
@@ -397,7 +402,7 @@
 	}
 	
 	function total(){ 
-		$sql = "SELECT (SELECT COUNT(rw.id) FROM tweb_wil_clusterdesa rw WHERE  rw <> '-' AND rt = '-') AS total_rw, 
+		$sql = "SELECT (SELECT COUNT(rw.id) FROM tweb_wil_clusterdesa rw WHERE rw <> '-' AND rt = '-') AS total_rw, 
 		(SELECT COUNT(v.id) FROM tweb_wil_clusterdesa v WHERE v.rt <> '0' AND v.rt <> '-') AS total_rt, (SELECT COUNT(p.id) FROM tweb_penduduk p WHERE p.id_cluster IN(SELECT id FROM tweb_wil_clusterdesa ) and status_dasar=1) AS total_warga, (SELECT COUNT(p.id) FROM tweb_penduduk p WHERE p.id_cluster IN(SELECT id FROM tweb_wil_clusterdesa) AND p.sex = 1 and status_dasar=1) AS total_warga_l, (SELECT COUNT(p.id) FROM tweb_penduduk p WHERE p.id_cluster IN(SELECT id FROM tweb_wil_clusterdesa) AND p.sex = 2 and status_dasar=1) AS total_warga_p, (SELECT COUNT(p.id) FROM tweb_keluarga k inner join tweb_penduduk p ON k.nik_kepala=p.id WHERE p.id_cluster IN(SELECT id FROM tweb_wil_clusterdesa) AND p.kk_level = 1 and status_dasar=1) AS total_kk FROM tweb_wil_clusterdesa u LEFT JOIN tweb_penduduk a ON u.id_kepala = a.id WHERE u.rt = '0' AND u.rw = '0' limit 1"; 
 		$query = $this->db->query($sql); 
 		return $query->row_array(); 

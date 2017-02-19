@@ -15,22 +15,24 @@
 </div>
 <div id="contentpane">    
 	<form id="mainform" name="mainform" action="" method="post">
-    <div class="ui-layout-north panel">
-    <h3>Modul kelompok</h3>
-        <div class="left">
-            <div class="uibutton-group">
-                <a href="<?php echo site_url('kelompok_master/clear')?>" class="uibutton tipsy south" title="Master Kelompok" ><span class="icon-list icon-large">&nbsp;</span>Kelola Master Kelompok</a>
-                <a href="<?php echo site_url('kelompok/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah kelompok Baru</a>
-                <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("kelompok/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
-            </div>
-        </div>
-    </div>
-    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-        <div class="table-panel top">
-            <div class="left">
-                <select name="filter" onchange="formAction('mainform','<?php echo site_url('kelompok/filter')?>')">
-                    <option value="">-- Filter by master --</option>				
-					<?php  foreach($list_master AS $data){?>
+ <div class="ui-layout-north panel">
+ <h3>Modul kelompok</h3>
+ <div class="left">
+ <div class="uibutton-group">
+ <a href="<?php echo site_url('kelompok_master/clear')?>" class="uibutton tipsy south" title="Master Kelompok" ><span class="icon-list icon-large">&nbsp;</span>Kelola Master Kelompok</a>
+ <a href="<?php echo site_url('kelompok/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah kelompok Baru</a>
+ <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("kelompok/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data</button>
+ <a href="<?php echo site_url("kelompok/cetak")?>" class="uibutton" title="Cetak Data" target="_blank"><span class="icon-print icon-large">&nbsp;</span>Cetak</a>
+ <a href="<?php echo site_url("kelompok/excel")?>" class="uibutton tipsy south" title="Data Excel" target="_blank"><span class="icon-file-text icon-large">&nbsp;</span>Excel</a>
+ </div>
+ </div>
+ </div>
+ <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+ <div class="table-panel top">
+ <div class="left">
+ <select name="filter" onchange="formAction('mainform','<?php echo site_url('kelompok/filter')?>')">
+ <option value="">-- Filter by master --</option>				
+					<?php foreach($list_master AS $data){?>
 					<option value="<?php echo $data['id']?>" <?php if($filter == $data['id']) :?>selected<?php endif?>><?php echo $data['kelompok']?></option>
 					<?php  }?>
                 </select>
@@ -42,10 +44,10 @@
         </div>
         <table class="list">
 		<thead>
-            <tr>
-                <th width="10">No</th>
-                <th><input type="checkbox" class="checkall"/></th>
-                <th width="100">Aksi</th>
+ <tr>
+ <th width="10">No</th>
+ <th><input type="checkbox" class="checkall"/></th>
+ <th width="150">Aksi</th>
 				
 	 		<?php  if($o==4): ?>
 				<th align="left"><a href="<?php echo site_url("kelompok/index/$p/3")?>">Nama<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
@@ -74,16 +76,16 @@
 			<td align="center" width="5">
 				<input type="checkbox" name="id_cb[]" value="<?php echo $data['id']?>" />
 			</td>
-          <td><div class="uibutton-group">
-            <a href="<?php echo site_url("kelompok/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("kelompok/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
+ <td><div class="uibutton-group">
+ <a href="<?php echo site_url("kelompok/anggota/$data[id]")?>" class="uibutton"><span class="icon-list icon-large"> Rincian </span></a><a href="<?php echo site_url("kelompok/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("kelompok/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
 			</div>
-          </td>
-          <td><?php echo $data['nama']?></td>
-		  <td><?php echo $data['ketua']?></td>
-		  <td><?php echo $data['master']?></td>
-          <td align="center"><a href="<?php echo site_url("kelompok/anggota/$data[id]")?>" class="uibutton"><span class="icon-list icon-large"> Rincian </span></a></td>
-		  </tr>
-        <?php  endforeach; ?>
+ </td>
+ <td><?php echo $data['nama']?></td>
+		 <td><?php echo $data['ketua']?></td>
+		 <td><?php echo $data['master']?></td>
+		 <td><?php echo $data['jml_anggota']?></td>
+		 </tr>
+ <?php endforeach; ?>
 		</tbody>
         </table>
     </div>

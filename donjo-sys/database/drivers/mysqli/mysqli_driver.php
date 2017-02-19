@@ -310,21 +310,8 @@ class CI_DB_mysqli_driver extends CI_DB {
 
 			return $str;
 		}
-
-		if (function_exists('mysqli_real_escape_string') AND is_object($this->conn_id))
-		{
-			$str = mysqli_real_escape_string($this->conn_id, $str);
-		}
-		elseif (function_exists('mysql_escape_string'))
-		{
-			$str = mysql_escape_string($str);
-		}
-		else
-		{
-			$str = addslashes($str);
-		}
-
-		// escape LIKE condition wildcards
+		$str = mysqli_real_escape_string($this->conn_id, $str);
+		
 		if ($like === TRUE)
 		{
 			$str = str_replace(array('%', '_'), array('\\%', '\\_'), $str);

@@ -59,10 +59,6 @@ $('#link').flexbox(link, {
 		<div id="link" name="link"></div> *)kosongi kolom auto link jika yang diisi kolom manual link.
 	</td>
 </tr>
-<tr id="manual">
-<th>Link Manual</th>
-<td><textarea name="manual_link" style="resize: none; height:100px; width:350px;" size="500" maxlength='500'><?php  if($menu['link_tipe']==1){echo $menu['link'];}?></textarea></td>
-</tr>
 </table>
 </div>
    
@@ -72,7 +68,7 @@ $('#link').flexbox(link, {
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
+
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

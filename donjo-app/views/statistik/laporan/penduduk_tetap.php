@@ -80,13 +80,13 @@
 <?php  endif; ?>
 
 <th align="left" width='100'>No. KK</th>
-<th align="left" align="center">Alamat</th>
-<th align="left" align="center">Pendidikan</th>
-<th align="left" align="center">Umur</th>
-<th align="left" align="center">Pekerjaan</th>
-<th align="left" align="center">Status Perkawinan</th>
-<th width="70" align="left" align="center">Status Penduduk</th>
-            
+<th>Alamat</th>
+<th>Pendidikan</th>
+<th>Umur</th>
+<th>Pekerjaan</th>
+<th>Status Perkawinan</th>
+<th width="70" >Status Penduduk</th>
+ 
 </tr>
 </thead>
 <tbody>

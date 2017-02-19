@@ -10,10 +10,10 @@ class Analisis_klasifikasi extends CI_Controller{
 		$this->load->model('header_model');
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=1) redirect('siteman');
+		$_SESSION['submenu'] = "Data Klasifikasi";
+		$_SESSION['asubmenu'] = "analisis_klasifikasi";
 	}
-	
-	function clear($id=0){
-		$_SESSION['analisis_master']=$id;
+	function clear(){
 		unset($_SESSION['cari']);
 		redirect('analisis_klasifikasi');
 	}
@@ -68,11 +68,7 @@ class Analisis_klasifikasi extends CI_Controller{
 		
 		$header = $this->header_model->get_data();
 		$data['analisis_master'] = $this->analisis_klasifikasi_model->get_analisis_master();
-		
-		$this->load->view('header', $header);
-		$this->load->view('analisis_master/nav');
-		$this->load->view('analisis_klasifikasi/form',$data);
-		$this->load->view('footer');
+		$this->load->view('analisis_klasifikasi/ajax_form',$data);
 	}
 	
 	function search(){

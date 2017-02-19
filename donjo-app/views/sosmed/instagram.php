@@ -29,18 +29,18 @@
 		<tr>
 			<td width="150">Link Akun Google</td><td><textarea name="link" class=" required" style="resize: none; height:100px; width:250px;" size="300" maxlength='160'><?php  if($main){echo $main['link'];} ?></textarea></td>
 		</tr>
-        </table>
-    </div>
-   
-    <div class="ui-layout-south panel bottom">
-        
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
-                <button class="uibutton confirm" type="submit" >Simpan</button>
-            </div>
-        </div>
-    </div> </form>
+ </table>
+ </div>
+ 
+ <div class="ui-layout-south panel bottom">
+ 
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <button class="uibutton confirm" type="submit" >Simpan</button>
+ </div>
+ </div>
+ </div> </form>
 </div>
 </td></tr></table>
 </div>

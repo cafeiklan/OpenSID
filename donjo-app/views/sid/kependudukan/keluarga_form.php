@@ -101,7 +101,7 @@ table.form.detail td{
 <th class="top">Foto</th>
 <td>
 <div class="userbox-avatar">
-<img src="<?php echo base_url()?>assets/images/photo/kuser.png" alt=""/>
+<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 </div>
 </td>
 </tr>
@@ -273,7 +273,7 @@ table.form.detail td{
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
+
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

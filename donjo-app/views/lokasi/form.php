@@ -30,7 +30,7 @@
 	<th>Foto</th>
 	<td>
 		<div class="userbox-avatar">
-			<img src="<?php echo base_url()?>assets/images/gis/lokasi/kecil_<?php echo $lokasi['foto']?>"/>
+			<img src="<?php echo base_url()?>assets/files/gis/lokasi/kecil_<?php echo $lokasi['foto']?>"/>
 		</div>
 	</td>
 </tr>
@@ -38,7 +38,7 @@
 <tr>
 	<th>Ganti Foto</th>
 	<td>
-		<input class="inputbox" type="file" name="foto" value="<?php echo $lokasi['foto']?>" size="30"/>
+		<input class="" type="file" name="foto" value="<?php echo $lokasi['foto']?>" size="30"/>
 		)* Kosongi jika tidak ingin merubah Foto.
 	</td>
 </tr>
@@ -79,7 +79,7 @@
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
+
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

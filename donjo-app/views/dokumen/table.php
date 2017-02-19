@@ -81,11 +81,11 @@
 			<td><div class="uibutton-group">
 				<a href="<?php echo site_url("dokumen/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("dokumen/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"><span></a><?php if($data['enabled'] == '2'):?><a href="<?php echo site_url('dokumen/dokumen_lock/'.$data['id'])?>" class="uibutton tipsy south" title="Aktivasi dokumen"><span class="icon-lock icon-large"></span></a><?php elseif($data['enabled'] == '1'): ?><a href="<?php echo site_url('dokumen/dokumen_unlock/'.$data['id'])?>" class="uibutton tipsy south" title="Non-aktifkan dokumen"><span class="icon-unlock icon-large"><span></a>
 			<?php endif?></div>
-			  </td>
-			  <td><?php echo $data['nama']?></td>
-			  <td><?php echo $data['aktif']?></td>
-			  <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
-<td><a href="<?php echo base_url()?>assets/front/dokumen/<?php echo underscore($data['satuan'])?>" ><?php echo $data['satuan']?></a></td>
+			 </td>
+			 <td><?php echo $data['nama']?></td>
+			 <td><?php echo $data['aktif']?></td>
+			 <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
+<td><a href="<?php echo base_url()?>assets/files/dokumen/<?php echo underscore($data['satuan'])?>" ><?php echo $data['satuan']?></a></td>
 		</tr>
         <?php }?>
 		</tbody>

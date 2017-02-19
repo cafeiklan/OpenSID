@@ -102,7 +102,13 @@
 		return $cacat_sql;
 		}
 	}
-	
+	function hubungan_sql(){		
+		if(isset($_SESSION['hubungan'])){
+			$kf = $_SESSION['hubungan'];
+			$cacat_sql= " AND u.kk_level = $kf";
+		return $cacat_sql;
+		}
+	}
 	function cacatx_sql(){		
 		if(isset($_SESSION['cacatx'])){
 			$kf = $_SESSION['cacatx'];
@@ -167,7 +173,7 @@
 	function umur_max_sql(){		
 		if(isset($_SESSION['umur_max'])){
 			$kf = $_SESSION['umur_max'];
-			$umur_max_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) <= $kf ";
+			$umur_max_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) <= $kf ";
 		return $umur_max_sql;
 		}
 	}
@@ -175,7 +181,7 @@
 	function umur_min_sql(){		
 		if(isset($_SESSION['umur_min'])){
 			$kf = $_SESSION['umur_min'];
-			$umur_min_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) >= $kf ";
+			$umur_min_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) >= $kf ";
 		return $umur_min_sql;
 		}
 	}
@@ -183,7 +189,7 @@
 	function umur_sql(){		
 		if(isset($_SESSION['umurx'])){
 			$kf = $_SESSION['umurx'];
-			$umur_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) >= (SELECT dari FROM tweb_penduduk_umur WHERE id=$kf ) AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) <= (SELECT sampai FROM tweb_penduduk_umur WHERE id=$kf ) ";
+			$umur_sql= " AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) >= (SELECT dari FROM tweb_penduduk_umur WHERE id=$kf ) AND (SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) <= (SELECT sampai FROM tweb_penduduk_umur WHERE id=$kf ) ";
 		return $umur_sql;
 		}
 	}
@@ -191,24 +197,33 @@
 	function filter_sql(){		
 		if(isset($_SESSION['filter'])){
 			$kf = $_SESSION['filter'];
+			if($kf == '77'){
+				$filter_sql= " AND (u.status = 1 OR u.status = 2) ";
+			}else
 			$filter_sql= " AND u.status = $kf";
 		return $filter_sql;
 		}
 	}
-	
+	function status_dasar_sql(){		
+		if(isset($_SESSION['status_dasar'])){
+			$kf = $_SESSION['status_dasar'];
+				$status_dasar= " AND u.status_dasar = $kf";
+		return $status_dasar;
+		}
+	}
 	function log_sql(){		
 		if(isset($_SESSION['log'])){
-			$log_sql= " AND u.status_dasar > 1 ";
+			$log_sql= " AND u.id > 1 AND u.id IN (SELECT id_pend FROM log_penduduk)";
 		return $log_sql;
 		}else{
-			$log_sql= " AND u.status_dasar = 1 ";
+			$log_sql = "";
+			//$log_sql= " AND u.status_dasar = 1 ";
 		return $log_sql;
 		}
 	}
 	
 	function paging($p=1,$o=0,$log=0){
-	
-		$sql      = "SELECT COUNT(u.id) AS id FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id  LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.pendidikan_id = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id WHERe 1  ";
+		$sql = "SELECT COUNT(u.id) AS id FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.pendidikan_id = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id WHERe 1 ";
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
 		$sql .= $this->sex_sql();
@@ -257,14 +272,16 @@
 			case 6: $order_sql = ' ORDER BY d.no_kk DESC'; break;
 			case 7: $order_sql = ' ORDER BY umur'; break;
 			case 8: $order_sql = ' ORDER BY umur DESC'; break;
-			default:$order_sql = ' ORDER BY u.id';
+			default:$order_sql = '';
 		}
 	
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query 
-		$sql   = "SELECT u.*,a.dusun,a.rw,a.rt,d.no_kk AS no_kk,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) AS umur,x.nama AS sex,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id  LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.pendidikan_id = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id WHERE 1 ";
+		if($log==1)
+			$sql = "SELECT u.id,u.nik,u.tanggallahir,u.tempatlahir,u.status,u.status_dasar,u.id_kk,u.nama,u.nama_ayah,u.nama_ibu,a.dusun,a.rw,a.rt,d.no_kk AS no_kk,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) AS umur,x.nama AS sex,sd.nama AS pendidikan_sedang,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama,m.nama AS gol_darah,hub.nama AS hubungan,log.tgl_peristiwa FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id LEFT JOIN tweb_penduduk_pendidikan sd ON u.pendidikan_sedang_id = sd.id LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.sex = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_penduduk_hubungan hub ON u.kk_level = hub.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id LEFT JOIN log_penduduk log ON u.id = log.id_pend WHERE 1 ";
+		else
+			$sql = "SELECT u.id,u.nik,u.tanggallahir,u.tempatlahir,u.status,u.status_dasar,u.id_kk,u.nama,u.nama_ayah,u.nama_ibu,a.dusun,a.rw,a.rt,d.no_kk AS no_kk,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) AS umur,x.nama AS sex,sd.nama AS pendidikan_sedang,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama,m.nama AS gol_darah,hub.nama AS hubungan FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id LEFT JOIN tweb_penduduk_pendidikan sd ON u.pendidikan_sedang_id = sd.id LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.sex = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_penduduk_hubungan hub ON u.kk_level = hub.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id WHERE 1 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
@@ -319,7 +336,54 @@
 		}
 		return $data;
 	}
-	
+	function list_data_map(){
+		
+		$sql = "SELECT u.id,u.nik,u.nama,map.lat,map.lng,a.dusun,a.rw,a.rt,d.no_kk AS no_kk,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) AS umur,x.nama AS sex,sd.nama AS pendidikan_sedang,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama,m.nama AS gol_darah,hub.nama AS hubungan FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan_kk n ON u.pendidikan_kk_id = n.id LEFT JOIN tweb_penduduk_pendidikan sd ON u.pendidikan_sedang_id = sd.id LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.sex = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id LEFT JOIN tweb_penduduk_warganegara v ON u.warganegara_id = v.id LEFT JOIN tweb_golongan_darah m ON u.golongan_darah_id = m.id LEFT JOIN tweb_cacat f ON u.cacat_id = f.id LEFT JOIN tweb_penduduk_hubungan hub ON u.kk_level = hub.id LEFT JOIN tweb_sakit_menahun j ON u.sakit_menahun_id = j.id LEFT JOIN tweb_penduduk_map map ON u.id = map.id WHERE 1 ";
+			
+		$sql .= $this->search_sql();
+		$sql .= $this->filter_sql();
+		$sql .= $this->sex_sql();
+		$sql .= $this->dusun_sql();
+		$sql .= $this->rw_sql();
+		$sql .= $this->rt_sql();
+		$sql .= $this->agama_sql();
+		$sql .= $this->cacat_sql();
+		$sql .= $this->cacatx_sql();
+		$sql .= $this->menahun_sql();
+		$sql .= $this->menahunx_sql();
+		$sql .= $this->warganegara_sql();
+		$sql .= $this->golongan_darah_sql();
+		$sql .= $this->umur_min_sql();
+		$sql .= $this->umur_max_sql();
+		$sql .= $this->pekerjaan_sql();
+		$sql .= $this->statuskawin_sql();
+		$sql .= $this->pendidikan_sedang_sql();
+		$sql .= $this->pendidikan_kk_sql();
+		$sql .= $this->umur_sql();
+		$sql .= $this->status_penduduk_sql();
+		$sql .= $this->hamil_sql();
+		$query = $this->db->query($sql);
+		$data=$query->result_array();
+		
+		$i=0;
+		while($i<count($data)){
+			$data[$i]['alamat']='';
+			
+			if($data[$i]['rt'] != "-")
+				$data[$i]['alamat']="RT-".$data[$i]['rt'];
+			
+			if($data[$i]['rw'] != "-")
+				$data[$i]['alamat']=$data[$i]['alamat']." RW-".$data[$i]['rw'];
+			
+			if($data[$i]['dusun'] != "-")
+				$data[$i]['alamat']=$data[$i]['alamat']." Dusun ".$data[$i]['dusun'];
+			else
+				$data[$i]['alamat']="Alamat penduduk belum valid";
+			
+			$i++;
+		}
+		return $data;
+	}
 	function insert(){
 		$data = $_POST;
 		$lokasi_file = $_FILES['foto']['tmp_name'];
@@ -472,6 +536,11 @@
 		$data['status_dasar'] = $_POST['status_dasar'];
 		$this->db->where('id',$id);
 		$this->db->update('tweb_penduduk',$data);
+		if($data['status_dasar'] == 3){
+			$data['status'] = 2;
+			$this->db->where('id',$id);
+			$this->db->update('tweb_penduduk',$data);
+		}
 		
 		$log['id_pend'] = $id;
 		$log['tgl_peristiwa'] = rev_tgl($_POST['tgl_peristiwa']);
@@ -531,7 +600,24 @@
 	}
 	 
 	function get_penduduk($id=0){
-		$sql   = "SELECT u.sex as id_sex,u.*,a.dusun,a.rw,a.rt,t.nama AS status,o.nama AS pendidikan_sedang,b.nama AS pendidikan_kk,d.no_kk AS no_kk,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(`tanggallahir`)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id) AS umur,x.nama AS sex,w.nama AS warganegara,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id LEFT JOIN tweb_keluarga d ON u.id_kk = d.id LEFT JOIN tweb_penduduk_pendidikan n ON u.pendidikan_id = n.id LEFT JOIN tweb_penduduk_pendidikan o ON u.pendidikan_sedang_id = o.id LEFT JOIN tweb_penduduk_pendidikan_kk b ON u.pendidikan_kk_id = b.id LEFT JOIN tweb_penduduk_warganegara w ON u.warganegara_id = w.id LEFT JOIN tweb_penduduk_status t ON u.status = t.id LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id LEFT JOIN tweb_penduduk_sex x ON u.sex = x.id LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id WHERE u.id=?";
+		$sql = "SELECT u.sex as id_sex,u.*,a.dusun,a.rw,a.rt,t.nama AS status,o.nama AS pendidikan_sedang,
+		b.nama AS pendidikan_kk,d.no_kk AS no_kk,
+		(
+			SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = u.id
+		)
+		 AS umur,x.nama AS sex,w.nama AS warganegara,n.nama AS pendidikan,p.nama AS pekerjaan,k.nama AS kawin,g.nama AS agama 
+		 FROM tweb_penduduk u 
+			LEFT JOIN tweb_wil_clusterdesa a ON u.id_cluster = a.id 
+			LEFT JOIN tweb_keluarga d ON u.id_kk = d.id 
+			LEFT JOIN tweb_penduduk_pendidikan n ON u.pendidikan_id = n.id 
+			LEFT JOIN tweb_penduduk_pendidikan o ON u.pendidikan_sedang_id = o.id 
+			LEFT JOIN tweb_penduduk_pendidikan_kk b ON u.pendidikan_kk_id = b.id 
+			LEFT JOIN tweb_penduduk_warganegara w ON u.warganegara_id = w.id 
+			LEFT JOIN tweb_penduduk_status t ON u.status = t.id 
+			LEFT JOIN tweb_penduduk_pekerjaan p ON u.pekerjaan_id = p.id 
+			LEFT JOIN tweb_penduduk_kawin k ON u.status_kawin = k.id 
+			LEFT JOIN tweb_penduduk_sex x ON u.sex = x.id 
+			LEFT JOIN tweb_penduduk_agama g ON u.agama_id = g.id WHERE u.id=?";
 		$query = $this->db->query($sql,$id);
 		$data  = $query->row_array();
 		$data['tanggallahir'] = tgl_indo_out($data['tanggallahir']);
@@ -539,16 +625,16 @@
 		$data['tanggalperceraian'] = tgl_indo_out($data['tanggalperceraian']);
 		return $data;
 	}
-	
-	function list_dusun(){
-		$sql   = "SELECT * FROM tweb_wil_clusterdesa WHERE rt = '0' AND rw = '0' ";
+		
+	function list_wil(){
+		$sql = "SELECT * FROM tweb_wil_clusterdesa WHERE zoom > '0'";
 		$query = $this->db->query($sql);
 		$data=$query->result_array();
 		return $data;
 	}
-			
-	function list_wil(){
-		$sql   = "SELECT * FROM tweb_wil_clusterdesa WHERE zoom > '0'";
+		
+	function list_dusun(){
+		$sql = "SELECT * FROM tweb_wil_clusterdesa WHERE rt = '0' AND rw = '0' ";
 		$query = $this->db->query($sql);
 		$data=$query->result_array();
 		return $data;
@@ -561,16 +647,16 @@
 		return $data;
 	}
 			
-	function list_rw_all(){
-		$sql   = "SELECT * FROM tweb_wil_clusterdesa WHERE rt = '0' AND rw <> '0'";
-		$query = $this->db->query($sql);
+	function list_rt($dusun='',$rw=''){
+		$sql = "SELECT * FROM tweb_wil_clusterdesa WHERE rw = ? AND dusun = ? AND rt <> '0'";
+		$query = $this->db->query($sql,array($rw,$dusun));
 		$data=$query->result_array();
 		return $data;
 	}
-			
-	function list_rt($dusun='',$rw=''){
-		$sql   = "SELECT * FROM tweb_wil_clusterdesa WHERE rw = ? AND dusun = ? AND rt <> '0'";
-		$query = $this->db->query($sql,array($rw,$dusun));
+		
+	function list_rw_all(){
+		$sql = "SELECT * FROM tweb_wil_clusterdesa WHERE rt = '0' AND rw <> '0'";
+		$query = $this->db->query($sql);
 		$data=$query->result_array();
 		return $data;
 	}
@@ -659,6 +745,13 @@
 		return $data;
 	}
 		
+	function list_sakit_menahun(){
+		$sql = "SELECT * FROM tweb_sakit_menahun WHERE 1";
+		$query = $this->db->query($sql);
+		$data=$query->result_array();
+		return $data;
+	}
+		
 	function get_desa(){
 		$sql   = "SELECT * FROM config WHERE 1";
 		$query = $this->db->query($sql);
@@ -707,8 +800,175 @@
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}	
+	function randomap(){
+		$sql = "SELECT u.id,id_cluster,map.lat,map.lng FROM tweb_penduduk u LEFT JOIN tweb_penduduk_map map ON u.id = map.id WHERE 1 ";
+		$query = $this->db->query($sql);
+		$data=$query->result_array();
+				
+		
+		$i=0;
+		while($i<count($data)){
+		
+		$lat = "-7.5";
+		$lng = "110.4";
+			$id = $data[$i]['id'];
+						
+			
+			
+		
+			$lat .= $this->generateRandomString2(1);
+			$lng .= $this->generateRandomString2(1);
+			
+			$lat .= $this->generateRandomString(17);
+			$lng .= $this->generateRandomString(17);
+			
+			$data2['lat'] = $lat;
+			$data2['lng'] = $lng;
+			$data2['id'] = $id;
+			$this->db->insert('tweb_penduduk_map',$data2);
+			
+			$i++;
+		}
+	}
+	function generateRandomString($length = 5) {
+		$characters = '0123456789';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+	function generateRandomString2($length = 1) {
+		$characters = '5678';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+	function coba2(){
+		$mypath="surat\\undangan\\";
+		$mypath_arsip="surat\\arsip\\";
+		
+		$path = "".str_replace("\\","/",$mypath);
+		$path_arsip = "".str_replace("\\","/",$mypath_arsip);
+		
+		$file = $path."pemuda.rtf";
+		if(is_file($file)){
+			$buffer2 ="";
+			
+			$handle = fopen($file,'r');
+			$b = stream_get_contents($handle);
+			
+			$c = Parse_Data($b,'\expshrtn','{\*\themedata');
+			$c = "\expshrtn".$c;
+			$awal = Parse_Data($b,'{','\expshrtn');
+			$awal = "{".$awal;
+			$akhir = strstr($b,'{\*\themedata');
+			
+			$data = $this->list_data();
+			$i=1;
+			$h = substr_count($c,"fxnama");
+			$h = 4;
+			$j=count($data);
+			$k =1;
+			$buffer=$c;
+			foreach($data AS $d){
+				if($d['sex']=="PEREMPUAN")
+					$sex = "Sdri.";
+				else
+					$sex = "Sdr.";
+				
+				$alamat = $d['dusun'].", RT ".$d['rt']."/RW ".$d['rw'];
+				$buffer=str_replace("fxnama$k","\caps $d[nama]",$buffer);
+				$buffer=str_replace("fxalamat$k","\caps $alamat",$buffer);
+				$buffer=str_replace("fxpre$k","\caps $sex",$buffer);
+				
+				if($k==$h){
+					$k=0;
+					
+					if($i>=$j)
+						$buffer2 .= $buffer;
+					else
+						$buffer2 .= $buffer." \page ";
+					
+					$buffer=$c;
+				}
+				
+				$k++;
+				$i++;
+			}
+			$buffer2 .= " \page ".$buffer;
+			
+			$buffers = $awal.$buffer2.$akhir;
+			
+			$berkas_arsip = $path_arsip."undangan.rtf";
+			$handle = fopen($berkas_arsip,'w+');
+			fwrite($handle,$buffers);
+			fclose($handle);
+			$_SESSION['success']=8;
+			header("location:".base_url($berkas_arsip));
+		}
+		
+	}
 	
-	
+	function list_dokumen($id=""){
+		$sql = "SELECT * FROM dokumen WHERE id_pend = ? ";
+		$query = $this->db->query($sql,$id);
+		$data=null;
+		if($query)
+			$data=$query->result_array();
+		
+		$i=0;
+		while($i<count($data)){
+			$data[$i]['no']=$i+1;
+			$i++;
+		}
+		return $data;
+	}
+	function dokumen_insert(){
+		$lokasi_file = $_FILES['satuan']['tmp_name'];
+		$nama_file = $_FILES['satuan']['name'];
+		if (!empty($lokasi_file)){
+				$data = $_POST;
+				$nama_file = $data['id_pend']."_".$data['nama']."_".generator(6)."_".$nama_file;
+				$nama_file = urlencode($nama_file);
+				UploadDocument($nama_file);
+				$data['satuan'] = $nama_file;
+				unset($data['nik']);
+				$outp = $this->db->insert('dokumen',$data);
+				if($outp) $_SESSION['success']=1;
+			} else {
+				$_SESSION['success']=-1;
+		}
+	}
+	function delete_dokumen($id=''){
+		$sql = "DELETE FROM dokumen WHERE id=?";
+		$outp = $this->db->query($sql,array($id));
+		
+		if($outp) $_SESSION['success']=1;
+			else $_SESSION['success']=-1;
+	}
+	function delete_all_dokumen(){
+		$id_cb = $_POST['id_cb'];
+		
+		if(count($id_cb)){
+			foreach($id_cb as $id){
+				$sql = "DELETE FROM dokumen WHERE id=?";
+				$outp = $this->db->query($sql,array($id));
+			}
+		}
+		else $outp = false;
+		
+		if($outp) $_SESSION['success']=1;
+			else $_SESSION['success']=-1;
+	}
+	function get_dokumen($id=0){
+		$sql = "SELECT * FROM dokumen WHERE id=?";
+		$query = $this->db->query($sql,$id);
+		$data = $query->row_array();
+		return $data;
+	}
 }
-
-?>

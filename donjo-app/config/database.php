@@ -3,10 +3,10 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'sid_304f';
-$db['default']['password'] = 'X5ZhQnHjqbGy58JP';
-$db['default']['database'] = 'sid_304f';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'sid3.10';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

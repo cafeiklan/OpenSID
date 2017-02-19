@@ -43,25 +43,25 @@ $("#nik_detail").show();
             </tr>
 			<?php }?>
 			<tr>
-                <th>NIK / Nama Kepala Dusun</th>
-                <td>
-                    <div id="id_kepala" name="id_kepala"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-   
-    <div class="ui-layout-south panel bottom">
-        <div class="left">     
-            <a href="<?php echo site_url()?>sid_core" class="uibutton icon prev">Kembali</a>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
-                <button class="uibutton confirm" type="submit" >Simpan</button>
-            </div>
-        </div>
-    </div> </form>
+ <th>NIK / Nama Kepala Dusun</th>
+ <td>
+ <div id="id_kepala" name="id_kepala"></div>
+ </td>
+ </tr>
+ </table>
+ </div>
+ 
+ <div class="ui-layout-south panel bottom">
+ <div class="left"> 
+ <a href="<?php echo site_url()?>sid_core" class="uibutton icon prev">Kembali</a>
+ </div>
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <button class="uibutton confirm" type="submit" >Simpan</button>
+ </div>
+ </div>
+ </div> </form>
 </div>
 </td></tr></table>
 </div>

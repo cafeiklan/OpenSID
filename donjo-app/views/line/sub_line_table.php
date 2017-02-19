@@ -68,7 +68,6 @@
 </td>
 <td width="150"><?php echo $data['nama']?></td>
 <td width="50"><?php echo $data['aktif']?></td>
-<td align="center" width="50"><img src="<?php echo base_url("assets/images/gis/line")?>/<?php echo $data['simbol']?>"></td>
 <td></td>
 <?php }?>
 </tbody>

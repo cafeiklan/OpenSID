@@ -32,8 +32,9 @@ source: keyword
 </td>
 */?>
 <td style="background:#fff;padding:0px;"> 
-<div class="content-header">
-<h3>Manajemen Kategori line</h3>
+<div class="content">
+	<h3>Manajemen Kategori line</h3>
+	<div style="padding:1em;margin:1em 0;border:solid 1px #c00;background:#fee;color:#c00;">Modul ini masih dalam tahap pengembangan. Ide-ide dan usulan mari kita kumpulkan untuk memperkaya khazanah SID</div>
 </div>
 <div id="contentpane">
 <form id="mainform" name="mainform" action="" method="post">
@@ -98,7 +99,6 @@ source: keyword
 </td>
 <td width="150"><?php echo $data['nama']?></td>
 <td width="50"><?php echo $data['aktif']?></td>
-<td align="center" width="50"><img src="<?php echo base_url("assets/images/gis/line")?>/<?php echo $data['simbol']?>"></td>
 <td></td>
 </tr>
 <?php }?>

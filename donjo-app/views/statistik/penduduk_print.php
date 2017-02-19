@@ -25,29 +25,9 @@
     <tr>
         <td style="padding: 5px 20px;">
 		<br>
-            <table>
-                <tbody><tr>
-                    <td class="top" width="60%">
-                        <div class="nowrap">
-                            <label style="width: 100px;">Laporan. No</label>
-                            <label>:</label>
-                            <span><?php echo date("d-m-Y")?>-00001</span>
-                        </div>
-                    </td>
-                    <td class="top">
-                        <div class="nowrap">
-                            <label style="width: 100px;"></label>
-                            <label>:</label>
-                            <span>-</span>
-                        </div>
-                        <div class="nowrap">
-                            <label style="width: 100px;"></label>
-                            <label>:</label>
-                            <span>-</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+ <table>
+ <tbody>
+ </tbody>
 			</table>
             <table class="noborder">
                 <tbody><tr>
@@ -116,46 +96,41 @@
                 </tr>
             </tbody></table>
 		<br>
-            <table class="noborder">
-                <tbody><tr>
-                    <td class="top" align="center" width="30%">
-                        <div class="nowrap"><label></label></div>
-                        <div class="nowrap"><label><br></label></div>
-                        <div style="height: 70px;"></div>
-                        <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
-                        <div class="nowrap"><label></label></div>
-                    </td>
-                    <td class="top" align="center" width="40%">
-                        <div class="nowrap"><label>&nbsp;</label></div>
-                        <div class="nowrap"><label><br></label></div>
-                    </td>
-                    <td class="top" align="center" width="30%">               
-                        <div class="nowrap"><label>&nbsp;</label></div>
-                        <div class="nowrap"><label><br>KEPALA DESA <?php echo strtoupper($config['nama_desa'])?></label></div>
-                        <div style="height: 50px;"></div>
-                        <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
-                        <div class="nowrap"><label>NIP. </label></div>
-                    </td>
-                </tr>                
-            </tbody></table>
-            <br>
-            <table class="noborder">
-                <tbody><tr>
-                    <td class="top">
-                        <div class="nowrap" style="font-style:italic;">
-                            <label></label>
-                            <label>:</label>
-                            <strong>-</strong>
-                        </div>
-                    </td>
-                </tr>
-            </tbody></table>
-                        
-        </td>
-    </tr>
-</tbody></table>        
-</div>
-   <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
-</div>
-
+ <table class="noborder">
+ <tbody><tr>
+ <td class="top" align="center" width="30%">
+ <div class="nowrap"><label></label></div>
+ <div class="nowrap"><label><br></label></div>
+ <div style="height: 70px;"></div>
+ <div class="nowrap"><strong style="text-transform: uppercase;"></strong></div>
+ <div class="nowrap"><label></label></div>
+ </td>
+ <td class="top" align="center" width="40%">
+ <div class="nowrap"><label>&nbsp;</label></div>
+ <div class="nowrap"><label><br></label></div>
+ </td>
+ <td class="top" align="center" width="30%"> 
+ <div class="nowrap"><label>&nbsp;</label></div>
+ <div class="nowrap"><label><br>KEPALA DESA <?php echo strtoupper($config['nama_desa'])?></label></div>
+ <div style="height: 50px;"></div>
+ <div class="nowrap"><strong style="text-transform: uppercase;"><?php echo strtoupper($config['nama_kepala_desa'])?></strong></div>
+ </td>
+ </tr> 
+ </tbody></table>
+ <br>
+ <table class="noborder">
+ <tbody><tr>
+ <td class="top">
+ <div class="nowrap" style="font-style:italic;">
+ <label></label>
+ <label>:</label>
+ <strong>-</strong>
+ </div>
+ </td>
+ </tr>
+ </tbody></table>
+ 
+ </td>
+ </tr>
+</tbody></table> 
 </body></html>

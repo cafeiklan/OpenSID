@@ -1,6 +1,7 @@
-<?php php
+<?php
+$tgl =  date('d_m_Y');
 header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=Laporan_bulanan.xls");
+header("Content-Disposition: attachment; filename=Laporan_bulanan_$tgl.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 ?>

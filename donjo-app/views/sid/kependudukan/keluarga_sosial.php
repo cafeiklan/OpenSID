@@ -119,11 +119,11 @@
     <div class="ui-layout-south panel bottom" style="max-height: 150px;overflow:auto;">
         <table class="list">
 		<thead>
-            <tr>
-                <th>No</th>
-				<th align="left" align="center">Statistik</th>
-				<th align="left" align="center">Populasi</th>
-            
+ <tr>
+ <th>No</th>
+				<th>Statistik</th>
+				<th>Populasi</th>
+ 
 			</tr>
 		</thead>
 		<tbody>

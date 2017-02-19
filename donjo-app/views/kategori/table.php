@@ -10,21 +10,11 @@ source: keyword
 <div id="pageC">
 <table class="inner">
 <tr style="vertical-align:top">
-
-<td class="side-menu">
-
-<legend>Kategori kategori</legend>
-<div class="lmenu">
-<ul>
-<a href="<?php echo site_url("menu/index/1")?>"><li <?php if($tip==1)echo "class='selected'";?>>Menu Statis</li></a>
-<a href="<?php echo site_url("kategori/index")?>"><li <?php if($tip==2)echo "class='selected'";?>>Kategori/ Menu  Dinamis</li></a>
-
-</ul>
-</div>
-</td>
 <td style="background:#fff;padding:0px;"> 
-<div class="content-header">
-<h3>Manajemen kategori</h3>
+<div class="content">
+	<h3>Pengelolaan Kategori</h3>
+	<?php
+	?>
 </div>
 <div id="contentpane">
 <form id="mainform" name="mainform" action="" method="post">

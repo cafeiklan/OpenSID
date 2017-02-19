@@ -16,30 +16,31 @@
 </div>
 <div id="contentpane">    
 	<form id="mainform" name="mainform" action="" method="post">
-    <div class="ui-layout-north panel">
-        <div class="left">
-            <div class="uibutton-group">
-                <a href="<?php echo site_url('man_user/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah User Baru</a>
-                <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("man_user/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
-            </div>
-        </div>
-    </div>
-    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-        <div class="table-panel top">
-            <div class="left">
-                <select name="filter" onchange="formAction('mainform','<?php echo site_url('man_user/filter')?>')">
-                    <option value="">Semua</option>
-                    <option value="1" <?php if($filter==1) :?>selected<?php endif?>>Administrator</option>
-                    <option value="2" <?php if($filter==2) :?>selected<?php endif?>>Operator</option>
-                    <option value="3" <?php if($filter==3) :?>selected<?php endif?>>Redaksi</option>
-                </select>
-            </div>
-            <div class="right">
-                <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('man_user/search')?>');$('#'+'mainform').submit();}" />
-                <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('man_user/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south"  title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
-            </div>
-        </div>
-        <table class="list">
+ <div class="ui-layout-north panel">
+ <div class="left">
+ <div class="uibutton-group">
+ <a href="<?php echo site_url('man_user/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah User Baru</a>
+ <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("man_user/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
+ </div>
+ </div>
+ </div>
+ <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+ <div class="table-panel top">
+ <div class="left">
+ <select name="filter" onchange="formAction('mainform','<?php echo site_url('man_user/filter')?>')">
+ <option value="">Semua</option>
+ <option value="1" <?php if($filter==1) :?>selected<?php endif?>>Administrator</option>
+ <option value="2" <?php if($filter==2) :?>selected<?php endif?>>Operator</option>
+ <option value="3" <?php if($filter==3) :?>selected<?php endif?>>Redaksi</option>
+ <option value="4" <?php if($filter==4) :?>selected<?php endif?>>Kontributor</option>
+ </select>
+ </div>
+ <div class="right">
+ <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('man_user/search')?>');$('#'+'mainform').submit();}" />
+ <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('man_user/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south" title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
+ </div>
+ </div>
+ <table class="list">
 		<thead>
             <tr>
                 <th>No</th>
@@ -73,40 +74,30 @@
 			</tr>
 		</thead>
 		<tbody>
-    <?php  
-    foreach($main as $data){
-			echo "
-			<tr>
-				<td>".$data["no"]."</td>
-				<td>";
-				if($data["username"] != "siteman"){
-					echo "<input type=\"checkbox\" name=\"id_cb[]\" value=\"". $data['id']."\" />";
-				}
-				$strUrl = "man_user/form/".$p."/".$o."/".$data[id];
-				$strDel = "man_user/delete/".$p."/".$o."/".$data[id];
-				echo "</td>
-				<td>
-				<div class=\"uibutton-group\">
-					<a href=\"".$strUrl."\" class=\"uibutton tipsy south\" title=\"Ubah Data\"><span class=\"icon-edit icon-large\"> Ubah </span></a>";
-					if($data['username']!='admin'){
-						echo "<a href=\"". site_url($strDel)."\" class=\"uibutton tipsy south\" title=\"Hapus Data\" target=\"confirm\" message=\"Apakah Anda Yakin?\" header=\"Hapus Data\"><span class=\"icon-trash icon-large\"></span></a>";
-						if($data['active'] == '0'){
-							echo "<a href=\"".site_url('man_user/user_unlock/'.$data['id'])."\" class=\"uibutton tipsy south\" title=\"Aktivasi User\"><span class=\"icon-lock icon-large\"></span></a>";
-						}elseif($data['active'] == '1'){
-							echo "<a href=\"".site_url('man_user/user_lock/'.$data['id'])."\" class=\"uibutton tipsy south\" title=\"Non-aktifkan User\"><span class=\"icon-unlock icon-large\"></span></a>";
-						}
-					}
-				echo "
-				</div>
-				</td>
-				<td>".$data["username"]."</td>
-				<td>".$data["nama"]."</td>
-				<td>".$data["grup"]."</td>
-				<td>".tgl_indo($data["last_login"])."</td>
-			</tr>
-			";
-		}
-     ?>
+ <?php foreach($main as $data): ?>
+		<tr>
+ <td align="center" width="2"><?php echo $data['no']?></td>
+			<td align="center" width="5">
+				<?php if($data['username']!='siteman') :?>
+					<input type="checkbox" name="id_cb[]" value="<?php echo $data['id']?>" />
+				<?php endif; ?>
+			</td>
+ <td><div class="uibutton-group">
+ <a href="<?php echo site_url("man_user/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"> Ubah </span></a>
+ <?php if($data['username']!='admin'){?>
+							<a href="<?php echo site_url("man_user/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
+						<?php if($data['active'] == '0'): ?>
+							<a href="<?php echo site_url('man_user/user_unlock/'.$data['id'])?>" class="uibutton tipsy south" title="Aktivasi User"><span class="icon-lock icon-large"></span></a>
+						<?php elseif($data['active'] == '1'): ?><a href="<?php echo site_url('man_user/user_lock/'.$data['id'])?>" class="uibutton tipsy south" title="Non-aktifkan User"><span class="icon-unlock icon-large"></span></a>
+			<?php endif; ?>
+			<?php }?></div>
+ </td>
+ <td><?php echo $data['username']?></td>
+ <td><?php echo $data['nama']?></td>
+		 <td><?php echo $data['grup']?></td>
+ <td><?php echo tgl_indo($data['last_login'])?></td>
+		 </tr>
+ <?php endforeach; ?>
 		</tbody>
         </table>
     </div>

@@ -30,8 +30,12 @@
                 <th><input type="checkbox" class="checkall"/></th>
                 <th width="80">Aksi</th>
 				<th width='100'>NIK</th>
+				<th width='100'>Nomor KK</th>
 				<th>Nama</th>
+				<th width='150'>Jenis Kelamin</th>
 				<th width="150">Hubungan</th>
+				<th width="150">Nama Ayah</th>
+				<th width="150">Nama Ibu</th>
 				<th>Alamat</th>
             
 			</tr>
@@ -49,13 +53,17 @@
 				<a href="<?php echo site_url("rtm/edit_anggota/$p/$o/$kk/$data[id]")?>" class="uibutton tipsy south" title="Ubah Hubungan rtm" target="ajax-modal" rel="window" header="Ubah Data"><span class="icon-link icon-large"></span></a>
 				</div>
 			</td>
-          <td><label><?php echo $data['nik']?></label></td>
-		  <td><label><?php echo strtoupper(unpenetration($data['nama']))?></label></td>
-          
-		  <td><?php echo $data['hubungan']?></td>
-          <td><?php echo unpenetration($data['alamat'])?></td>
-		  </tr>
-        <?php  endforeach; ?>
+ <td><label><?php echo $data['nik']?></label></td>
+ <td><label><?php echo $data['no_kk']?></label></td>
+		 <td><label><?php echo strtoupper(unpenetration($data['nama']))?></label></td>
+ 
+		 <td><?php echo $data['sex']?></td>
+		 <td><?php echo $data['hubungan']?></td>
+		 <td><?php echo $data['nama_ayah']?></td>
+		 <td><?php echo $data['nama_ibu']?></td>
+ <td><?php echo unpenetration($data['alamat'])?></td>
+		 </tr>
+ <?php endforeach; ?>
 		</tbody>
         </table>
     </div>

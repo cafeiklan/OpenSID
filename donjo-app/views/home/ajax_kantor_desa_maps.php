@@ -34,12 +34,11 @@
 		google.maps.event.addListener(marker, 'click', function() {
 		  if (!infoWindow) {
 			infoWindow = new google.maps.InfoWindow();
-		  }
-		  var content = '<div id="info">' +
-			'<img src="<?php echo base_url()?>assets/images/logo/<?php echo $desa['logo']?>" alt="" width="50" height="60"/>' + 
+		 }
+		 var content = '<div id="info">' +
+			'<img src="<?php echo base_url()?>assets/files/logo/<?php echo $desa['logo']?>" alt="" width="50" height="60"/>' + 
 			'<h3><?php echo $desa['nama_desa']?></h3>' +
-			'<p>Sedangkan aku sedang bingung apa</p><p>yang harus ku lakukan</p>' +
-			'<p><a href="http://www.svennerberg.com">Info lebih lanjut.</a></p>' +
+			'<p>Lokasi Kantor Desa/Kelurahan</p>' +
 			'</div>';
 		  
 		  infoWindow.setContent(content);
@@ -63,15 +62,10 @@
   border: 1px solid #000;
 }
 </style>
-<form action="<?php echo $form_action?>" method="post" id="validasi">
 <div id="mapx"></div>
-    <input type="hidden" name="lat" id="lat" value="<?php echo $desa['lat']?>"/>
-    <input type="hidden" name="lng" id="lng"  value="<?php echo $desa['lng']?>"/>
-    <input type="hidden" name="zoom" id="zoom"  value="<?php echo $desa['zoom']?>"/>
-    <input type="hidden" name="map_tipe" id="map_tipe"  value="<?php echo $desa['map_tipe']?>"/>
 <div class="buttonpane" style="text-align: right; width:400px;position:absolute;bottom:0px;">
-<div class="uibutton-group">
-		<input  class="uibutton confirm" id="showData"  value="Simpan" type="button"/>
-</div>
+	<div class="uibutton-group">
+		<button id="showData" class="uibutton confirm" type="button" onclick="$('#window-lok').dialog('close');$('p.kan').show();">Simpan</button>
+	</div>
 </div>
 </form>

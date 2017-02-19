@@ -122,32 +122,32 @@ tr.uptd{
                 <td>
 				<div class="userbox-avatar">
 				<?php if($user['foto']){?>
-					<img src="<?php echo base_url()?>assets/images/photo/kecil_<?php echo $user['foto']?>" alt=""/>
+					<img src="<?php echo base_url()?>assets/files/user_pict/kecil_<?php echo $user['foto']?>" alt=""/>
 				<?php }else{?>
-					<img src="<?php echo base_url()?>assets/images/photo/kuser.png" alt=""/>
+					<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 				<?php }?>
 				</div>
 				</td>
 				<input type="hidden" name="old_foto" value="<?php echo $user['foto']?>">
-            </tr>
-            <tr>
-                <th>Ganti Foto</th>
-                <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
-            </tr>
-        </table>
-    </div>
-   
-    <div class="ui-layout-south panel bottom">
-        <div class="left">     
-            <a href="<?php echo site_url()?>man_user" class="uibutton icon prev">Kembali</a>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
-                <button class="uibutton confirm" type="submit" >Simpan</button>
-            </div>
-        </div>
-    </div> </form>
+ </tr>
+ <tr>
+ <th>Ganti Foto</th>
+ <td><input type="file" name="foto" /> <span style="color: #aaa;">(Kosongi jika tidak ingin merubah foto)</span></td>
+ </tr>
+ </table>
+ </div>
+ 
+ <div class="ui-layout-south panel bottom">
+ <div class="left"> 
+ <a href="<?php echo site_url()?>man_user" class="uibutton icon prev">Kembali</a>
+ </div>
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <button class="uibutton confirm" type="submit" >Simpan</button>
+ </div>
+ </div>
+ </div> </form>
 </div>
 </td></tr></table>
 </div>

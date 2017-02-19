@@ -17,7 +17,11 @@ class web extends CI_Controller{
 		unset($_SESSION['filter']);
 		redirect('web');
 	}
-	
+	function pager($cat=1){
+		if(isset($_POST['per_page'])) 
+			$_SESSION['per_page']=$_POST['per_page'];
+		redirect("web/index/$cat");
+	}
 	function index($cat=1,$p=1,$o=0){
 	
 		$data['p']        = $p;
@@ -75,7 +79,11 @@ class web extends CI_Controller{
 		$this->load->view('header', $header);
 		//$this->load->view('web/spacer');
 		$this->load->view('web/nav',$nav);
-		$this->load->view('web/artikel/form',$data);
+		if($cat != 1003)
+			$this->load->view('web/artikel/form',$data);
+		else
+			$this->load->view('web/artikel/widget-form',$data);
+		
 		$this->load->view('footer');
 	}
 

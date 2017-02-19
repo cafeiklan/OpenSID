@@ -29,7 +29,8 @@
 				<a href="<?php echo site_url("rtm/cetak/$o")?>" target="_blank" class="uibutton tipsy south" title="Print Data" ><span class="icon-print icon-large">&nbsp;</span>Cetak</a>
 			
 			<a href="<?php echo site_url("rtm/excel/$o")?>" target="_blank" class="uibutton tipsy south" title="Data Excel" ><span class="icon-file-text icon-large">&nbsp;</span>Excel</a>
-                &nbsp;
+			<a href="<?php echo site_url("rtm/excel_pbdt/$o")?>" target="_blank" class="uibutton special tipsy south" title="Data Excel" ><span class="icon-file-text icon-large">&nbsp;</span>Excel PBDT</a>
+ &nbsp;
 				<select name="dusun" onchange="formAction('mainform','<?php echo site_url('rtm/dusun')?>')">
                     <option value="">Dusun</option>
 					<?php foreach($list_dusun AS $data){?>
@@ -55,24 +56,18 @@
                 </select>
 				<?php }?>
 				
-            </div>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                
-                <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('rtm/search')?>');$('#'+'mainform').submit();}" />
-                <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('rtm/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south"  title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
-<!--				<a href="<?php //=site_url("rtm/sosial/")?>" class="uibutton confirm" title="Grafik Kelas Sosial" ><span class="icon-bar-chart icon-large">&nbsp;</span>Grafik Kelas Sosial</a>
-                
-				<a href="<?php //=site_url("rtm/raskin_graph/")?>" class="uibutton confirm "><span class="icon-bar-chart icon-large">&nbsp;</span>Grafik Raskin</a>
-				
-				<a href="<?php //=site_url("rtm/jamkesmas_graph/")?>" class="uibutton confirm "><span class="icon-bar-chart icon-large">&nbsp;</span>Grafik Jamkesmas</a>-->
-            </div>
-        </div>
-    </div>
-    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-
-        <table class="list">
+ </div>
+ </div>
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('rtm/search')?>');$('#'+'mainform').submit();}" />
+ <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('rtm/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south" title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
+ </div>
+ </div>
+ </div>
+ <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+ <table class="list">
 		<thead>
             <tr>
                 <th>No</th>
@@ -99,11 +94,11 @@
 				<?php  endif; ?>
 				&nbsp;</span></a></th>
 				
-				<th width="100" align="left" align="center">Jumlah Anggota</th>
-				<th align="left" align="center" width="120">Dusun</th>
-				<th align="left" align="center" width="30">RW</th>
-				<th align="left" align="center" width="30">RT</th>
-				<th align="left" align="center" width="100">Tanggal Terdaftar</th>
+				<th width="100" >Jumlah Anggota</th>
+				<th width="120">Dusun</th>
+				<th width="30">RW</th>
+				<th width="30">RT</th>
+				<th width="100">Tanggal Terdaftar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -115,8 +110,8 @@
 			</td>
           <td width="5"><div class="uibutton-group">
 			<a href="<?php echo site_url("rtm/anggota/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Rincian Anggota rtm"><span class="icon-list icon-large"> Rincian </span></a>
-			<a href="<?php echo site_url("rtm/ajax_add_anggota/$p/$o/$data[id]")?>" target="ajax-modalx" rel="window" header="Tambah Anggota rtm" class="uibutton tipsy south" title="Tambah Anggota rtm"><span  class="icon-plus-sign-alt  icon-large"></span></a>
-        <?php  if($grup==1){?><a href="<?php echo site_url("rtm/delete/$p/$o/$data[id]")?>"  class="uibutton tipsy south"  title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span  class="icon-trash icon-large"></span> </a><?php  } ?>
+			<a href="<?php echo site_url("rtm/ajax_add_anggota/$p/$o/$data[id]")?>" target="ajax-modalx" rel="window" header="Tambah Anggota rtm" class="uibutton tipsy south" title="Tambah Anggota rtm"><span class="icon-plus-sign-alt icon-large"></span></a>
+ <?php if($grup==1){?><a href="<?php echo site_url("rtm/edit_nokk/$p/$o/$data[id]")?>" target="ajax-modal" rel="window" header="Edit Rumah Tangga" class="uibutton tipsy south" title="Edit Data" ><span class="icon-edit icon-large"></span></a><a href="<?php echo site_url("rtm/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span> </a><?php } ?>
 		</div> </td>
           <td><label> <?php echo $data['no_kk']?> </label></td>
 		  <td><?php echo strtoupper(unpenetration($data['kepala_kk']))?></td>

@@ -62,31 +62,8 @@ class CI_DB_Cache {
 
 			$path = $this->db->cachedir;
 		}
-
-		// Add a trailing slash to the path if needed
-		$path = preg_replace("/(.+?)\/*$/", "\\1/",  $path);
-
-		if ( ! is_dir($path) OR ! is_really_writable($path))
-		{
-			// If the path is wrong we'll turn off caching
-			return $this->db->cache_off();
-		}
-
-		$this->db->cachedir = $path;
-		return TRUE;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Retrieve a cached query
-	 *
-	 * The URI being requested will become the name of the cache sub-folder.
-	 * An MD5 hash of the SQL statement will become the cache file name
-	 *
-	 * @access	public
-	 * @return	string
-	 */
+		
+		$path = preg_replace("/(.+?)\
 	function read($sql)
 	{
 		if ( ! $this->check_path())

@@ -13,27 +13,57 @@ class User_Model extends CI_Model{
 		$sql = "SELECT id,password,id_grup,session FROM user WHERE username=?";
 		$query=$this->db->query($sql,array($username));
 		$row=$query->row();
-		
-		if($password==$row->password){
-			$_SESSION['siteman']    = 1;
-			$_SESSION['sesi']     = $row->session;
-			$_SESSION['user']     = $row->id;
-			$_SESSION['grup']     = $row->id_grup;
-			$_SESSION['per_page'] = 10;
-		}
-		else{
+		if($row){
+			if($password==$row->password){
+				$this->reset_timer();
+				$data['session'] = hash_password(time().$password);
+				$this->db->where('id',$row->id);
+				$this->db->update('user',$data);
+				
+				$_SESSION['siteman'] = 1;
+				$_SESSION['sesi'] = $data['session'];
+				//$_SESSION['sesi'] = $row->session;
+				$_SESSION['user'] = $row->id;
+				$_SESSION['grup'] = $row->id_grup;
+				$_SESSION['per_page'] = 10;
+			}
+			else{
+				$_SESSION['siteman']=-1;
+			}
+		}else{
 			$_SESSION['siteman']=-1;
 		}
 	}
-	
 	function sesi_grup($sesi=''){
 		
-		$sql = "SELECT id_grup FROM user WHERE session=?";
+		$sql = "SELECT id_grup FROM user WHERE session=? AND session <> ''";
 		$query=$this->db->query($sql,array($sesi));
 		$row=$query->row_array();
-		return $row['id_grup'];
+		if($this->cek_login()){
+			if(isset($row['id_grup'])){
+				return $row['id_grup'];
+			}
+		}else{
+			$_SESSION['siteman']    = -2;
+			$this->logout();
+			return null;
+		}
 	}
-	
+	//time out
+	function reset_timer(){
+		$time=3600; //15menit
+		$_SESSION['timeout']=time()+$time;
+	}
+	function cek_login(){
+		$timeout=$_SESSION['timeout'];
+		if(time()<$timeout){
+			$this->reset_timer();
+			return true;
+		}else{
+			unset($_SESSION['timeout']);
+			return false;
+		}
+	}
 	function login(){
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
@@ -57,7 +87,7 @@ class User_Model extends CI_Model{
 	function logout(){
 		if(isset($_SESSION['user'])){
 			$id = $_SESSION['user'];
-			$sql = "UPDATE user SET last_login=NOW() WHERE id=?";
+			$sql = "UPDATE user SET last_login=NOW(),session='' WHERE id=?";
 			$this->db->query($sql, $id);
 		}
 		
@@ -299,17 +329,40 @@ class User_Model extends CI_Model{
 		$pass_baru1 	= $this->input->post('pass_baru1');
 		$nama 			= $this->input->post('nama');
 		
+			$data = $_POST;
+			unset($data['old_foto']);
+			unset($data['foto']);
+			$lokasi_file = $_FILES['foto']['tmp_name'];
+			$tipe_file = $_FILES['foto']['type'];
+			$nama_file = $_FILES['foto']['name'];
+			$old_foto = $this->input->post('old_foto');
+			if (!empty($lokasi_file)){
+				if ($tipe_file != "image/jpeg" AND $tipe_file != "image/pjpeg" AND $tipe_file != "image/png"){
+				$_SESSION['success']=-1;
+			} else {
+				UploadFoto($nama_file,$old_foto);
+				$data['foto'] = $nama_file;
+			}
+		 }
+		$sql = "UPDATE user SET foto = '$nama_file' WHERE id=?";
+		$this->db->query($sql,array($id));
+		 
 		$sql = "SELECT password,id_grup,session FROM user WHERE id=?";
 		$query=$this->db->query($sql,array($id));
 		$row=$query->row();
 		
 		if($password==$row->password){
-			if($pass_baru == $pass_baru1){
-				$pass_baru = md5($pass_baru);
-				$sql  = "UPDATE user SET password=?,nama=? WHERE id=?";
-				$outp = $this->db->query($sql,array($pass_baru,$nama,$id));
+			if($pass_baru !=""){
+				if($pass_baru == $pass_baru1){
+					$pass_baru = hash_password($pass_baru);
+					$sql = "UPDATE user SET password=? WHERE id=?";
+					$outp = $this->db->query($sql,array($pass_baru,$id));
+				}
 			}
 		}
+		
+		$sql = "UPDATE user SET nama=? WHERE id=?";
+		$outp = $this->db->query($sql,array($nama,$id));
 		
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;

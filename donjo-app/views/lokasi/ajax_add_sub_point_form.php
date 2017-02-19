@@ -7,7 +7,7 @@
 <tr>
 	<th>Simbol</th>
 	<td>
-		<input class="inputbox" type="file" name="simbol" value="<?php echo $lokasi['simbol']?>" size="20"/>
+		<input class="" type="file" name="simbol" value="<?php echo $lokasi['simbol']?>" size="20"/>
 	</td>
 </tr>
 </table>

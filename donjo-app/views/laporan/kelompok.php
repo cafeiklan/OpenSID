@@ -1,15 +1,5 @@
 
 <div id="pageC"> 
-<!-- Start of Space Admin 	<td class="side-menu">
-		<legend>Laporan : </legend>
-			<div class="lmenu">
-				<ul>
-				<li ><a href="<?php echo site_url()?>laporan">Laporan Bulanan</a></li>
-				<li class="selected"><a href="<?php echo site_url()?>laporan_rentan">Data Kelompok Rentan</a></li>
-				
-				</ul>
-			</div>
-		</td>-->
 	<table class="inner">
 	<tr style="vertical-align:top">
 
@@ -74,7 +64,7 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 					<td width="3%">:</td>
 					<td>
 					<select name="dusun" onchange="formAction('mainform','<?php echo site_url('laporan_rentan/dusun')?>')" >
-
+					<option value="">--- Pilih Dusun ---</option>
 					<?php foreach($list_dusun as $data){?>
 					<option value="<?php echo $data['dusun']?>" <?php if($dusun==$data['dusun']){?>selected<?php }?>><?php echo ununderscore(unpenetration($data['dusun']))?></option>
 					<?php }?></select> 
@@ -85,10 +75,12 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 	<table width="100%" id="tfhover" class="tftable" border="1">
 	
 <thead>
+<?php if($dusun!=''){?>
 <tr>
 	<h3>DATA PILAH DUSUN  </h3>
 </tr>
 <tr>
+	<th rowspan="2"><div align="center">DUSUN</div></th>
 	<th rowspan="2"><div align="center">RW</div></th>
 	<th rowspan="2"><div align="center">RT</div></th>
 	<th colspan="2"><div align="center">KK</div></th>
@@ -123,7 +115,8 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 	$sakit_P=0;
 	$hamil=0;
 ?>
-<?php  foreach($main as $data){ $id_cluster=$data['id_cluster'];?>
+<?php foreach($main as $data){ $id_cluster=$data['id_cluster'];?>
+<td align="right"><?php echo $data['dusunnya']?></td>
 <td align="right"><?php echo $data['rw']?></td>
 <td align="right"><?php echo $data['rt']?></td>
 <td align="right"><a href="<?php echo site_url("penduduk/lap_statistik/$id_cluster/1")?>"><?php echo $data['L']?></a></td>
@@ -156,17 +149,17 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
   
 <thead>
 	<tr>
-		<th colspan="4" align="center"><div align="center">Total</div></th>
-		<th><div align="right"><?php  echo $bayi;?></div></th>
-		<th><div align="right"><?php  echo $balita;?></div></th>
-		<th><div align="right"><?php  echo $sd;?></div></th>
-		<th><div align="right"><?php  echo $smp;?></div></th>
-		<th><div align="right"><?php  echo $sma;?></div></th>
-		<th><div align="right"><?php  echo $lansia;?></div></th>
-		<th><div align="right"><?php  echo $cacat;?></div></th>
-		<th><div align="right"><?php  echo $sakit_L;?></div></th>
-		<th><div align="right"><?php  echo $sakit_P;?></div></th>
-		<th><div align="right"><?php  echo $hamil;?></div></th>
+		<th colspan="5" align="center"><div align="center">Total</div></th>
+		<th><div align="right"><?php echo $bayi;?></div></th>
+		<th><div align="right"><?php echo $balita;?></div></th>
+		<th><div align="right"><?php echo $sd;?></div></th>
+		<th><div align="right"><?php echo $smp;?></div></th>
+		<th><div align="right"><?php echo $sma;?></div></th>
+		<th><div align="right"><?php echo $lansia;?></div></th>
+		<th><div align="right"><?php echo $cacat;?></div></th>
+		<th><div align="right"><?php echo $sakit_L;?></div></th>
+		<th><div align="right"><?php echo $sakit_P;?></div></th>
+		<th><div align="right"><?php echo $hamil;?></div></th>
 	</tr>
 </thead>
 </table> 
@@ -182,9 +175,8 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
-<button class="uibutton confirm" type="submit" >Cetak</button>
 
+<button class="uibutton confirm" type="submit" >Cetak</button>
 </div>
 </div>
 	</form>

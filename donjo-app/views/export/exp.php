@@ -33,7 +33,22 @@
 </div>
  </td>
 </tr>
-
+<tr>
+<td width="320">Export Data XLS Penduduk (Format xls untuk di import kedalam SID melali menu Import Excel)</td>
+<td width="70">
+<div class="uibutton-group">
+<a class="uibutton confirm" href="<?php echo site_url("database")?>/export_excel">Download</a>
+</div>
+ </td>
+</tr>
+<tr>
+<td width="320">Export Data CSV</td>
+<td width="70">
+<div class="uibutton-group">
+<a class="uibutton confirm" href="<?php echo site_url("database")?>/export_csv">Download</a>
+</div>
+ </td>
+</tr>
 		</table>
             </div>
             <div class="right">

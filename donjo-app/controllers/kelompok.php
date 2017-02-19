@@ -56,8 +56,8 @@ class kelompok extends CI_Controller{
 	}
 	
 	function anggota($id=0){
-	
-			$data['kel']        = $id;
+		$data['kel']        = $id;
+		$data['kelompok']        = $this->kelompok_model->get_kelompok($id);
 		$data['main']    = $this->kelompok_model->list_anggota($id);
 
 		$header = $this->header_model->get_data();
@@ -121,6 +121,36 @@ class kelompok extends CI_Controller{
 		$this->load->view('kelompok/nav2');
 		$this->load->view('kelompok/panduan');
 		$this->load->view('footer');
+	}
+	
+	function cetak(){
+		$data['header'] = $this->header_model->get_data();
+		$data['main'] = $this->kelompok_model->list_data();
+		
+		$this->load->view('kelompok/cetak',$data);
+	}
+	
+	function excel(){
+		$data['header'] = $this->header_model->get_data();
+		$data['main'] = $this->kelompok_model->list_data();
+		
+		$this->load->view('kelompok/excel',$data);
+	}
+	
+	function cetak_a($id=0){
+		$data['header'] = $this->header_model->get_data();
+		$data['main'] = $this->kelompok_model->list_anggota($id);
+		$data['kelompok'] = $this->kelompok_model->get_kelompok($id);
+		
+		$this->load->view('kelompok/anggota/cetak',$data);
+	}
+	
+	function excel_a($id=0){
+		$data['header'] = $this->header_model->get_data();
+		$data['main'] = $this->kelompok_model->list_anggota($id);
+		$data['kelompok'] = $this->kelompok_model->get_kelompok($id);
+		
+		$this->load->view('kelompok/anggota/excel',$data);
 	}
 	
 	function menu($id=''){

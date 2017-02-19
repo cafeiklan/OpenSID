@@ -6,24 +6,25 @@
 <div class="content-header">
 </div> 
 	<form id="mainform" name="mainform" action="" method="post">
-    <div class="ui-layout-north panel">
-    <h3>Daftar Anggota KK No.<?php echo $kepala_kk['no_kk']?> Keluarga : <?php echo unpenetration($kepala_kk['nama'])?></h3>
-        <div class="left">
-            <div class="uibutton-group">
-                <a href="<?php echo site_url("keluarga/ajax_add_anggota/$p/$o/$kk")?>" class="uibutton tipsy south" title="Tambah Data" target="ajax-modalx" rel="window"><span class="icon-plus icon-large">&nbsp;</span>Tambah Anggota</a>
-                <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("keluarga/delete_all_anggota/$p/$o/$kk")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data</button>
-                <?php /*<a href="<?php echo site_url("keluarga/lepas_anggota/$p/$o/$kk")?>" type="button" title="Lepas KK" class="uibutton tipsy south"  target="ajax-modal" rel="window" header="Lepas KK"><span class="ui-icon ui-icon-next">&nbsp;</span>Lepas KK</a>*/?>
-            </div>
-        </div>
-    </div>
-    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-        <div class="table-panel top">
-            <div class="left">
-            </div>
-            <div class="right">
-            </div>
-        </div>
-        <table class="list">
+ <div class="ui-layout-north panel">
+ <h3>Daftar Anggota KK No.<?php echo $kepala_kk['no_kk']?> - Kepala Keluarga : <?php echo unpenetration($kepala_kk['nama'])?></h3>
+ <div class="left">
+ <div class="uibutton-group">
+ <a href="<?php echo site_url("keluarga/ajax_add_anggota/$p/$o/$kk")?>" class="uibutton tipsy south" header="Tambah Anggota Keluarga" title="Tambah Data" target="ajax-modalx" rel="window"><span class="icon-plus icon-large">&nbsp;</span>Tambah Anggota</a>
+ <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("keluarga/delete_all_anggota/$p/$o/$kk")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data</button>
+ <?php 
+?>
+ </div>
+ </div>
+ </div>
+ <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+ <div class="table-panel top">
+ <div class="left">
+ </div>
+ <div class="right">
+ </div>
+ </div>
+ <table class="list">
 		<thead>
             <tr>
                 <th>No</th>

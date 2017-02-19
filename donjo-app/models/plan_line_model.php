@@ -39,11 +39,10 @@
 	}
 	
 	function paging($p=1,$o=0){
-	
-		$sql      = "SELECT COUNT(id) AS id FROM line  WHERE tipe = 0 ";
-		$sql     .= $this->search_sql();     
-		$query    = $this->db->query($sql);
-		$row      = $query->row_array();
+		$sql = "SELECT COUNT(id) AS id FROM line WHERE tipe = 0 ";
+		$sql .= $this->search_sql(); 
+		$query = $this->db->query($sql);
+		$row = $query->row_array();
 		$jml_data = $row['id'];
 		
 		$this->load->library('paging');
@@ -67,7 +66,7 @@
 	
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		$sql   = "SELECT * FROM line WHERE tipe = 0  ";
+		$sql = "SELECT * FROM line WHERE tipe = 0 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();

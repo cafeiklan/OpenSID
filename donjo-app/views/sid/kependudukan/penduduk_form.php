@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=2&sensor=false"></script>
 <div id="pageC">
 <table class="inner">
 <tr style="vertical-align:top">
@@ -49,9 +50,9 @@
 <td>
 <div class="userbox-avatar">
 <?php if($penduduk['foto']){?>
-<img src="<?php echo base_url()?>assets/images/photo/kecil_<?php echo $penduduk['foto']?>" alt=""/>
+<img src="<?php echo base_url()?>assets/files/user_pict/kecil_<?php echo $penduduk['foto']?>" alt=""/>
 <?php }else{?>
-<img src="<?php echo base_url()?>assets/images/photo/kuser.png" alt=""/>
+<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 <?php }?>
 </div>
 </td>
@@ -219,9 +220,9 @@
 <td>
 <div class="uiradio">
 <?php $ch='checked';?>
-<input type="radio" id="group1" name="status" value="3" checked/<?php if($penduduk['status'] == '3' OR $penduduk['status'] == ''){echo $ch;}?>><label for="group1">Pendatang</label>
-<input type="radio" id="group2" name="status" value="1" checked><label for="group2">Tetap</label>
-<input type="radio" id="group3" name="status" value="2"><label for="group3">Tidak Aktif</label>
+<input type="radio" id="group2" name="status" value="1" <?php if($penduduk['status'] == "TETAP" OR $penduduk['status'] == ""){echo $ch;}?>><label for="group2">Tetap</label>
+<input type="radio" id="group3" name="status" value="2" <?php if($penduduk['status'] == "TIDAK AKTIF"){echo $ch;}?>><label for="group3">Tidak Aktif</label>
+<input type="radio" id="group1" name="status" value="3" <?php if($penduduk['status'] == "PENDATANG"){echo $ch;}?>><label for="group1">Pendatang</label>
 </div>
 </td>
 </tr>
@@ -277,11 +278,41 @@
 <th>Lokasi Penduduk</th>
 <td>
 <a href="<?php echo site_url("penduduk/ajax_penduduk_maps/$p/$o/$penduduk[id]")?>" target="ajax-modalz" rel="window<?php echo $penduduk['id']?>" header="Lokasi <?php echo $penduduk['nama']?>" class="uibutton special" title="Lokasi <?php echo $penduduk['nama']?>">Edit Lokasi</a></td>
+</tr><tr>
+<td colspan="2">&nbsp;</td>
 </tr>
-
-
+<tr>
+<th colspan="2">DOKUMEN / KELENGKAPAN PENDUDUK</th>
+</tr>
+<tr>
+<th>Dokumen / Kelengkapan Penduduk</th>
+<td>
+<a href="<?php echo site_url("penduduk/dokumen/$penduduk[id]")?>" class="uibutton confirm">Manajemen Dokumen</a></td>
+</tr>
 <?php }?>
 </table>
+ <table class="list" width="80%">
+		<thead>
+ <tr>
+ <th width="2">No</th>
+ <th width="220">Nama Dokumen</th>
+				<th width="360">File</th>
+				<th width="200">Tanggal Upload</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+ <?php foreach($list_dokumen as $data){?>
+		<tr>
+			<td align="center" width="2"><?php echo $data['no']?></td>
+			 <td><?php echo $data['nama']?></td>
+			 <td><a href="<?php echo base_url()?>assets/files/dokumen/<?php echo urlencode($data['satuan'])?>" ><?php echo $data['satuan']?></a></td>
+			 <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
+			<td></td>
+		</tr>
+ <?php }?>
+		</tbody>
+ </table>
 </div>
    
 <div class="ui-layout-south panel bottom">
@@ -290,7 +321,6 @@
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>
@@ -298,4 +328,3 @@
 </div>
 </td></tr></table>
 </div>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>

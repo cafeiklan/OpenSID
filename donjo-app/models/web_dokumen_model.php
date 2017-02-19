@@ -7,8 +7,8 @@ class Web_Dokumen_Model extends CI_Model{
 	}
 	
 	function autocomplete(){
-		$sql   = "SELECT satuan FROM dokumen
-					UNION SELECT nama FROM dokumen";
+		$sql = "SELECT satuan FROM dokumen WHERE id_pend = 0
+					UNION SELECT nama FROM dokumen WHERE id_pend = 0";
 		$query = $this->db->query($sql);
 		$data  = $query->result_array();
 		
@@ -42,11 +42,10 @@ class Web_Dokumen_Model extends CI_Model{
 	}
 	
 	function paging($p=1,$o=0){
-	
-		$sql      = "SELECT COUNT(id) AS id FROM dokumen WHERE 1";
-		$sql     .= $this->search_sql();     
-		$query    = $this->db->query($sql);
-		$row      = $query->row_array();
+		$sql = "SELECT COUNT(id) AS id FROM dokumen WHERE id_pend = 0 ";
+		$sql .= $this->search_sql(); 
+		$query = $this->db->query($sql);
+		$row = $query->row_array();
 		$jml_data = $row['id'];
 		
 		$this->load->library('paging');
@@ -72,7 +71,7 @@ class Web_Dokumen_Model extends CI_Model{
 	
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		$sql   = "SELECT * FROM dokumen WHERE 1 ";
+		$sql = "SELECT * FROM dokumen WHERE id_pend = 0 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
@@ -99,28 +98,9 @@ class Web_Dokumen_Model extends CI_Model{
 	}
 	
 	function insert(){
-		  $lokasi_file = $_FILES['satuan']['tmp_name'];
-		  $tipe_file   = $_FILES['satuan']['type'];
-		  $nama_file   = $_FILES['satuan']['name'];
-		  if (!empty($lokasi_file)){
-			if ($tipe_file == "application/x-download" 
-					OR $tipe_file == "application/pdf" 
-					OR $tipe_file == "application/zip"
- 					OR $tipe_file == "application/ppt" 
-					OR $tipe_file == "application/pptx"
- 					OR $tipe_file == "application/rar"					
-					OR $tipe_file == "application/excel" 
-					OR $tipe_file == "application/msword" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-					OR $tipe_file == "text/rtf" 
-					OR $tipe_file == "application/powerpoint" 
-					OR $tipe_file == "application/vnd.ms-powerpoint" 
-					OR $tipe_file == "application/vnd.ms-excel" 
-					OR $tipe_file == "application/msexcel"
-					OR $tipe_file == "application/x-zip"
-
-){
+		$lokasi_file = $_FILES['satuan']['tmp_name'];
+		$nama_file = $_FILES['satuan']['name'];
+		if (!empty($lokasi_file)){
 				UploadDocument(underscore($nama_file));
 				$data = $_POST;
 				$data['satuan'] = underscore($nama_file);
@@ -133,28 +113,11 @@ class Web_Dokumen_Model extends CI_Model{
 	}
 	
 	function update($id=0){
-		  $data = $_POST;
-		  $lokasi_file = $_FILES['satuan']['tmp_name'];
-		  $tipe_file   = $_FILES['satuan']['type'];
-		  $nama_file   = $_FILES['satuan']['name'];
-		  $old_file  = $data['old_file'];
-		  if (!empty($lokasi_file)){
-			if ($tipe_file == "application/x-download" 
-					OR $tipe_file == "application/pdf" 
-					OR $tipe_file == "application/zip"
- 					OR $tipe_file == "application/ppt" 
-					OR $tipe_file == "application/pptx"
- 					OR $tipe_file == "application/rar"					
-					OR $tipe_file == "application/excel" 
-					OR $tipe_file == "application/msword" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-					OR $tipe_file == "text/rtf" 
-					OR $tipe_file == "application/powerpoint" 
-					OR $tipe_file == "application/vnd.ms-powerpoint" 
-					OR $tipe_file == "application/vnd.ms-excel" 
-					OR $tipe_file == "application/msexcel"
-					OR $tipe_file == "application/x-zip"	){
+		 $data = $_POST;
+		 $lokasi_file = $_FILES['satuan']['tmp_name'];
+		 $nama_file = $_FILES['satuan']['name'];
+		 $old_file = $data['old_file'];
+		 if (!empty($lokasi_file)){
 				UploadDocument($nama_file,$old_file);
 				unset($data['old_file']);
 			} else {

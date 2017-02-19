@@ -99,11 +99,11 @@
         </div>
         <table class="list">
 		<thead>
-            <tr>
-                <th>No</th>
-				<th align="left" align="center">Nama</th>
-				<th align="left" align="center">Jumlah KK</th>
-            
+ <tr>
+ <th>No</th>
+				<th>Nama</th>
+				<th>Jumlah KK</th>
+ 
 			</tr>
 		</thead>
 		<tbody>

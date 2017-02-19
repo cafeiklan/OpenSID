@@ -6,7 +6,7 @@ source: keyword
 });
 });
 </script>
-
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/chosen/chosen.jquery.js"></script>
 <div id="pageC">
 <table class="inner">
 <tr style="vertical-align:top">
@@ -32,8 +32,9 @@ source: keyword
 </td>
 */?>
 <td style="background:#fff;padding:0px;"> 
-<div class="content-header">
-<h3>Manajemen Properti / area</h3>
+<div class="content">
+	<h3>Manajemen Properti / area</h3>
+	<div style="padding:1em;margin:1em 0;border:solid 1px #c00;background:#fee;color:#c00;">Modul ini masih dalam tahap pengembangan. Ide-ide dan usulan mari kita kumpulkan untuk memperkaya khazanah SID</div>
 </div>
 <div id="contentpane">
 <form id="mainform" name="mainform" action="" method="post">
@@ -80,9 +81,8 @@ source: keyword
 <tr>
 <th>No</th>
 <th><input type="checkbox" class="checkall"/></th>
-<th width="250">Aksi</th>
-
- <?php  if($o==2): ?>
+<th width="50">Aksi</th>
+ <?php if($o==2): ?>
 <th align="left"><a href="<?php echo site_url("area/index/$p/1")?>">Kategori<span class="ui-icon ui-icon-triangle-1-n">
 <?php  elseif($o==1): ?>
 <th align="left"><a href="<?php echo site_url("area/index/$p/2")?>">Kategori<span class="ui-icon ui-icon-triangle-1-s">
@@ -109,9 +109,9 @@ source: keyword
 <td align="center" width="5">
 <input type="checkbox" name="id_cb[]" value="<?php echo $data['id']?>" />
 </td>
-<td><div class="uibutton-group">
-<a href="<?php echo site_url("area/form/$p/$o/$data[id]")?>" class="uibutton tipsy south"><span class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("area/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Delete Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a><?php /*if($data['enabled'] == '2'):?><a href="<?php echo site_url('area/area_lock/'.$data['id'])?>" class="ui-icons icon-lock tipsy south" title="Enable area"></a><?php elseif($data['enabled'] == '1'): ?><a href="<?php echo site_url('area/area_unlock/'.$data['id'])?>" class="ui-icons icon-unlock tipsy south" title="Disable area"></a>*/?><a href="<?php echo site_url("area/ajax_area_maps/$p/$o/$data[id]")?>" target="ajax-modalz" rel="window" header="area <?php echo $data['nama']?>" class="uibutton tipsy south" title="area <?php echo $data['nama']?>"><span class="icon-plus icon-large"> Lokasi </span></a>
-</div>
+<td>
+<a href="<?php echo site_url("area/form/$p/$o/$data[id]")?>" class="ui-icons icon-edit tipsy south" title="Edit Data"></a><a href="<?php echo site_url("area/delete/$p/$o/$data[id]")?>" class="ui-icons icon-remove tipsy south" title="Delete Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"></a><?php 
+?><a href="<?php echo site_url("area/ajax_area_maps/$p/$o/$data[id]")?>" target="ajax-modalz" rel="window" header="area <?php echo $data['nama']?>" class="ui-icons icon-maps tipsy south" title="area <?php echo $data['nama']?>"></a>
 </td>
 <td width="150"><?php echo $data['nama']?></td>
 <td width="50"><?php echo $data['aktif']?></td>

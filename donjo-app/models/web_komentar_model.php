@@ -69,7 +69,12 @@
 	
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		$sql   = "SELECT * FROM komentar WHERE 1 ";
+		$sql = "SELECT * FROM komentar WHERE 1 ";
+		if($cas==2)
+			$sql .= " AND id_artikel = 775";
+		else
+			$sql .= " AND id_artikel <> 775";
+			
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();

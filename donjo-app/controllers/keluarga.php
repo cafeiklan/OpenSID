@@ -18,6 +18,7 @@ function __construct(){
 		unset($_SESSION['dusun']);
 		unset($_SESSION['rw']);
 		unset($_SESSION['rt']);
+		unset($_SESSION['sex']);
 		unset($_SESSION['raskin']);
 		unset($_SESSION['id_blt']);
 		unset($_SESSION['id_bos']);
@@ -40,7 +41,9 @@ function __construct(){
 		if(isset($_SESSION['filter']))
 			$data['filter'] = $_SESSION['filter'];
 		else $data['filter'] = '';
-	
+		if(isset($_SESSION['sex']))
+			$data['sex'] = $_SESSION['sex'];
+		else $data['sex'] = '';
 		if(isset($_SESSION['raskin']))
 			$data['raskin'] = $_SESSION['raskin'];
 		else $data['raskin'] = '';
@@ -450,13 +453,12 @@ function __construct(){
 		$dusun = $this->input->post('dusun');
 		if($dusun!="")
 			$_SESSION['dusun']=$dusun;
-		else unset($_SESSION['dusun']);
-		if($s==1)
-			redirect('keluarga/sosial');
-		elseif($s==2)
-			redirect('keluarga/raskin_graph');
-		else
-			redirect('keluarga');
+		else{
+			UNSET($_SESSION['dusun']);
+			UNSET($_SESSION['rw']);
+			UNSET($_SESSION['rt']);
+		}
+		redirect('keluarga');
 	}
 		
 	function rw($s=0){
@@ -492,7 +494,13 @@ function __construct(){
 		else unset($_SESSION['raskin']);
 		redirect('keluarga');
 	}
-
+	function sex(){
+		$sex = $this->input->post('sex');
+		if($sex!="")
+			$_SESSION['sex']=$sex;
+		else unset($_SESSION['sex']);
+		redirect('keluarga');
+	}
 	function blt(){
 		$id_blt = $this->input->post('id_blt');
 		if($id_blt!="")
@@ -651,9 +659,29 @@ function __construct(){
 		
 	}
 		
+	function doc_kk($id=0){
+		$data['desa']     = $this->keluarga_model->get_desa();
+		
+		$data['id_kk']    = $id;
+		$data['main']     = $this->keluarga_model->list_anggota($id);
+		$data['kepala_kk']= $this->keluarga_model->get_kepala_kk($id);
+		
+		$this->keluarga_model->coba($data);
+	}
+		
+	function coba2($id=0){
+		
+		
+		
+		
+		
+		
+		$this->keluarga_model->coba2();
+	}
+		
 	function add_anggota($p=1,$o=0,$id=0){
 		$this->keluarga_model->add_anggota($id);
-		redirect("keluarga/index/$p/$o");
+		redirect("keluarga/anggota/$p/$o/$id");
 	}
 	
 	function update_anggota($p=1,$o=0,$id_kk=0,$id=0){

@@ -187,44 +187,27 @@ table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: so
 
     	</tr>
 		<tr>
-    	<td><div align="center">4</div></td>
-    	<td>Pindah bulan ini</td>
-
-    	<td><?php echo $pindah['WNI_L']+0 ?></td>
-    	<td><?php echo $pindah['WNI_P']+0 ?></td> 
-    	<td><?php echo $pindah['WNA_L']+0 ?></td>
-    	<td><?php echo $pindah['WNA_P']+0 ?></td>
-      <td><?php echo ($pindah['WNI_L']+$pindah['WNA_L'])?></td>
-      <td><?php echo ($pindah['WNI_P']+$pindah['WNA_P'])?></td>
-      <td><?php echo ($pindah['WNI_L']+$pindah['WNA_L'])+($pindah['WNI_P']+$pindah['WNA_P'])?></td>
-
-    	</tr>
-    <tr>
-    	<td><div align="center">5</div></td>
-    	<td>Penduduk hilang bulan ini</td>
-
-    	<td><?php echo $hilang['WNI_L']+0 ?></td>
-    	<td><?php echo $hilang['WNI_P']+0 ?></td> 
-    	<td><?php echo $hilang['WNA_L']+0 ?></td>
-    	<td><?php echo $hilang['WNA_P']+0 ?></td>
-      <td><?php echo ($hilang['WNI_L']+$hilang['WNA_L'])?></td>
-      <td><?php echo ($hilang['WNI_P']+$hilang['WNA_P'])?></td>
-      <td><?php echo ($hilang['WNI_L']+$hilang['WNA_L'])+($hilang['WNI_P']+$hilang['WNA_P'])?></td>
-
-    	</tr>
-    	
+ 	<td><div align="center">4</div></td>
+ 	<td>Pindah bulan ini</td>
+ 	<td><?php echo $pindah['WNI_L']+0 ?></td>
+ 	<td><?php echo $pindah['WNI_P']+0 ?></td> 
+ 	<td><?php echo $pindah['WNA_L']+0 ?></td>
+ 	<td><?php echo $pindah['WNA_P']+0 ?></td>
+ <td><?php echo ($pindah['WNI_L']+$pindah['WNA_L'])?></td>
+ <td><?php echo ($pindah['WNI_P']+$pindah['WNA_P'])?></td>
+ <td><?php echo ($pindah['WNI_L']+$pindah['WNA_L'])+($pindah['WNI_P']+$pindah['WNA_P'])?></td>
+ 	</tr>
 <tr>
-    	<td><div align="center">6</div></td>
-    	<td>Penduduk awal bulan ini</td>
-    	<td><?php echo $penduduk_awal['WNI_L']+0 ?></td>
-    	<td><?php echo $penduduk_awal['WNI_P']+0 ?></td> 
-    	<td><?php echo $penduduk_awal['WNA_L']+0 ?></td>
-    	<td><?php echo $penduduk_awal['WNA_P']+0 ?></td>
-      <td><?php echo ($penduduk_awal['WNI_L']+$penduduk_awal['WNA_L'])?></td>
-      <td><?php echo ($penduduk_awal['WNI_P']+$penduduk_awal['WNA_P'])?></td>
-      <td><?php echo ($penduduk_awal['WNI_L']+$penduduk_awal['WNA_L'])+($penduduk_awal['WNI_P']+$penduduk_awal['WNA_P'])?></td>
-
-    	</tr>
+ 	<td><div align="center">5</div></td>
+ 	<td>Penduduk awal bulan ini</td>
+ 	<td><?php echo $penduduk_awal['WNI_L']+0 ?></td>
+ 	<td><?php echo $penduduk_awal['WNI_P']+0 ?></td> 
+ 	<td><?php echo $penduduk_awal['WNA_L']+0 ?></td>
+ 	<td><?php echo $penduduk_awal['WNA_P']+0 ?></td>
+ <td><?php echo ($penduduk_awal['WNI_L']+$penduduk_awal['WNA_L'])?></td>
+ <td><?php echo ($penduduk_awal['WNI_P']+$penduduk_awal['WNA_P'])?></td>
+ <td><?php echo ($penduduk_awal['WNI_L']+$penduduk_awal['WNA_L'])+($penduduk_awal['WNI_P']+$penduduk_awal['WNA_P'])?></td>
+ 	</tr>
 		<tr>
     	<td><div align="center">7</div></td>
     	<td>Penduduk akhir bulan ini</td>

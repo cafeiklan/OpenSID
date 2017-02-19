@@ -7,6 +7,7 @@ class Siteman extends CI_Controller {
 		session_start();
 		$this->load->model('header_model');
 		$this->load->model('user_model');
+		$this->load->model('config_model');
 	}
 	
 	function index(){
@@ -21,7 +22,7 @@ class Siteman extends CI_Controller {
 		$_SESSION['cari']  = '';
 		$_SESSION['pengumuman'] = 0;
 		$_SESSION['sesi'] = "kosong";
-		//-------------------------------
+		$_SESSION['timeout'] = 0;
 		
 		$this->load->view('siteman',$header);
 		$_SESSION['siteman']=0;
@@ -37,9 +38,4 @@ class Siteman extends CI_Controller {
 		$header = $this->header_model->get_config();
 		$this->load->view('siteman',$header);
 	}
-
-	function flash(){
-		$this->load->view('config');
-	}
-	
 }

@@ -29,8 +29,7 @@
 <tr>
 	<th>Foto</th>
 	<td>
-		<img src="<?php echo base_url()?>assets/images/gis/area/sedang_<?php echo $area['foto']?>" style=" width:200px;height:140px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;border:2px solid #555555;" />
-
+		<img src="<?php echo base_url()?>assets/files/gis/area/sedang_<?php echo $area['foto']?>" style=" width:200px;height:140px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;border:2px solid #555555;" />
 	</td>
 </tr>
 <?php }?>
@@ -65,7 +64,7 @@
 </div>
 <div class="right">
 <div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
+
 <button class="uibutton confirm" type="submit" >Simpan</button>
 </div>
 </div>

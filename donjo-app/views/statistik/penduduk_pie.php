@@ -108,10 +108,9 @@ $(function () {
     
 });
 </script>
-<script src="<?php echo base_url()?>assets/highchart/highcharts.js"></script>
-<script src="<?php echo base_url()?>assets/highchart/highcharts-more.js"></script>
-<script src="<?php echo base_url()?>assets/highchart/exporting.js"></script>
-
+<script src="<?php echo base_url()?>assets/js/highcharts/highcharts.js"></script>
+<script src="<?php echo base_url()?>assets/js/highcharts/highcharts-more.js"></script>
+<script src="<?php echo base_url()?>assets/js/highcharts/exporting.js"></script>
 <style>
 tr#total{
     background:#fffdc5;
@@ -129,13 +128,13 @@ tr#total{
     <div class="ui-layout-south panel bottom" style="max-height: 150px;overflow:auto;">
         <table class="list">
 		<thead>
-            <tr>
-                <th>No</th>
-				<th align="left" align="center">Jenis Kelompok</th>
-				<th align="left" align="center">Jumlah</th>
-				<?php  if($lap<20){?>
-				<th align="left" align="center" width="60">Laki-laki</th>
-				<th align="left" align="center" width="60">Perempuan</th>
+ <tr>
+ <th>No</th>
+				<th>Jenis Kelompok</th>
+				<th>Jumlah</th>
+				<?php if($lap<20){?>
+				<th width="60">Laki-laki</th>
+				<th width="60">Perempuan</th>
 				<?php }?>
             
 			</tr>

@@ -46,22 +46,18 @@
 					<td><?php echo $bln?> </td>
 					<td width="40%"></td>	
 				</tr>
-				<?php if($dusun){?>
-				<tr>						
-					<td>Dusun</td>
-					<td width="3%">:</td>
-					<td>
-					<?php echo $dusun?>
-					</td>
-					<td width="40%"></td>	
-				</tr>
-				<?php }?>
 		</tbody></table>
 		<br>
 	<table class="border thick">
 	
 <thead>
+<?php if($_SESSION['dusun']!=''){?>
+<tr>
+	<h3>DATA PILAH DUSUN <?php echo $_SESSION['dusun'] ?></h3>
+</tr>
+<?php } ?>
 <tr class="border thick">
+	<th rowspan="2"><div align="center">DUSUN</div></th>
 	<th rowspan="2"><div align="center">RW</div></th>
 	<th rowspan="2"><div align="center">RT</div></th>
 	<th colspan="2"><div align="center">KK</div></th>
@@ -97,6 +93,7 @@
 	$hamil=0;
 ?>
 <?php foreach($main as $data){?>
+<td align="right"><?php echo $data['dusunnya']?></td>
 <td align="right"><?php echo $data['rw']?></td>
 <td align="right"><?php echo $data['rt']?></td>
 <td align="right"><?php echo $data['L']?></td>
@@ -129,17 +126,17 @@
   
 <thead>
 	<tr>
-		<th colspan="4" align="center"><div align="center">Total</div></th>
-		<th><div align="right"><?php  echo $bayi;?></div></th>
-		<th><div align="right"><?php  echo $balita;?></div></th>
-		<th><div align="right"><?php  echo $sd;?></div></th>
-		<th><div align="right"><?php  echo $smp;?></div></th>
-		<th><div align="right"><?php  echo $sma;?></div></th>
-		<th><div align="right"><?php  echo $lansia;?></div></th>
-		<th><div align="right"><?php  echo $cacat;?></div></th>
-		<th><div align="right"><?php  echo $sakit_L;?></div></th>
-		<th><div align="right"><?php  echo $sakit_P;?></div></th>
-		<th><div align="right"><?php  echo $hamil;?></div></th>
+		<th colspan="5" align="center"><div align="center">Total</div></th>
+		<th><div align="right"><?php echo $bayi;?></div></th>
+		<th><div align="right"><?php echo $balita;?></div></th>
+		<th><div align="right"><?php echo $sd;?></div></th>
+		<th><div align="right"><?php echo $smp;?></div></th>
+		<th><div align="right"><?php echo $sma;?></div></th>
+		<th><div align="right"><?php echo $lansia;?></div></th>
+		<th><div align="right"><?php echo $cacat;?></div></th>
+		<th><div align="right"><?php echo $sakit_L;?></div></th>
+		<th><div align="right"><?php echo $sakit_P;?></div></th>
+		<th><div align="right"><?php echo $hamil;?></div></th>
 	</tr>
 </thead>
 </table>   

@@ -552,8 +552,8 @@
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query
-		$sql   = "SELECT * FROM (SELECT a.nama_grup, (SELECT COUNT(id_kontak) FROM kontak_grup WHERE id_kontak<>'0' AND nama_grup=a.nama_grup) as jumlah_kontak FROM kontak_grup  a WHERE id_kontak='0'  ) AS TB WHERE 1 ";
+		
+		$sql = "SELECT * FROM (SELECT a.nama_grup, (SELECT COUNT(id_kontak) FROM kontak_grup WHERE id_kontak<>'0' AND nama_grup=a.nama_grup) as jumlah_kontak FROM kontak_grup a WHERE id_kontak='0' ) AS TB WHERE 1 ";
 			
 		$sql .= $this->search_grup_sql();
 		//$sql .= $this->filter_sql();
@@ -708,7 +708,7 @@
 
 	function list_data_polling($o=0,$offset=0,$limit=500){
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
-		$sql   = "SELECT a.*,(SELECT COUNT(b.id) FROM pertanyaan b WHERE b.id_polling=a.id_polling) as jumlah_pertanyaan  FROM polling a";		
+		$sql = "SELECT a.*,(SELECT COUNT(b.id) FROM pertanyaan b WHERE b.id_polling=a.id_polling) as jumlah_pertanyaan FROM polling a";		
 		$sql .= $paging_sql;
 		
 		$query = $this->db->query($sql);
@@ -748,7 +748,7 @@
 		$id_cb = $_POST['id_cb'];
 		if(count($id_cb)){
 			foreach($id_cb as $id){
-				$sql  =  "DELETE FROM  polling WHERE id_polling='$id' ";
+				$sql = "DELETE FROM polling WHERE id_polling='$id' ";
 				$outp = $this->db->query($sql,array($id));
 			}
 		}

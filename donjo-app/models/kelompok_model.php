@@ -76,8 +76,8 @@ class kelompok_model extends CI_Model{
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query
-		$sql   = "SELECT u.*,s.kelompok AS master,c.nama AS ketua FROM kelompok u LEFT JOIN kelompok_master s ON u.id_master = s.id LEFT JOIN tweb_penduduk c ON u.id_ketua = c.id  WHERE 1 ";
+		
+		$sql = "SELECT u.*,s.kelompok AS master,c.nama AS ketua,(SELECT COUNT(id) FROM kelompok_anggota WHERE id_kelompok = u.id) AS jml_anggota FROM kelompok u LEFT JOIN kelompok_master s ON u.id_master = s.id LEFT JOIN tweb_penduduk c ON u.id_ketua = c.id WHERE 1 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->filter_sql();
@@ -209,7 +209,7 @@ class kelompok_model extends CI_Model{
 	}
 		
 	function list_anggota($id=0){
-		$sql   = "SELECT u.*,p.nik,p.nama FROM kelompok_anggota u LEFT JOIN tweb_penduduk p ON u.id_penduduk = p.id WHERE id_kelompok = ?";
+		$sql = "SELECT u.*,p.nik,p.nama,p.sex,(SELECT DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(tanggallahir)), '%Y')+0 FROM tweb_penduduk WHERE id = p.id) AS umur,a.dusun,a.rw,a.rt FROM kelompok_anggota u LEFT JOIN tweb_penduduk p ON u.id_penduduk = p.id LEFT JOIN tweb_wil_clusterdesa a ON p.id_cluster = a.id WHERE id_kelompok = ?";
 		$query = $this->db->query($sql,$id);
 		$data=$query->result_array();
 		
@@ -217,6 +217,7 @@ class kelompok_model extends CI_Model{
 		$i=0;
 		while($i<count($data)){
 			$data[$i]['no']=$i+1;
+			$data[$i]['alamat'] = "Dusun ".$data[$i]['dusun']." RW".$data[$i]['rw']." RT".$data[$i]['rt'];
 			$i++;
 		}
 		return $data;

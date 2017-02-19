@@ -23,16 +23,16 @@
         </div>
         <table class="list">
 		<thead>
-            <tr>
-                <th>No</th>
-                <th><input type="checkbox" class="checkall"/></th>
-                <th width="35">Aksi</th>
-				<th align="left" align="center">Nama</th>
-				<th align="left" align="center">Jabatab</th>
-				<th align="left" align="center">N.I.P</th>
-				<th align="left" align="center">No. Telepon</th>
-				<th align="left" align="center">Alamat</th>
-            
+ <tr>
+ <th>No</th>
+ <th><input type="checkbox" class="checkall"/></th>
+ <th width="35">Aksi</th>
+				<th>Nama</th>
+				<th>Jabatab</th>
+				<th>N.I.P</th>
+				<th>No. Telepon</th>
+				<th>Alamat</th>
+ 
 			</tr>
 		</thead>
 		<tbody>

@@ -32,8 +32,9 @@ source: keyword
 </td>
 */?>
 <td style="background:#fff;padding:0px;"> 
-<div class="content-header">
-<h3>Manajemen Properti / Lokasi</h3>
+<div class="content">
+	<h3>Manajemen Properti / Lokasi</h3>
+	<div style="padding:1em;margin:1em 0;border:solid 1px #c00;background:#fee;color:#c00;">Modul ini masih dalam tahap pengembangan. Ide-ide dan usulan mari kita kumpulkan untuk memperkaya khazanah SID</div>
 </div>
 <div id="contentpane">
 <form id="mainform" name="mainform" action="" method="post">
@@ -110,8 +111,8 @@ source: keyword
 <input type="checkbox" name="id_cb[]" value="<?php echo $data['id']?>" />
 </td>
 <td>
-<a href="<?php echo site_url("plan/form/$p/$o/$data[id]")?>" class="ui-icons icon-edit tipsy south" title="Edit Data"></a><a href="<?php echo site_url("plan/delete/$p/$o/$data[id]")?>" class="ui-icons icon-remove tipsy south" title="Delete Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"></a><?php /*if($data['enabled'] == '2'):?><a href="<?php echo site_url('lokasi_lock/'.$data['id'])?>" class="ui-icons icon-lock tipsy south" title="Enable lokasi"></a><?php elseif($data['enabled'] == '1'): ?><a href="<?php echo site_url('lokasi_unlock/'.$data['id'])?>" class="ui-icons icon-unlock tipsy south" title="Disable lokasi"></a>*/?><a href="<?php echo site_url("plan/ajax_lokasi_maps/$p/$o/$data[id]")?>" target="ajax-modalz" rel="window" header="Lokasi <?php echo $data['nama']?>" class="ui-icons icon-maps tipsy south" title="Lokasi <?php echo $data['nama']?>"></a>
-
+<a href="<?php echo site_url("plan/form/$p/$o/$data[id]")?>" class="ui-icons icon-edit tipsy south" title="Edit Data"></a><a href="<?php echo site_url("plan/delete/$p/$o/$data[id]")?>" class="ui-icons icon-remove tipsy south" title="Delete Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"></a><?php 
+?><a href="<?php echo site_url("plan/ajax_lokasi_maps/$p/$o/$data[id]")?>" target="ajax-modalz" rel="window" header="Lokasi <?php echo $data['nama']?>" class="ui-icons icon-maps tipsy south" title="Lokasi <?php echo $data['nama']?>"></a>
 </td>
 <td width="150"><?php echo $data['nama']?></td>
 <td width="50"><?php echo $data['aktif']?></td>

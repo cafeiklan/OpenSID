@@ -111,12 +111,17 @@ function __construct(){
 		$data['main']    = $this->rtm_model->list_data($o, 0, 10000);
 		$this->load->view('sid/kependudukan/rtm_excel',$data);
 	}
-
+	function excel_pbdt($o=0){
+		$this->load->model('config_model');
+		$data['config']    = $this->config_model->get_data();
+		$data['main']    = $this->rtm_model->list_data_pbdt($o, 0, 10000);
+		$this->load->view('sid/kependudukan/rtm_excel_pbdt',$data);
+	}
 	function edit_nokk($p=1,$o=0,$id=0){
 	
 		$data['kk']          = $this->rtm_model->get_rtm($id);
 		$data['form_action'] = site_url("rtm/update_nokk/$id");
-		$this->load->view('sid/kependudukan/ajax_edit_nokk',$data);
+		$this->load->view('sid/kependudukan/ajax_edit_no_rtm',$data);
 	}
 	
 	function form_old($p=1,$o=0,$id=0){

@@ -8,9 +8,6 @@
 </script>
 
 <div id="pageC">
-	<table class="inner">
-<tr style="vertical-align:top">
-		<td style="background:#fff;padding:0px;"> 
 <div class="content-header">
 </div>
 <div id="contentpane">    
@@ -70,9 +67,11 @@
         </table>
     </div>
 	</form>
-    <div class="ui-layout-south panel bottom">
-        <div class="left"> 
-          <form id="paging" action="<?php echo site_url('analisis_kategori')?>" method="post">
+</div>
+<div class="ui-layout-south panel bottom">
+<div class="left"> 
+<div class="table-info">
+<form id="paging" action="<?php echo site_url('analisis_kategori')?>" method="post">
 <a href="<?php echo site_url()?>analisis_kategori/leave" class="uibutton icon prev">Kembali</a>
 		  <label></label>
             <select name="per_page" onchange="$('#paging').submit()" >

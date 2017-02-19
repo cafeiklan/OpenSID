@@ -10,10 +10,10 @@ class Analisis_kategori extends CI_Controller{
 		$this->load->model('header_model');
 		$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 		if($grup!=1) redirect('siteman');
+		$_SESSION['submenu'] = "Data Kategori";
+		$_SESSION['asubmenu'] = "analisis_kategori";
 	}
-	
-	function clear($id=0){
-		$_SESSION['analisis_master']=$id;
+	function clear(){
 		unset($_SESSION['cari']);
 		redirect('analisis_kategori');
 	}

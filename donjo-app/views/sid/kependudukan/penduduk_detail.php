@@ -20,9 +20,9 @@
 <td>
 <div class="userbox-avatar">
 <?php if($penduduk['foto']){?>
-<img src="<?php echo base_url()?>assets/images/photo/kecil_<?php echo $penduduk['foto']?>" alt=""/>
+<img src="<?php echo base_url()?>assets/files/user_pict/kecil_<?php echo $penduduk['foto']?>" alt=""/>
 <?php }else{?>
-<img src="<?php echo base_url()?>assets/images/photo/kuser.png" alt=""/>
+<img src="<?php echo base_url()?>assets/files/user_pict/kuser.png" alt=""/>
 <?php }?>
 </div>
 </td>
@@ -166,7 +166,35 @@
 <td>Status</td><td >:</td>
 <td><?php echo strtoupper($penduduk['status'])?></td>
 </tr>
+<tr>
+<td colspan="3">&nbsp;</td>
+</tr>
+<tr>
+<th colspan="3">DOKUMEN / KELENGKAPAN PENDUDUK</th>
+</tr>
 </table>
+ <table class="list">
+		<thead>
+ <tr>
+ <th width="2">No</th>
+ <th width="220">Nama Dokumen</th>
+				<th width="360">File</th>
+				<th width="200">Tanggal Upload</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+ <?php foreach($list_dokumen as $data){?>
+		<tr>
+			<td align="center" width="2"><?php echo $data['no']?></td>
+			 <td><?php echo $data['nama']?></td>
+			 <td><a href="<?php echo base_url()?>assets/files/dokumen/<?php echo urlencode($data['satuan'])?>" ><?php echo $data['satuan']?></a></td>
+			 <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
+			<td></td>
+		</tr>
+ <?php }?>
+		</tbody>
+ </table>
 </div>
    
 <div class="ui-layout-south panel bottom">

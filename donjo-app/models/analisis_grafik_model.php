@@ -100,8 +100,8 @@
 		//Paging SQL
 		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
 		
-		//Main Query
-		$sql   = "SELECT u.*,(SELECT COUNT(id) FROM analisis_respon_hasil WHERE akumulasi/$pembagi >= u.minval AND akumulasi/$pembagi < u.maxval AND id_periode=?) as jumlah FROM analisis_klasifikasi u  WHERE 1 ";
+		
+		$sql = "SELECT u.*,(SELECT COUNT(id) FROM analisis_respon_hasil WHERE akumulasi/$pembagi >= u.minval AND akumulasi/$pembagi < u.maxval AND id_periode=?) as jumlah FROM analisis_klasifikasi u WHERE 1 ";
 			
 		$sql .= $this->search_sql();
 		$sql .= $this->master_sql();

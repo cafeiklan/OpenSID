@@ -176,34 +176,18 @@
     	</tr>
 
 		<tr>
-    	<td><div align="center">6</div></td>
-    	<td>Penduduk akhir bulan ini</td>
-
-    	<td><?php echo $penduduk_akhir['WNI_L']+0 ?></td>
-    	<td><?php echo $penduduk_akhir['WNI_P']+0 ?></td> 
-    	<td><?php echo $penduduk_akhir['WNA_L']+0 ?></td>
-    	<td><?php echo $penduduk_akhir['WNA_P']+0 ?></td>
-      <td><?php echo ($penduduk_akhir['WNI_L']+$penduduk_akhir['WNA_L'])?></td>
-      <td><?php echo ($penduduk_akhir['WNI_P']+$penduduk_akhir['WNA_P'])?></td>
-      <td><?php echo ($penduduk_akhir['WNI_L']+$penduduk_akhir['WNA_L'])+($penduduk_akhir['WNI_P']+$penduduk_akhir['WNA_P'])?></td>
-
-    	</tr>
-    
-    <tr>
-    	<td><div align="center">7</div></td>
-    	<td>Penduduk hilang bulan ini</td>
-
-    	<td><?php echo $hilang['WNI_L']+0 ?></td>
-    	<td><?php echo $hilang['WNI_P']+0 ?></td> 
-    	<td><?php echo $hilang['WNA_L']+0 ?></td>
-    	<td><?php echo $hilang['WNA_P']+0 ?></td>
-      <td><?php echo ($hilang['WNI_L']+$hilang['WNA_L'])?></td>
-      <td><?php echo ($hilang['WNI_P']+$hilang['WNA_P'])?></td>
-      <td><?php echo ($hilang['WNI_L']+$hilang['WNA_L'])+($hilang['WNI_P']+$hilang['WNA_P'])?></td>
-
-    	</tr>
-    	
-  </tbody>
+ 	<td><div align="center">6</div></td>
+ 	<td>Penduduk akhir bulan ini</td>
+ 	<td><?php echo $penduduk_akhir['WNI_L']+0 ?></td>
+ 	<td><?php echo $penduduk_akhir['WNI_P']+0 ?></td> 
+ 	<td><?php echo $penduduk_akhir['WNA_L']+0 ?></td>
+ 	<td><?php echo $penduduk_akhir['WNA_P']+0 ?></td>
+ <td><?php echo ($penduduk_akhir['WNI_L']+$penduduk_akhir['WNA_L'])?></td>
+ <td><?php echo ($penduduk_akhir['WNI_P']+$penduduk_akhir['WNA_P'])?></td>
+ <td><?php echo ($penduduk_akhir['WNI_L']+$penduduk_akhir['WNA_L'])+($penduduk_akhir['WNI_P']+$penduduk_akhir['WNA_P'])?></td>
+ 	</tr>
+ 
+ </tbody>
 </table>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

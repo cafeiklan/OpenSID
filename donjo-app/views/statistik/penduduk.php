@@ -36,16 +36,13 @@
 					Jenis Kelamin</li></a>
 				<a href="<?php echo site_url()?>statistik/index/5"><li <?php if($lap==5){?>class="selected"<?php }?>>
 					Warga Negara</li></a>
-				<a href="<?php echo site_url()?>statistik/index/6"><li <?php if($lap==6){?>class="selected"<?php }?>>
-					Status Penduduk</li></a>
 				<a href="<?php echo site_url()?>statistik/index/7"><li <?php if($lap==7){?>class="selected"<?php }?>>
 					Golongan Darah</li></a>	
 				<a href="<?php echo site_url()?>statistik/index/9"><li <?php if($lap==9){?>class="selected"<?php }?>>
 					Penyandang Cacat</li></a>
-				<?php /*<a href="<?php echo site_url()?>statistik/index/10"><li <?php if($lap==10){?>class="selected"<?php }?>>
-					Sakit Menahun</li></a>	*/?>	
-				<a href="<?php echo site_url()?>statistik/index/11"><li <?php if($lap==11){?>class="selected"<?php }?>>
-					Penerima Jamkesmas</li></a>	
+	
+				<a href="<?php echo site_url()?>statistik/index/6"><li <?php if($lap==6){?>class="selected"<?php }?>>
+					Status Penduduk</li></a>
 				<!--<a href="<?php echo site_url()?>statistik/index/15"><li <?php if($lap==15){?>class="selected"<?php }?>>
 					Umur</li></a>	-->
 				</ul>
@@ -83,13 +80,13 @@
             <tr>
                 <th>No</th>
 				
-	 		<?php  if($o==2): ?>
-				<th align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/1")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
-			<?php  elseif($o==1): ?>
-				<th align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/2")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
-			<?php  else: ?>
-				<th align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/1")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
-			<?php  endif; ?>
+	 		<?php if($o==2): ?>
+				<th width="250" align="left"><a href="<?php echo site_url("statistik/index/$lap/1")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
+			<?php elseif($o==1): ?>
+				<th width="250" align="left"><a href="<?php echo site_url("statistik/index/$lap/2")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
+			<?php else: ?>
+				<th width="250" align="left"><a href="<?php echo site_url("statistik/index/$lap/1")?>">Jenis Kelompok<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
+			<?php endif; ?>
 			
 	 		<?php  if($o==6): ?>
 				<th width="100" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/5")?>">Jumlah <span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
@@ -100,24 +97,24 @@
 			<?php  endif; ?>
                 <th width="5"></th>
 				
-		<?php  if($lap<20){?>
-	 		<?php  if($o==4): ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/3")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
-			<?php  elseif($o==3): ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/4")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
-			<?php  else: ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/3")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
-			<?php  endif; ?>
-                <th width="5"></th>
+		<?php if($lap<20){?>
+	 		<?php if($o==4): ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/3")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
+			<?php elseif($o==3): ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/4")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
+			<?php else: ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/3")?>">Laki-Laki<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
+			<?php endif; ?>
+ <th width="5"></th>
 						
-	 		<?php  if($o==8): ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/7")?>">Perempuan<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
-			<?php  elseif($o==7): ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/8")?>">Perempuan<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
-			<?php  else: ?>
-				<th width="80" align="left"><a href="<?php echo site_url("statistik/index/$lap/$p/7")?>">Perempuan<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
-		<?php  endif; ?>
-                <th width="5"></th>
+	 		<?php if($o==8): ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/7")?>">Perempuan<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
+			<?php elseif($o==7): ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/8")?>">Perempuan<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a></th>
+			<?php else: ?>
+				<th width="50" align="left"><a href="<?php echo site_url("statistik/index/$lap/7")?>">Perempuan<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
+		<?php endif; ?>
+ <th width="5"></th>
 			
             	<?php  }?>
 			</tr>

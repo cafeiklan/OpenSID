@@ -1,6 +1,7 @@
-<?php php
+<?php
+$tgl =  date('d_m_Y');
 header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=Penduduk.xls");
+header("Content-Disposition: attachment; filename=penduduk_$tgl.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 ?>
@@ -19,8 +20,9 @@ header("Expires: 0");
 </head>
 <body>
 <div id="container">
-
-<!-- Print Body --><div id="body"><div class="header" align="center"><label align="left"><?php echo get_identitas()?></label>
+<!-- Print Body --><div id="body">
+<div class="header" align="center">
+<label align="left"><?php echo get_identitas()?></label>
 <h3> DATA PENDUDUK </h3>
 </div>
 <br>
@@ -28,17 +30,24 @@ header("Expires: 0");
 	<thead>
 		<tr class="border thick">
 			<th>No</th>
-			<th width='200'>NIK</th>
+			<th>NIK</th>
 			<th>Nama</th>
-			<th width="100">No. KK</th>
-			<th >Dusun</th>
-			<th >RW</th>
-			<th >RT</th>
-			<th >Pendidikan</th>
-			<th width="50">Umur</th>
-			<th >Pekerjaan</th>
-			<th >Kawin</th>
-			<th >Status</th>
+			<th>No. KK</th>
+			<th>Dusun</th>
+			<th>RW</th>
+			<th>RT</th>
+			<th>Pendidikan (dLm KK)</th>
+			<th>Pendidikan (sdg ditemph)</th>
+			<th>Pekerjaan</th>
+			<th>Tanggal Lahir</th>
+			<th>Tempat Lahir</th>
+			<th>Umur</th>
+			<th>Kawin</th>
+			<th>Hub. Keluarga</th>
+			<th>Gol. Darah</th>
+			<th>Nama Ayah</th>
+			<th>Nama Ibu</th>
+			<th>Status</th>
 							
 		</tr>
 	</thead>
@@ -53,9 +62,16 @@ header("Expires: 0");
 			<td><?php echo $data['rw']?></td>
 			<td><?php echo $data['rt']?></td>
 			<td><?php echo $data['pendidikan']?></td>
-			<td align="right"><?php echo $data['umur']?></td>
+			<td><?php echo $data['pendidikan_sedang']?></td>
 			<td><?php echo $data['pekerjaan']?></td>
+			<td><?php echo $data['tanggallahir']?></td>
+			<td><?php echo $data['tempatlahir']?></td>
+			<td align="right"><?php echo $data['umur']?></td>
 			<td><?php echo $data['kawin']?></td>
+			<td><?php echo $data['hubungan']?></td>
+			<td><?php echo $data['gol_darah']?></td>
+			<td><?php echo $data['nama_ayah']?></td>
+			<td><?php echo $data['nama_ibu']?></td>
 			<td><?php if($data['status']==1){echo "Tetap";}else{echo "Pendatang";}?></td>
 		</tr>
 		<?php  endforeach; ?>

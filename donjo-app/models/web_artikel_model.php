@@ -36,18 +36,23 @@ class Web_Artikel_Model extends CI_Model{
 	function filter_sql(){		
 		if(isset($_SESSION['filter'])){
 			$kf = $_SESSION['filter'];
-			$filter_sql= " AND enabled = $kf";
+			$filter_sql= " AND a.enabled = $kf";
 		return $filter_sql;
 		}
 	}
-	
+	function grup_sql(){		
+		if($_SESSION['grup'] == 4){
+			$kf = $_SESSION['user'];
+			$filter_sql= " AND a.id_user = $kf";
+		return $filter_sql;
+		}
+	}
 	function paging($cat=0,$p=1,$o=0){
-	
-		$sql      = "SELECT COUNT(id) AS id FROM artikel WHERE id_kategori = ?";
-		$sql     .= $this->search_sql(); 
-		$sql .= $this->filter_sql();    
-		$query    = $this->db->query($sql,$cat);
-		$row      = $query->row_array();
+		$sql = "SELECT COUNT(a.id) AS id FROM artikel a WHERE a.id_kategori = ?";
+		$sql .= $this->search_sql(); 
+		$sql .= $this->filter_sql(); 
+		$query = $this->db->query($sql,$cat);
+		$row = $query->row_array();
 		$jml_data = $row['id'];
 		
 		$this->load->library('paging');
@@ -147,127 +152,117 @@ class Web_Artikel_Model extends CI_Model{
 		$data = $_POST;
 		$data['id_kategori'] = $cat;
 		$data['id_user'] = $_SESSION['user'];
-		$data['gambar'] = $nama_file;
-		$data['gambar1'] = $nama_file1;
-		$data['gambar2'] = $nama_file2;
-		$data['gambar3'] = $nama_file3;
-		//$data['isi'] = $data['isi'].$data['link_dokumen'];
-		//unset($data['link_dokumen']);
-
-   		$lokasi_file = $_FILES['dokumen']['tmp_name'];
-		$tipe_file   = $_FILES['dokumen']['type'];
-		$nama_file   = $_FILES['dokumen']['name'];
-		if($nama_file)
-		    $data['dokumen']=$nama_file;
-			
-		if (!empty($lokasi_file)){
-			if ($tipe_file == "application/x-download" 
-					OR $tipe_file == "application/pdf" 
-					OR $tipe_file == "application/zip"
- 					OR $tipe_file == "application/ppt" 
-					OR $tipe_file == "application/pptx"
- 					OR $tipe_file == "application/rar"					
-					OR $tipe_file == "application/excel" 
-					OR $tipe_file == "application/msword" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-					OR $tipe_file == "text/rtf" 
-					OR $tipe_file == "application/powerpoint" 
-					OR $tipe_file == "application/vnd.ms-powerpoint" 
-					OR $tipe_file == "application/vnd.ms-excel" 
-					OR $tipe_file == "application/msexcel"
-					OR $tipe_file == "application/x-zip"	){
-				UploadDocument2($nama_file);
-			} 
+		$data['gambar'] = $fp.$nama_file;
+		$data['gambar1'] = $fp.$nama_file1;
+		$data['gambar2'] = $fp.$nama_file2;
+		$data['gambar3'] = $fp.$nama_file3;
+		
+		if($_SESSION['grup'] == 4){
+			$data['enabled'] = 2;
 		}
-		  
+		
+		
+		
+ 		$lokasi_file = $_FILES['dokumen']['tmp_name'];
+		$tipe_file = $_FILES['dokumen']['type'];
+		$nama_file = $_FILES['dokumen']['name'];
+		
+		if($nama_file)
+		 $data['dokumen']=$nama_file;
+		
+		if($data['link_dokumen']=='')
+		 $data['link_dokumen']= $data['judul'];
+		
+		if (!empty($lokasi_file)){
+			UploadDocument2($nama_file);
+		} 
+		$data['isi'] = str_replace("<table>","<table class='table table-striped'>",$data['isi']);
 		$outp = $this->db->insert('artikel',$data);
 		if($outp) $_SESSION['success']=1;
 		else $_SESSION['success']=-1;
 	}
 	
 	function update($id=0){
-		  $data = $_POST;
-
-		  $lokasi_file = $_FILES['gambar']['tmp_name'];
-		  $tipe_file   = $_FILES['gambar']['type'];
-		  $nama_file   = $_FILES['gambar']['name'];
-		  $old_gambar  = $data['old_gambar'];
-		  if (!empty($lokasi_file)){
+		 $data = $_POST;
+		 $fp = time();
+			
+		 $lokasi_file = $_FILES['gambar']['tmp_name'];
+		 $tipe_file = $_FILES['gambar']['type'];
+		 $nama_file = $_FILES['gambar']['name'];
+		 if (!empty($lokasi_file)){
 			if ($tipe_file == "image/jpeg" OR $tipe_file == "image/pjpeg"){
-				UploadArtikel($nama_file,"gambar");
-			} else {
-				$_SESSION['success']=-1;
+				UploadArtikel($nama_file,"gambar",$fp);
+				$data['gambar'] = $fp.$nama_file;
 			}
-		  }else{
-			unset($data['gambar']);;
-		  }
-		  
-		unset($data['old_gambar']);
-		if($nama_file!=""){
-			$data['gambar'] = $nama_file;}
-
-		  $lokasi_file1 = $_FILES['gambar1']['tmp_name'];
-		  $tipe_file1   = $_FILES['gambar1']['type'];
-		  $nama_file1   = $_FILES['gambar1']['name'];
-		  if (!empty($lokasi_file1)){
+		 }else{unset($data['gambar']);}
+		 
+		 $lokasi_file1 = $_FILES['gambar1']['tmp_name'];
+		 $tipe_file1 = $_FILES['gambar1']['type'];
+		 $nama_file1 = $_FILES['gambar1']['name'];
+		 if (!empty($lokasi_file1)){
 			if ($tipe_file1 == "image/jpeg" OR $tipe_file1 == "image/pjpeg"){
 				UploadArtikel($nama_file1,"gambar1");
 				$data['gambar1'] = $nama_file1;
 			}
-		  }else{unset($data['gambar1']);}
-
-
-		  $lokasi_file5 = $_FILES['gambar3']['tmp_name'];
-		  $tipe_file5   = $_FILES['gambar3']['type'];
-		  $nama_file5   = $_FILES['gambar3']['name'];
-
-		  if(!empty($lokasi_file5)){
-			if ($tipe_file5 == "image/jpeg" OR $tipe_file5 == "image/pjpeg"){
-				UploadArtikel($nama_file5,"gambar3");
-				$data['gambar3'] = $nama_file5;
-			}
-		 }else{unset($data['gambar1']);}		
-
-		  $lokasi_file2 = $_FILES['gambar2']['tmp_name'];
-		  $tipe_file2   = $_FILES['gambar2']['type'];
-		  $nama_file2   = $_FILES['gambar2']['name'];
-		  if (!empty($lokasi_file2)){
+		 }else{unset($data['gambar1']);}
+		 $lokasi_file2 = $_FILES['gambar2']['tmp_name'];
+		 $tipe_file2 = $_FILES['gambar2']['type'];
+		 $nama_file2 = $_FILES['gambar2']['name'];
+		 if (!empty($lokasi_file2)){
 			if ($tipe_file2 == "image/jpeg" OR $tipe_file2 == "image/pjpeg"){
 				UploadArtikel($nama_file2,"gambar2");
 				$data['gambar2'] = $nama_file2;
 			}
-		  }else{unset($data['gambar1']);}
-
-
-   		$lokasi_file = $_FILES['dokumen']['tmp_name'];
-		$tipe_file   = $_FILES['dokumen']['type'];
-		$nama_file   = $_FILES['dokumen']['name'];
+		 }else{unset($data['gambar2']);}
+		 $lokasi_file3 = $_FILES['gambar3']['tmp_name'];
+		 $tipe_file3 = $_FILES['gambar3']['type'];
+		 $nama_file3 = $_FILES['gambar3']['name'];
+		 if(!empty($lokasi_file3)){
+			if ($tipe_file3 == "image/jpeg" OR $tipe_file3 == "image/pjpeg"){
+				UploadArtikel($nama_file3,"gambar3",$fp);
+				$data['gambar3'] = $fp.$nama_file3;
+			}
+		 }else{unset($data['gambar3']);}		
+ 		$lokasi_file = $_FILES['dokumen']['tmp_name'];
+		$tipe_file = $_FILES['dokumen']['type'];
+		$nama_file = $_FILES['dokumen']['name'];
+		
 		if($nama_file)
-		    $data['dokumen']=$nama_file;
+		 $data['dokumen']=$nama_file;
+		
+		if($data['link_dokumen']=='')
+		 $data['link_dokumen']= $data['judul'];
 			
 		if (!empty($lokasi_file)){
-			if ($tipe_file == "application/x-download" 
-					OR $tipe_file == "application/pdf" 
-					OR $tipe_file == "application/zip"
- 					OR $tipe_file == "application/ppt" 
-					OR $tipe_file == "application/pptx"
- 					OR $tipe_file == "application/rar"					
-					OR $tipe_file == "application/excel" 
-					OR $tipe_file == "application/msword" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
-					OR $tipe_file == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-					OR $tipe_file == "text/rtf" 
-					OR $tipe_file == "application/powerpoint" 
-					OR $tipe_file == "application/vnd.ms-powerpoint" 
-					OR $tipe_file == "application/vnd.ms-excel" 
-					OR $tipe_file == "application/msexcel"
-					OR $tipe_file == "application/x-zip"	){
-				UploadDocument2($nama_file);
-			} 
+			UploadDocument2($nama_file);
 		}
-		  
-
+		 
+		if(isset($data['gambar_hapus'])){
+			HapusArtikel($data['gambar_hapus']);
+			$data['gambar'] = "";
+			unset($data['gambar_hapus']);
+		}
+		
+		if(isset($data['gambar1_hapus'])){
+			HapusArtikel($data['gambar1_hapus']);
+			$data['gambar1'] = "";
+			unset($data['gambar1_hapus']);
+		}
+		
+		if(isset($data['gambar2_hapus'])){
+			HapusArtikel($data['gambar2_hapus']);
+			$data['gambar2'] = "";
+			unset($data['gambar2_hapus']);
+		}
+		
+		if(isset($data['gambar3_hapus'])){
+			HapusArtikel($data['gambar3_hapus']);
+			$data['gambar3'] = "";
+			unset($data['gambar3_hapus']);
+		}
+		
+		
+		$data['isi'] = str_replace("<table>","<table class='table table-striped'> ",$data['isi']);
 		$this->db->where('id',$id);
 		$outp = $this->db->update('artikel',$data);
 		if($outp) $_SESSION['success']=1;

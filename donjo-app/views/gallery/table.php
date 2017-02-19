@@ -22,29 +22,31 @@
 </div>
 <div id="contentpane">    
 	<form id="mainform" name="mainform" action="" method="post">
-    <div class="ui-layout-north panel">
-        <div class="left">
-            <div class="uibutton-group">
-                <a href="<?php echo site_url('gallery/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah Album Baru</a>
-                <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("gallery/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
-            </div>
-        </div>
-    </div>
-    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-        <div class="table-panel top">
-            <div class="left">
-                <select name="filter" onchange="formAction('mainform','<?php echo site_url('gallery/filter')?>')">
-                    <option value="">Semua</option>
-                    <option value="1" <?php if($filter==1) :?>selected<?php endif?>>Enabled</option>
-                    <option value="2" <?php if($filter==2) :?>selected<?php endif?>>Disabled</option>
-                </select>
-            </div>
-            <div class="right">
-                <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('gallery/search')?>');$('#'+'mainform').submit();}" />
-                <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('gallery/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south"  title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
-            </div>
-        </div>
-        <table class="list">
+ <div class="ui-layout-north panel">
+ <div class="left">
+ <div class="uibutton-group">
+ <a href="<?php echo site_url('gallery/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah Album Baru</a>
+							<?php if($_SESSION['grup']<4){?>
+ <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("gallery/delete_all/$p/$o")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
+							<?php } ?>
+ </div>
+ </div>
+ </div>
+ <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+ <div class="table-panel top">
+ <div class="left">
+ <select name="filter" onchange="formAction('mainform','<?php echo site_url('gallery/filter')?>')">
+ <option value="">Semua</option>
+ <option value="1" <?php if($filter==1) :?>selected<?php endif?>>Enabled</option>
+ <option value="2" <?php if($filter==2) :?>selected<?php endif?>>Disabled</option>
+ </select>
+ </div>
+ <div class="right">
+ <input name="cari" id="cari" type="text" class="inputbox help tipped" size="20" value="<?php echo $cari?>" title="Cari.." onkeypress="if (event.keyCode == 13) {$('#'+'mainform').attr('action','<?php echo site_url('gallery/search')?>');$('#'+'mainform').submit();}" />
+ <button type="button" onclick="$('#'+'mainform').attr('action','<?php echo site_url('gallery/search')?>');$('#'+'mainform').submit();" class="uibutton tipsy south" title="Cari Data"><span class="icon-search icon-large">&nbsp;</span>Cari</button>
+ </div>
+ </div>
+ <table class="list">
 		<thead>
             <tr>
                 <th>No</th>
@@ -84,15 +86,24 @@
 			<td align="center" width="5">
 				<input type="checkbox" name="id_cb[]" value="<?php echo $data['id']?>" />
 			</td>
-			<td> <div class="uibutton-group"><a href="<?php echo site_url("gallery/sub_gallery/$data[id]")?>" class="uibutton tipsy south" title="Rincian Sub Gallery"><span class="icon-zoom-in icon-large"> Rincian </span></a>
-				<a href="<?php echo site_url("gallery/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"></span></a><a href="<?php echo site_url("gallery/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"><span></a><?php if($data['enabled'] == '2'):?><a href="<?php echo site_url('gallery/gallery_lock/'.$data['id'])?>" class="uibutton tipsy south" title="Aktivasi gallery"><span  class="icon-lock icon-large"></span></a><?php elseif($data['enabled'] == '1'): ?><a href="<?php echo site_url('gallery/gallery_unlock/'.$data['id'])?>" class="uibutton tipsy south" title="Non-aktifkan gallery"><span  class="icon-unlock icon-large"></span></a>
-				<?php endif?></div>
-			  </td>
-			  <td>
-				<label class="tipsy west" title="<img width=200 height=134 src=<?php echo base_url()?>assets/front/gallery/kecil_<?php echo $data['gambar']?>>"><?php echo $data['nama']?></label>
-			  </td>
-			  <td><?php echo $data['aktif']?></td>
-			  <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
+			<td> 
+				<div class="uibutton-group">
+					<a href="<?php echo site_url("gallery/sub_gallery/$data[id]")?>" class="uibutton tipsy south" title="Rincian Sub Gallery"><span class="icon-zoom-in icon-large"> Rincian </span></a>
+					<a href="<?php echo site_url("gallery/form/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Ubah Data"><span class="icon-edit icon-large"></span></a>
+				<?php if($_SESSION['grup']<4){?>
+					<a href="<?php echo site_url("gallery/delete/$p/$o/$data[id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"><span></a><?php if($data['enabled'] == '2'):?>
+					<a href="<?php echo site_url('gallery/gallery_lock/'.$data['id'])?>" class="uibutton tipsy south" title="Aktivasi gallery"><span class="icon-lock icon-large"></span></a><?php elseif($data['enabled'] == '1'): ?>
+					<a href="<?php echo site_url('gallery/gallery_unlock/'.$data['id'])?>" class="uibutton tipsy south" title="Non-aktifkan gallery"><span class="icon-unlock icon-large"></span></a>
+					<?php endif?>
+				<?php } ?>
+				</div>
+				
+			 </td>
+			 <td>
+				<label class="tipsy west" title="<img width=200 height=134 src=<?php echo base_url()?>assets/files/galeri/kecil_<?php echo $data['gambar']?>>"><?php echo $data['nama']?></label>
+			 </td>
+			 <td><?php echo $data['aktif']?></td>
+			 <td><?php echo tgl_indo2($data['tgl_upload'])?></td>
 		</tr>
         <?php }?>
 		</tbody>

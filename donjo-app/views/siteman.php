@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="loginform">
-		<a href="<?php echo site_url()?>/index.php/first">
+		<a href="<?php echo site_url()?>first">
 		<div id="facebook">
 			<div id="sid">SID</div>
 			<div id="connect">ver.</div>
@@ -28,11 +28,15 @@
 			<div id="note">
 				Login Gagal. Username atau Password yang Anda masukkan salah!
 			</div>
-			<?php }?>
+			<?php }elseif($_SESSION['siteman']== -2){?>
+			<div id="note">
+				Tidak ada aktivitas dalam jangka waktu yang cukup lama. Demi keamanan silahkan Login kembali.
+			</div>
+			<?php } unset($_SESSION['siteman']);?>
 		</form>
 		</div>
 		<div id="facebook2">
-			<div id="kab2">powered by: <a href="http://combine.or.id" target="_blank">combine.or.id</a></div>
+			<div id="kab2"><a href="http://combine.or.id" target="_blank"><img align=center src="<?php echo base_url()?>assets/images/logo-combine.png"></a></div>
 		</div>
 	</div>
 </body>

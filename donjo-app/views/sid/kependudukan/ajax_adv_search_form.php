@@ -1,76 +1,15 @@
-<script>
-function DusSel(str){
-if (str==""){
-  document.getElementById("RW").innerHTML="";
-  return;
-  }if (window.XMLHttpRequest){
-	xmlhttp=new XMLHttpRequest();
-  }else{
-	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function(){
-  if (xmlhttp.readyState==4 && xmlhttp.status==200){
-     document.getElementById("RW").innerHTML=xmlhttp.responseText;
-    }
-  }
-xmlhttp.open("GET","penduduk/ajax_penduduk_cari_rw/"+str,true);
-xmlhttp.send();
-}
-
-function RWSel(dusun,str){
-if (str==""){
-  document.getElementById("RT").innerHTML="";
-  return;
-  }if (window.XMLHttpRequest){
-	xmlhttp=new XMLHttpRequest();
-  }else{
-	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function(){
-  if (xmlhttp.readyState==4 && xmlhttp.status==200){
-     document.getElementById("RT").innerHTML=xmlhttp.responseText;
-    }
-  }
-xmlhttp.open("GET","penduduk/ajax_penduduk_cari_rt/"+dusun+"/"+str,true);
-xmlhttp.send();
-}
-</script>
 <form method="post" action="<?php echo $form_action?>" >
 <input type="hidden" name="rt" value="">
 <table>
 <tr>
-	<td>Nama</td><td><input class="inputbox2" name="cari" type="text" size="40"></td>
-</tr>
-<tr>
-	<td>Umur</td><td><input class="inputbox2" name="umur_min" type="text" size="5" > - <input class="inputbox2" name="umur_max" type="text" size="5"></td>
+	<td>Umur</td><td><input class="inputbox2" name="umur_min" type="text" size="5" value="<?php echo $umur_min?>"> - <input class="inputbox2" name="umur_max" type="text" size="5" value="<?php echo $umur_max?>"></td>
 </tr> 
-<tr>
-	<td>Dusun</td>
-	<td><select name="dusun" onchange="DusSel(this.value)">
-	<option value="">Pilih Dusun&nbsp;</option>
-	<?php foreach($dusun as $data){?>
-		<option value="<?php echo ($data['dusun'])?>"><?php echo unpenetration($data['dusun'])?></option>
-	<?php }?></select>
-	</td>
-</tr>
-<tr id="RW"></tr>
-<tr id="RT"></tr>	
-<tr><td>Jenis Kelamin</td>
-	 <td>
-     <select name="sex" >
-      <option value=""> -- </option>
-	  <option value="1">LAKI-LAKI</option>
-	  <option value="2">PEREMPUAN</option>
-	  </select>
-	</td>
-</tr>	
-
 <tr><td>Pekerjaan</td>
-    <td><select name="pekerjaan_id">
-      <option value=""> -- </option>
-	  <?php foreach($pekerjaan AS $data){?>
-		<option value="<?php echo $data['id']?>"><?php echo $data['nama']?></option>
-	  <?php }?>
+ <td><select name="pekerjaan_id">
+ <option value=""> -- </option>
+	 <?php foreach($pekerjaan AS $data){?>
+		<option value="<?php echo $data['id']?>" <?php selected($pekerjaan_id,$data['id']); ?> ><?php echo $data['nama']?></option>
+	 <?php }?>
 	</select>
      </td>
 </tr>    
@@ -81,10 +20,10 @@ xmlhttp.send();
 	</select> </td>
 </tr>
 <tr><td>Agama</td><td>
-    <select name="agama">
-    <option value=""> -- </option>
-	<?php foreach($agama AS $data){?>
-		<option value="<?php echo $data['id']?>"><?php echo $data['nama']?></option>
+ <select name="agama">
+ <option value=""> -- </option>
+	<?php foreach($list_agama AS $data){?>
+		<option value="<?php echo $data['id']?>" <?php selected($agama,$data['id']); ?> ><?php echo $data['nama']?></option>
 	<?php }?>
     </select>
 	</td>
@@ -94,7 +33,47 @@ xmlhttp.send();
 	<select name="pendidikan_sedang_id">
       <option value=""> -- </option>
 		<?php foreach($pendidikan AS $data){?>
-			<option value="<?php echo $data['id']?>"><?php echo $data['nama']?></option>
+			<option value="<?php echo $data['id']?>" <?php selected($pendidikan_sedang_id,$data['id']); ?> ><?php echo $data['nama']?></option>
+		<?php }?>
+	 </select>
+ </td>
+</tr>
+<tr><td>Pendidikan KK</td>
+ <td>
+	<select name="pendidikan_kk_id">
+ <option value=""> -- </option>
+		<?php foreach($pendidikan_kk AS $data){?>
+			<option value="<?php echo $data['id']?>" <?php selected($pendidikan_kk_id,$data['id']); ?> ><?php echo $data['nama']?></option>
+		<?php }?>
+	 </select>
+ </td>
+</tr>
+<tr><td>Status Hubungan Dalam Keluarga</td>
+ <td>
+	<select name="hubungan">
+ <option value=""> -- </option>
+		<?php foreach($list_hubungan AS $data){?>
+			<option value="<?php echo $data['id']?>" <?php selected($hubungan,$data['id']); ?> ><?php echo $data['nama']?></option>
+		<?php }?>
+	 </select>
+ </td>
+</tr>
+<tr><td>Golongan Darah</td>
+ <td>
+	<select name="golongan_darah">
+ <option value=""> -- </option>
+		<?php foreach($list_golongan_darah AS $data){?>
+			<option value="<?php echo $data['id']?>" <?php selected($golongan_darah,$data['id']); ?> ><?php echo $data['nama']?></option>
+		<?php }?>
+	 </select>
+ </td>
+</tr>
+<tr><td>Cacat / Difable</td>
+ <td>
+	<select name="cacat">
+ <option value=""> -- </option>
+		<?php foreach($list_cacat AS $data){?>
+			<option value="<?php echo $data['id']?>" <?php selected($cacat,$data['id']); ?> ><?php echo $data['nama']?></option>
 		<?php }?>
 	  </select>
   </td>

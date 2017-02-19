@@ -54,18 +54,18 @@ $(function(){
 	<?php $last=$data['pertanyaan'];
 	}?>
 </table>
-    </div>
-   
-    <div class="ui-layout-south panel bottom">
-        <div class="left">     
-            <a href="<?php echo site_url()?>admin_manajemen_responden" class="uibutton icon prev">Kembali</a>
-        </div>
-        <div class="right">
-            <div class="uibutton-group">
-                <button class="uibutton" type="reset">Clear</button>
-                <button class="uibutton confirm" type="submit" >Simpan</button>
-            </div>
-        </div>
-    </div>
+ </div>
+ 
+ <div class="ui-layout-south panel bottom">
+ <div class="left"> 
+ <a href="<?php echo site_url()?>admin_manajemen_responden" class="uibutton icon prev">Kembali</a>
+ </div>
+ <div class="right">
+ <div class="uibutton-group">
+ 
+ <button class="uibutton confirm" type="submit" >Simpan</button>
+ </div>
+ </div>
+ </div>
 </form>
 </div>

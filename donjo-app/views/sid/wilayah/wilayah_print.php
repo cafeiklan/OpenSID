@@ -3,17 +3,29 @@
 <title>Data Wilayah</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url()?>assets/css/report.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="container">
-
-<!-- Print Body --><div id="body"><div class="header" align="center"><label align="left"><?php echo get_identitas()?></label>
-<h3> Tabel Data Kependudukan berdasarkan Populasi Per Wilayah </h3>
-<h4> Kabupaten <?php echo $desa['desa']['nama_kabupaten']?>, Kecamatan <?php echo $desa['desa']['nama_kecamatan']?>, Desa <?php echo $desa['desa']['nama_desa']?></h4> 
+<div id="container" style="min-width:800px;max-width:1024px;">
+<table width="100%">
+<tr> <img src="<?php echo base_url()?>assets/files/logo/<?php echo $desa['desa']['logo']?>" alt="" class="logo"></tr>
+<div class="header">
+<h4 class="kop">PEMERINTAH KABUPATEN <?php echo strtoupper(unpenetration($desa['desa']['nama_kabupaten']))?> </h4>
+<h4 class="kop">KECAMATAN <?php echo strtoupper(unpenetration($desa['desa']['nama_kecamatan']))?> </h4>
+<h4 class="kop">DESA <?php echo strtoupper(unpenetration($desa['desa']['nama_desa']))?></h4>
+<h5 class="kop2"><?php echo (unpenetration($desa['desa']['alamat_kantor']))?> </h5>
+<hr />
 </div>
+<div align="center">
 <br>
-    <table class="border thick">
+<h2>Data Kependudukan berdasarkan Wilayah</h2>
+<br>
+</div>
+</table>
+<div class="clear"></div>
+<div id="body">
+ <table class="border thick">
 	<thead>
 		<tr class="border thick">
                 <th>No</th>
@@ -58,7 +70,6 @@
 </table>
 </div>
 <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
-   <label>Tanggal cetak : &nbsp; </label><?php echo tgl_indo(date("Y m d"))?>
 </div>
 
 </body></html>
