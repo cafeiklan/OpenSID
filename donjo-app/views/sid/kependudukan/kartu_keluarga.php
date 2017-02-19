@@ -206,7 +206,6 @@ $('#'+'main').submit();
 <div class="uibutton-group">
 
 <a href="<?php echo site_url("keluarga/cetak_kk/$id_kk")?>" target="_blank" class="uibutton special">Cetak</a>
-<a href="<?php echo site_url("keluarga/doc_kk/$id_kk")?>" target="_blank" class="uibutton confirm">Export</a>
 </div>
 </div>
 </div> 

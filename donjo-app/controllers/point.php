@@ -68,8 +68,7 @@ class point extends CI_Controller{
 			$data['form_action'] = site_url("point/insert");
 		}
 
-		$data['simbol']        = $this->plan_point_model->list_simbol();
-		$header = $this->header_model->get_data();
+		$header['desa'] = $this->header_model->get_data();
 		
 		$nav['act']=0;
 		$this->load->view('header', $header);
@@ -84,7 +83,7 @@ class point extends CI_Controller{
 
 		$data['subpoint']    = $this->plan_point_model->list_sub_point($point);
 		$data['point'] = $point; 
-		$header = $this->header_model->get_data();
+		$header['desa'] = $this->header_model->get_data();
 		$nav['act']=0;
 		
 		$this->load->view('header', $header);
@@ -110,8 +109,7 @@ class point extends CI_Controller{
 			$data['form_action'] = site_url("point/insert_sub_point/$point");
 		}
 
-		$data['simbol']        = $this->plan_point_model->list_simbol();
-		$this->load->view("point/ajax_add_sub_point_form",$data);
+		$this->load->view("plan/point/ajax_add_sub_point_form",$data);
 	}
 
 	function search(){

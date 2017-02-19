@@ -56,12 +56,6 @@
                 </select>
 				<?php }?>
 				
-                <select name="sex" onchange="formAction('mainform','<?php echo site_url('keluarga/sex')?>')">
-                    <option value="">Jenis Kelamin</option>
-                    <option value="1" <?php if($sex==1 ) :?>selected<?php endif?>>Laki-Laki</option>
-                    <option value="2" <?php if($sex==2 ) :?>selected<?php endif?>>Perempuan</option>
-                </select>
-				
             </div>
             </div>
             <div class="right">
@@ -99,7 +93,6 @@
 				&nbsp;</span></a></th>
 				
 				<th width="100" align="left" align="center">Jumlah Anggota</th>
-				<th align="left" align="center" width="120">Jenis Kelamin</th>
 				<th align="left" align="center" width="120">Dusun</th>
 				<th align="left" align="center" width="30">RW</th>
 				<th align="left" align="center" width="30">RT</th>
@@ -124,7 +117,6 @@
           <td><a href="<?php echo site_url("keluarga/kartu_keluarga/$p/$o/$data[id]")?>"> <?php echo $data['no_kk']?> </a></td>
 		  <td><?php echo strtoupper(unpenetration($data['kepala_kk']))?></td>
           <td><a href="<?php echo site_url("keluarga/anggota/$p/$o/$data[id]")?>"><?php echo $data['jumlah_anggota']?></a></td>
-          <td><?php echo strtoupper($data['sex'])?></td>
           <td><?php echo strtoupper(unpenetration(ununderscore($data['dusun'])))?></td>
 		  <td><?php echo strtoupper($data['rw'])?></td>
           <td><?php echo strtoupper($data['rt'])?></td>

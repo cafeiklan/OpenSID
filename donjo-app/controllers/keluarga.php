@@ -18,7 +18,6 @@ function __construct(){
 		unset($_SESSION['dusun']);
 		unset($_SESSION['rw']);
 		unset($_SESSION['rt']);
-		unset($_SESSION['sex']);
 		unset($_SESSION['raskin']);
 		unset($_SESSION['id_blt']);
 		unset($_SESSION['id_bos']);
@@ -41,10 +40,6 @@ function __construct(){
 		if(isset($_SESSION['filter']))
 			$data['filter'] = $_SESSION['filter'];
 		else $data['filter'] = '';
-	
-		if(isset($_SESSION['sex']))
-			$data['sex'] = $_SESSION['sex'];
-		else $data['sex'] = '';
 	
 		if(isset($_SESSION['raskin']))
 			$data['raskin'] = $_SESSION['raskin'];
@@ -98,10 +93,10 @@ function __construct(){
 		$data['main']    = $this->keluarga_model->list_data($o, $data['paging']->offset, $data['paging']->per_page);
 		$data['keyword'] = $this->keluarga_model->autocomplete();
 		$data['list_dusun'] = $this->penduduk_model->list_dusun();
-		
+
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga',$data);
 		$this->load->view('footer');
@@ -175,7 +170,7 @@ function __construct(){
 
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_sosial',$data);
 		$this->load->view('footer');
@@ -249,7 +244,7 @@ function __construct(){
 
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_raskin',$data);
 		$this->load->view('footer');
@@ -323,7 +318,7 @@ function __construct(){
 
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_jamkesmas',$data);
 		$this->load->view('footer');
@@ -403,7 +398,7 @@ function __construct(){
 		
 		
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_form',$data);
 		$this->load->view('footer');
@@ -429,7 +424,7 @@ function __construct(){
 		
 		
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_form_a',$data);
 		$this->load->view('footer');
@@ -495,14 +490,6 @@ function __construct(){
 		if($raskin!="")
 			$_SESSION['raskin']=$raskin;
 		else unset($_SESSION['raskin']);
-		redirect('keluarga');
-	}
-
-	function sex(){
-		$sex = $this->input->post('sex');
-		if($sex!="")
-			$_SESSION['sex']=$sex;
-		else unset($_SESSION['sex']);
 		redirect('keluarga');
 	}
 
@@ -576,7 +563,7 @@ function __construct(){
 
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_anggota',$data);
 		$this->load->view('footer');
@@ -641,7 +628,7 @@ function __construct(){
 		$nav['act']= 1;
 	
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$data['form_action'] = site_url("keluarga/print");
 		
@@ -662,28 +649,6 @@ function __construct(){
 		$header = $this->header_model->get_data();
 		$this->load->view("sid/kependudukan/cetak_kk", $data);
 		
-	}
-		
-	function doc_kk($id=0){
-	
-		$data['desa']     = $this->keluarga_model->get_desa();
-		
-		$data['id_kk']    = $id;
-		$data['main']     = $this->keluarga_model->list_anggota($id);
-		$data['kepala_kk']= $this->keluarga_model->get_kepala_kk($id);
-		
-		$this->keluarga_model->coba($data);
-	}
-		
-	function coba2($id=0){
-	
-		//$data['desa']     = $this->keluarga_model->get_desa();
-		
-		//$data['id_kk']    = $id;
-		//$data['main']     = $this->keluarga_model->list_anggota($id);
-		//$data['kepala_kk']= $this->keluarga_model->get_kepala_kk($id);
-		
-		$this->keluarga_model->coba2();
 	}
 		
 	function add_anggota($p=1,$o=0,$id=0){
@@ -829,7 +794,7 @@ function __construct(){
 
 		$nav['act']= 1;
 		$header = $this->header_model->get_data();
-		$this->load->view('header',$header);
+		$this->load->view('header',$header);
 		$this->load->view('sid/nav',$nav);
 		$this->load->view('sid/kependudukan/keluarga_statistik',$data);
 		$this->load->view('footer');

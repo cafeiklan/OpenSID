@@ -102,15 +102,6 @@
 		$a="TRUNCATE area";
 		$b = mysql_query($a);
 		
-		$a="TRUNCATE point";
-		$b = mysql_query($a);
-		
-		$a="TRUNCATE line";
-		$b = mysql_query($a);
-		
-		$a="TRUNCATE polygon";
-		$b = mysql_query($a);
-		
 		$a="TRUNCATE analisis_master";
 		$b = mysql_query($a);
 		
@@ -139,12 +130,6 @@
 		$b = mysql_query($a);
 		
 		$a="TRUNCATE kelompok_anggota";
-		$b = mysql_query($a);
-		$a="TRUNCATE data_persil";
-		$b = mysql_query($a);
-		$a="TRUNCATE tweb_penduduk_map";
-		$b = mysql_query($a);
-		$a="TRUNCATE sys_traffic";
 		$b = mysql_query($a);
 	}
 	

@@ -23,11 +23,8 @@ source: keyword
 </div>
 </td>
 <td style="background:#fff;padding:0px;"> 
-<div class="content">
-	<h3>Pengelolaan Kategori</h3>
-	<?php
-	//echo var_dump($main);
-	?>
+<div class="content-header">
+<h3>Manajemen kategori</h3>
 </div>
 <div id="contentpane">
 <form id="mainform" name="mainform" action="" method="post">
@@ -95,10 +92,7 @@ source: keyword
 </td>
 <td><?php echo $data['kategori']?></td>
 <td><?php echo $data['aktif']?></td>
-<td>-</td>
-<!--
 <td><?php echo $data['link']?></td>
--->
 </tr>
 <?php }?>
 </tbody>

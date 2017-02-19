@@ -10,7 +10,9 @@
 <div id="pageC">
 	<table class="inner">
 <tr style="vertical-align:top">
-<td style="background:#fff;padding:0px;"> 
+		<td style="background:#fff;padding:0px;"> 
+<div class="content-header">
+</div>
 <div id="contentpane">    
 	<form id="mainform" name="mainform" action="" method="post">
     <div class="ui-layout-north panel">
@@ -61,6 +63,7 @@
 		<thead>
             <tr>
                 <th width="10">No</th>
+				
 			<?php  if($o==2): ?>
 				<th align="left" width='120'><a href="<?php echo site_url("analisis_laporan_keluarga/index/$p/1")?>">Nomor KK<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a></th>
 			<?php  elseif($o==1): ?>

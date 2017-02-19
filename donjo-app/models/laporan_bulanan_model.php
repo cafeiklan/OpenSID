@@ -43,7 +43,7 @@
 		return $outp;
 	}
 
-	function search_sql(){
+function search_sql(){
 		if(isset($_SESSION['cari'])){
 		$cari = $_SESSION['cari'];
 			$kw = $this->db->escape_like_str($cari);
@@ -58,7 +58,7 @@
 			$kf = $_SESSION['dusun'];
 			if($kf==""){
 			$dusun_sql= "";} else {			
-			$dusun_sql= " AND c.dusun = '".$kf."'";}
+			$dusun_sql= " where dusunnya = '".$kf."'";}
 		return $dusun_sql;
 		}
 	}
@@ -144,41 +144,68 @@
 		return $this->paging;
 	}
 	
-	function list_data(){
+	function list_data($lap=0,$o=0,$offset=0,$limit=500){
 	
-		$sql="select c.id as id_cluster,c.rt,c.rw,c.dusun as dusunnya, 
-(select count(id) from tweb_penduduk where sex='1' and id_cluster=c.id) as L,
-(select count(id) from tweb_penduduk where sex='2' and id_cluster=c.id) as P,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<1 and id_cluster=c.id ) as bayi,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=1 and (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=5  and id_cluster=c.id ) as balita,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=6 and (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=12  and id_cluster=c.id ) as sd,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=13 and (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=15  and id_cluster=c.id ) as smp,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=16 and (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=18  and id_cluster=c.id ) as sma,
-(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS(NOW()) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>60 and id_cluster=c.id ) as lansia,
-(select count(id) from tweb_penduduk where cacat_id is not null and cacat_id <>'0'  and id_cluster=c.id) as cacat,
-(select count(id) from tweb_penduduk where sakit_menahun_id is not null and sakit_menahun_id <>'0' and id_cluster=c.id and sex='1') as sakit_L,
-(select count(id) from tweb_penduduk where sakit_menahun_id is not null and sakit_menahun_id <>'0' and id_cluster=c.id and sex='2') as sakit_P,
-(select count(id) from tweb_penduduk where hamil='1' and id_cluster=c.id) as hamil
-from  tweb_wil_clusterdesa c WHERE rw<>'0' AND rt<>'0' AND (select count(id) from tweb_penduduk where id_cluster=c.id)>0  ";	
+		//Ordering SQL
+		switch($o){
+			case 1: $order_sql = ' ORDER BY u.username'; break;
+			case 2: $order_sql = ' ORDER BY u.username DESC'; break;
+			case 3: $order_sql = ' ORDER BY u.nama'; break;
+			case 4: $order_sql = ' ORDER BY u.nama DESC'; break;
+			case 5: $order_sql = ' ORDER BY g.nama'; break;
+			case 6: $order_sql = ' ORDER BY g.nama DESC'; break;
+			default:$order_sql = ' ORDER BY u.username';
+		}
+	
+		//Paging SQL
+		$paging_sql = ' LIMIT ' .$offset. ',' .$limit;
+		
+		switch($lap){
+			case 0: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 1: $sql   = "SELECT u.* FROM tweb_penduduk_pekerjaan u WHERE 1 "; break;
+			case 2: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 3: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 4: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 5: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 6: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 7: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			case 8: $sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 "; break;
+			default:$sql   = "SELECT u.* FROM tweb_penduduk_pendidikan u WHERE 1 ";
+		}
+		$sql="select * from (select p.id_cluster as id_cluster,c.rt,c.rw,c.dusun as dusunnya, (select count(sex) from tweb_penduduk where sex='1' and id_cluster=p.id_cluster) as L,
+(select count(sex) from tweb_penduduk where sex='2' and id_cluster=p.id_cluster) as P,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<1 and id_cluster=p.id_cluster ) as bayi,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=1 and (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=5  and id_cluster=p.id_cluster ) as balita,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=6 and (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=12  and id_cluster=p.id_cluster ) as sd,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=13 and (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=15  and id_cluster=p.id_cluster ) as smp,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>=16 and (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)<=18  and id_cluster=p.id_cluster ) as sma,
+(select count(id) from tweb_penduduk where (DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( tanggallahir ) ) , '%Y' ) +0)>60 and id_cluster=p.id_cluster ) as lansia,
+(select count(cacat_id) from tweb_penduduk where cacat_id is not null and cacat_id <>'0'  and id_cluster=p.id_cluster) as cacat,
+(select count(sakit_menahun_id) from tweb_penduduk where sakit_menahun_id is not null and sakit_menahun_id <>'0' and id_cluster=p.id_cluster and sex='1') as sakit_L,
+(select count(sakit_menahun_id) from tweb_penduduk where sakit_menahun_id is not null and sakit_menahun_id <>'0' and id_cluster=p.id_cluster and sex='2') as sakit_P,
+(select count(hamil) from tweb_penduduk where hamil='1' and id_cluster=p.id_cluster) as hamil
+from tweb_penduduk p left join tweb_wil_clusterdesa c on p.id_cluster=c.id  group by id_cluster) as x  ";	
 		
 		$sql .= $this->dusun_sql();
+		$sql .= $paging_sql;
 		
-		$sql .= " ORDER BY c.dusun,c.rw,c.rt ";
 		$query = $this->db->query($sql);
 		$data=$query->result_array();
 	//	$data = null;
 		//Formating Output
 		$i=0;
+		$j=$offset;
 		while($i<count($data)){
-			$data[$i]['no']=$i+1;
+			$data[$i]['no']=$j+1;
 			$data[$i]['tabel']=$data[$i]['rt'];
 			$i++;
+			$j++;
 		}
 		return $data;
 	}
 	
 	
-  function list_dusun(){
+        function list_dusun(){
 		$sql   = "SELECT * FROM tweb_wil_clusterdesa WHERE rt = '0' AND rw = '0' ";
 		$query = $this->db->query($sql);
 		$data=$query->result_array();
@@ -200,28 +227,7 @@ from  tweb_wil_clusterdesa c WHERE rw<>'0' AND rt<>'0' AND (select count(id) fro
 		
 		$sql   = "SELECT lk as WNI_L,pr AS WNI_P FROM log_bulanan WHERE month(tgl) = $bln-1 AND year(tgl) = $thn;";
 		$query = $this->db->query($sql);
-		if($query){
-			if($query->num_rows() > 0){
-				$hasil=$query->row();
-				$data= array(
-				"WNI_L"=>$hasil->WNI_L, 
-				"WNI_P"=>$hasil->WNI_P, 
-				"WNA_L"=>0,
-				"WNA_P"=>0,
-				"bulan"=>$bln,
-				"tahun"=>$thn);
-			}else{
-				$data= array(
-				"WNI_L"=>0, 
-				"WNI_P"=>0, 
-				"WNA_L"=>0,
-				"WNA_P"=>0,
-				"bulan"=>$bln,
-				"tahun"=>$thn);
-			}
-		}else{
-			$data = $this->db->error_reporting();
-		}
+		$data=$query->row_array();
 		return $data;
 	}
 
@@ -232,14 +238,7 @@ from  tweb_wil_clusterdesa c WHERE rw<>'0' AND rt<>'0' AND (select count(id) fro
 		
 		$sql   = "SELECT lk as WNI_L,pr AS WNI_P FROM log_bulanan WHERE month(tgl) = $bln AND year(tgl) = $thn;";
 		$query = $this->db->query($sql);
-		$hasil=$query->row_array();
-		$data= array(
-		"WNI_L"=>$hasil["WNI_L"], 
-		"WNI_P"=>$hasil["WNI_P"], 
-		"WNA_L"=>0,
-		"WNA_P"=>0,
-		"bulan"=>$bln,
-		"tahun"=>$thn);
+		$data=$query->row_array();
 		return $data;
 	}
 
@@ -289,30 +288,17 @@ FROM log_penduduk   ";
 	}
 
 	function pendatang(){
-		$bln=$_SESSION['bulanku'];
-		$thn=$_SESSION['tahunku'];
-		
-		$paging_sql = ' LIMIT 1';
+	$paging_sql = ' LIMIT 1';
 		$sql   = "SELECT (select count(s.id) from log_penduduk s INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='1' and sex='1' and id_detail in ('8','5') and  month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNI_L,
-		(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='1' and sex='2' and id_detail in ('8','5')  and  month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNI_P,
-		(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='2' and sex='1' and id_detail in ('8','5')  and month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNA_L,
-		(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='2' and sex='2'  and id_detail in ('8','5')   and month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNA_P , bulan, tahun 
-		FROM log_penduduk   ";
+(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='1' and sex='2' and id_detail in ('8','5')  and  month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNI_P,
+(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='2' and sex='1' and id_detail in ('8','5')  and month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNA_L,
+(select count(s.id) from log_penduduk s  INNER join tweb_penduduk p on s.id_pend=p.id and warganegara_id='2' and sex='2'  and id_detail in ('8','5')   and month(tanggal)=month(curdate()) and year(tanggal)=year(curdate()) ) as WNA_P , bulan, tahun 
+FROM log_penduduk   ";
 		$sql .= $this->bulan_sql();
 		$sql .= $this->tahun_sql();
 		$sql .= $paging_sql;
 		$query = $this->db->query($sql);
-		if($query->num_rows()>0){
-			$data=$query->row_array();
-		}else{
-			$data= array(
-			"WNI_L"=>0, 
-			"WNI_P"=>0,
-			"WNA_L"=>0,
-			"WNA_P"=>0,
-			"bulan"=>$bln,
-			"tahun"=>$thn);
-		}
+		$data=$query->row_array();
 		return $data;
 	}
 

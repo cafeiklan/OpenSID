@@ -1,15 +1,11 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
 $active_group = 'default';
 $active_record = TRUE;
 
-if(is_file('donjo-app/config/db_donjo.php')) {
-  include('db_donjo.php');
-}else{
-  $db['default']['hostname'] = 'localhost';
-  $db['default']['username'] = 'root';
-  $db['default']['password'] = '';
-  $db['default']['database'] = 'sid3.04b';
-}
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'sid_304f';
+$db['default']['password'] = 'X5ZhQnHjqbGy58JP';
+$db['default']['database'] = 'sid_304f';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
