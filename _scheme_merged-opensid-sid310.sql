@@ -10,7 +10,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table sid__304.analisis_indikator
+-- Dumping structure for table test.analisis_indikator
 CREATE TABLE IF NOT EXISTS `analisis_indikator` (
   `id` int(11) NOT NULL auto_increment,
   `id_master` int(11) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `analisis_indikator` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_kategori_indikator
+-- Dumping structure for table test.analisis_kategori_indikator
 CREATE TABLE IF NOT EXISTS `analisis_kategori_indikator` (
   `id` tinyint(4) NOT NULL auto_increment,
   `id_master` tinyint(4) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `analisis_kategori_indikator` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_klasifikasi
+-- Dumping structure for table test.analisis_klasifikasi
 CREATE TABLE IF NOT EXISTS `analisis_klasifikasi` (
   `id` int(11) NOT NULL auto_increment,
   `id_master` int(11) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `analisis_klasifikasi` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_master
+-- Dumping structure for table test.analisis_master
 CREATE TABLE IF NOT EXISTS `analisis_master` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(40) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `analisis_master` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_parameter
+-- Dumping structure for table test.analisis_parameter
 CREATE TABLE IF NOT EXISTS `analisis_parameter` (
   `id` int(11) NOT NULL auto_increment,
   `id_indikator` int(11) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `analisis_parameter` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_partisipasi
+-- Dumping structure for table test.analisis_partisipasi
 CREATE TABLE IF NOT EXISTS `analisis_partisipasi` (
   `id` int(11) NOT NULL auto_increment,
   `id_subjek` int(11) NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `analisis_partisipasi` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_periode
+-- Dumping structure for table test.analisis_periode
 CREATE TABLE IF NOT EXISTS `analisis_periode` (
   `id` int(11) NOT NULL auto_increment,
   `id_master` int(11) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `analisis_periode` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_ref_state
+-- Dumping structure for table test.analisis_ref_state
 CREATE TABLE IF NOT EXISTS `analisis_ref_state` (
   `id` tinyint(4) NOT NULL auto_increment,
   `nama` varchar(40) NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `analisis_ref_state` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_ref_subjek
+-- Dumping structure for table test.analisis_ref_subjek
 CREATE TABLE IF NOT EXISTS `analisis_ref_subjek` (
   `id` tinyint(4) NOT NULL auto_increment,
   `subjek` varchar(20) NOT NULL,
@@ -143,12 +143,18 @@ CREATE TABLE IF NOT EXISTS `analisis_ref_subjek` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_respon
+-- Dumping structure for table test.analisis_respon
 CREATE TABLE IF NOT EXISTS `analisis_respon` (
+  `id` int(11) NOT NULL auto_increment,
   `id_indikator` int(11) NOT NULL,
   `id_parameter` int(11) NOT NULL,
   `id_subjek` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL
+  `id_periode` int(11) NOT NULL,
+  `tanggal_input` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `id_parameter` (`id_parameter`,`id_subjek`),
+  KEY `id_periode` (`id_periode`),
+  KEY `id_indikator` (`id_indikator`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
@@ -164,20 +170,24 @@ CREATE TABLE IF NOT EXISTS `analisis_respon_bukti` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
--- Dumping structure for table sid__304.analisis_respon_hasil
+
+
+-- Dumping structure for table sid__310.analisis_respon_hasil
 CREATE TABLE IF NOT EXISTS `analisis_respon_hasil` (
+  `id` int(11) NOT NULL auto_increment,
   `id_master` tinyint(4) NOT NULL,
   `id_periode` tinyint(4) NOT NULL,
   `id_subjek` int(11) NOT NULL,
   `akumulasi` double(8,3) NOT NULL,
   `tgl_update` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  UNIQUE KEY `id_master` (`id_master`,`id_periode`,`id_subjek`)
+  UNIQUE KEY `id_master` (`id_master`,`id_periode`,`id_subjek`),
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.analisis_tipe_indikator
+-- Dumping structure for table test.analisis_tipe_indikator
 CREATE TABLE IF NOT EXISTS `analisis_tipe_indikator` (
   `id` tinyint(4) NOT NULL auto_increment,
   `tipe` varchar(20) NOT NULL,
@@ -187,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `analisis_tipe_indikator` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.area
+-- Dumping structure for table test.area
 CREATE TABLE IF NOT EXISTS `area` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -203,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `area` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.artikel
+-- Dumping structure for table test.artikel
 CREATE TABLE IF NOT EXISTS `artikel` (
   `id` int(11) NOT NULL auto_increment,
   `gambar` varchar(200) NOT NULL,
@@ -219,13 +229,15 @@ CREATE TABLE IF NOT EXISTS `artikel` (
   `gambar3` varchar(200) NOT NULL,
   `dokumen` varchar(400) NOT NULL,
   `link_dokumen` varchar(200) NOT NULL,
+  `urut` int(5) default NULL,
+  `jenis_widget` tinyint(2) NOT NULL default '3',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.config
+-- Dumping structure for table test.config
 CREATE TABLE IF NOT EXISTS `config` (
   `id` int(5) NOT NULL auto_increment,
   `nama_desa` varchar(100) NOT NULL,
@@ -258,34 +270,12 @@ CREATE TABLE IF NOT EXISTS `config` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for view sid__304.data_surat
--- Creating temporary table to overcome VIEW dependency errors
-CREATE TABLE `data_surat` (
-	`id` INT(11) NOT NULL,
-	`nama` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
-	`sex` VARCHAR(15) NULL COLLATE 'utf8_general_ci',
-	`tempatlahir` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
-	`tanggallahir` DATE NOT NULL,
-	`umur` DOUBLE(17,0) NULL,
-	`status_kawin` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
-	`warganegara` VARCHAR(25) NULL COLLATE 'utf8_general_ci',
-	`agama` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
-	`pendidikan` VARCHAR(50) NULL COLLATE 'utf8_general_ci',
-	`pekerjaan` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
-	`nik` DECIMAL(16,0) NOT NULL,
-	`rt` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci',
-	`rw` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci',
-	`dusun` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
-	`no_kk` VARCHAR(160) NULL COLLATE 'utf8_general_ci',
-	`kepala_kk` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci'
-) ENGINE=MyISAM;
-
--- Dumping structure for table sid__310.data_persil
+-- Dumping structure for table test.data_persil
 CREATE TABLE IF NOT EXISTS `data_persil` (
   `id` int(11) NOT NULL auto_increment,
-  `nik` varchar(64) NOT NULL,
-  `nama` varchar(128) NOT NULL COMMENT 'nomer persil',
-  `persil_jenis_id` tinyint(2) NOT NULL,
+  `nik` decimal(16,0) NOT NULL,
+  `nama` varchar(100) NOT NULL COMMENT 'nomer persil',
+  `persil_jenis_id` int(11) NOT NULL,
   `id_clusterdesa` varchar(64) NOT NULL,
   `alamat_ext` varchar(64) NOT NULL,
   `luas` decimal(7,2) NOT NULL,
@@ -294,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `data_persil` (
   `no_sppt_pbb` varchar(128) NOT NULL,
   `persil_peruntukan_id` tinyint(2) NOT NULL,
   `rdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `userID` int(11) NOT NULL,
+  `userID` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `nik` (`nik`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -302,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `data_persil` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__310.data_persil_jenis
+-- Dumping structure for table test.data_persil_jenis
 CREATE TABLE IF NOT EXISTS `data_persil_jenis` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(128) NOT NULL,
@@ -328,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `data_persil_log` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__310.data_persil_peruntukan
+-- Dumping structure for table test.data_persil_peruntukan
 CREATE TABLE IF NOT EXISTS `data_persil_peruntukan` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(128) NOT NULL,
@@ -339,7 +329,30 @@ CREATE TABLE IF NOT EXISTS `data_persil_peruntukan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__310.detail_log_penduduk
+-- Dumping structure for view test.data_surat
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `data_surat` (
+	`id` INT(11) NOT NULL,
+	`nama` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`sex` VARCHAR(15) NULL COLLATE 'utf8_general_ci',
+	`tempatlahir` VARCHAR(100) NOT NULL COLLATE 'latin1_swedish_ci',
+	`tanggallahir` DATE NULL,
+	`umur` DOUBLE(17,0) NULL,
+	`status_kawin` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`warganegara` VARCHAR(25) NULL COLLATE 'utf8_general_ci',
+	`agama` VARCHAR(100) NULL COLLATE 'utf8_general_ci',
+	`pendidikan` VARCHAR(50) NULL COLLATE 'utf8_general_ci',
+	`pekerjaan` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`nik` DECIMAL(16,0) NOT NULL,
+	`rt` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci',
+	`rw` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci',
+	`dusun` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
+	`no_kk` VARCHAR(160) NULL COLLATE 'utf8_general_ci',
+	`kepala_kk` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for table test.detail_log_penduduk
 CREATE TABLE IF NOT EXISTS `detail_log_penduduk` (
   `id` int(10) NOT NULL,
   `nama` varchar(50) NOT NULL
@@ -348,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `detail_log_penduduk` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.dokumen
+-- Dumping structure for table test.dokumen
 CREATE TABLE IF NOT EXISTS `dokumen` (
   `id` int(11) NOT NULL auto_increment,
   `id_pend` int(11) NOT NULL default '0',
@@ -362,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `dokumen` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.gambar_gallery
+-- Dumping structure for table test.gambar_gallery
 CREATE TABLE IF NOT EXISTS `gambar_gallery` (
   `id` int(11) NOT NULL auto_increment,
   `parrent` int(4) NOT NULL,
@@ -378,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `gambar_gallery` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.garis
+-- Dumping structure for table test.garis
 CREATE TABLE IF NOT EXISTS `garis` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -422,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `inbox` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kategori
+-- Dumping structure for table test.kategori
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id` int(5) NOT NULL auto_increment,
   `kategori` varchar(100) NOT NULL,
@@ -436,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kelompok
+-- Dumping structure for table test.kelompok
 CREATE TABLE IF NOT EXISTS `kelompok` (
   `id` int(11) NOT NULL auto_increment,
   `id_master` int(11) NOT NULL,
@@ -452,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `kelompok` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kelompok_anggota
+-- Dumping structure for table test.kelompok_anggota
 CREATE TABLE IF NOT EXISTS `kelompok_anggota` (
   `id` int(11) NOT NULL auto_increment,
   `id_kelompok` int(11) NOT NULL,
@@ -464,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `kelompok_anggota` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kelompok_master
+-- Dumping structure for table test.kelompok_master
 CREATE TABLE IF NOT EXISTS `kelompok_master` (
   `id` int(11) NOT NULL auto_increment,
   `kelompok` varchar(50) NOT NULL,
@@ -474,17 +487,19 @@ CREATE TABLE IF NOT EXISTS `kelompok_master` (
 
 -- Data exporting was unselected.
 
--- Dumping structure for table sid__304.klasifikasi_analisis_keluarga
+
+-- Dumping structure for table test.klasifikasi_analisis_keluarga
 CREATE TABLE IF NOT EXISTS `klasifikasi_analisis_keluarga` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(20) NOT NULL,
   `jenis` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
--- Dumping structure for table sid__304.komentar
+
+-- Dumping structure for table test.komentar
 CREATE TABLE IF NOT EXISTS `komentar` (
   `id` int(5) NOT NULL auto_increment,
   `id_artikel` int(7) NOT NULL,
@@ -499,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `komentar` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kontak
+-- Dumping structure for table test.kontak
 CREATE TABLE IF NOT EXISTS `kontak` (
   `id` int(11) NOT NULL auto_increment,
   `id_pend` int(11) default NULL,
@@ -510,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `kontak` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.kontak_grup
+-- Dumping structure for table test.kontak_grup
 CREATE TABLE IF NOT EXISTS `kontak_grup` (
   `id` int(11) NOT NULL auto_increment,
   `nama_grup` varchar(30) NOT NULL,
@@ -521,7 +536,7 @@ CREATE TABLE IF NOT EXISTS `kontak_grup` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.line
+-- Dumping structure for table test.line
 CREATE TABLE IF NOT EXISTS `line` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -537,7 +552,7 @@ CREATE TABLE IF NOT EXISTS `line` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.log_bulanan
+-- Dumping structure for table test.log_bulanan
 CREATE TABLE IF NOT EXISTS `log_bulanan` (
   `id` int(11) NOT NULL auto_increment,
   `pend` int(11) NOT NULL,
@@ -550,8 +565,21 @@ CREATE TABLE IF NOT EXISTS `log_bulanan` (
 
 -- Data exporting was unselected.
 
+-- Dumping structure for table test.log_keluarga
+CREATE TABLE IF NOT EXISTS `log_keluarga` (
+  `id` int(10) NOT NULL auto_increment,
+  `id_kk` int(11) NOT NULL,
+  `kk_sex` tinyint(2) default NULL,
+  `id_peristiwa` int(4) NOT NULL,
+  `tgl_peristiwa` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `id_kk` (`id_kk`,`id_peristiwa`,`tgl_peristiwa`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping structure for table sid__304.log_penduduk
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table test.log_penduduk
 CREATE TABLE IF NOT EXISTS `log_penduduk` (
   `id` int(10) NOT NULL auto_increment,
   `id_pend` int(11) NOT NULL,
@@ -560,6 +588,7 @@ CREATE TABLE IF NOT EXISTS `log_penduduk` (
   `bulan` varchar(2) NOT NULL,
   `tahun` varchar(4) NOT NULL,
   `tgl_peristiwa` date NOT NULL,
+  `catatan` text,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `id_pend` (`id_pend`,`id_detail`,`tgl_peristiwa`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -567,7 +596,7 @@ CREATE TABLE IF NOT EXISTS `log_penduduk` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.log_perubahan_penduduk
+-- Dumping structure for table test.log_perubahan_penduduk
 CREATE TABLE IF NOT EXISTS `log_perubahan_penduduk` (
   `id` int(11) NOT NULL auto_increment,
   `id_pend` int(11) NOT NULL,
@@ -579,7 +608,7 @@ CREATE TABLE IF NOT EXISTS `log_perubahan_penduduk` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.log_surat
+-- Dumping structure for table test.log_surat
 CREATE TABLE IF NOT EXISTS `log_surat` (
   `id` int(11) NOT NULL auto_increment,
   `id_format_surat` int(4) NOT NULL,
@@ -590,13 +619,15 @@ CREATE TABLE IF NOT EXISTS `log_surat` (
   `bulan` varchar(2) default NULL,
   `tahun` varchar(4) default NULL,
   `no_surat` varchar(20) default NULL,
+  `nama_surat` varchar(100) default NULL,
+  `lampiran` varchar(100) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.lokasi
+-- Dumping structure for table test.lokasi
 CREATE TABLE IF NOT EXISTS `lokasi` (
   `id` int(4) NOT NULL auto_increment,
   `desk` text NOT NULL,
@@ -614,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `lokasi` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.media_sosial
+-- Dumping structure for table test.media_sosial
 CREATE TABLE IF NOT EXISTS `media_sosial` (
   `id` int(11) NOT NULL auto_increment,
   `gambar` text NOT NULL,
@@ -627,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `media_sosial` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.menu
+-- Dumping structure for table test.menu
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -636,13 +667,14 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `parrent` int(4) NOT NULL default '1',
   `link_tipe` tinyint(1) NOT NULL default '0',
   `enabled` int(11) NOT NULL default '1',
+  `urut` int(5) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.outbox
+-- Dumping structure for table test.outbox
 CREATE TABLE IF NOT EXISTS `outbox` (
   `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `InsertIntoDB` timestamp NOT NULL default '0000-00-00 00:00:00',
@@ -670,7 +702,7 @@ CREATE TABLE IF NOT EXISTS `outbox` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.pertanyaan
+-- Dumping structure for table test.pertanyaan
 CREATE TABLE IF NOT EXISTS `pertanyaan` (
   `1` int(2) default NULL,
   `Pendapatan perkapita perbulan` varchar(87) default NULL,
@@ -685,7 +717,7 @@ CREATE TABLE IF NOT EXISTS `pertanyaan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.point
+-- Dumping structure for table test.point
 CREATE TABLE IF NOT EXISTS `point` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -700,7 +732,7 @@ CREATE TABLE IF NOT EXISTS `point` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.polygon
+-- Dumping structure for table test.polygon
 CREATE TABLE IF NOT EXISTS `polygon` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -716,25 +748,7 @@ CREATE TABLE IF NOT EXISTS `polygon` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.ref_bedah_rumah
-CREATE TABLE IF NOT EXISTS `ref_bedah_rumah` (
-  `id` int(4) NOT NULL auto_increment,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
-
--- Dumping structure for table sid__304.ref_blt
-CREATE TABLE IF NOT EXISTS `ref_blt` (
-  `id` int(4) NOT NULL auto_increment,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
-
--- Dumping structure for table sid__310.program
+-- Dumping structure for table test.program
 CREATE TABLE IF NOT EXISTS `program` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(256) NOT NULL,
@@ -750,12 +764,14 @@ CREATE TABLE IF NOT EXISTS `program` (
 
 -- Data exporting was unselected.
 
--- Dumping structure for table sid__310.program_peserta
+
+-- Dumping structure for table test.program_peserta
 CREATE TABLE IF NOT EXISTS `program_peserta` (
   `id` int(11) NOT NULL auto_increment,
+  `peserta` decimal(16,0) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `peserta` decimal(18,0) NOT NULL,
-  `sasaran` tinyint(1) NOT NULL,
+  `sasaran` tinyint(4) default NULL,
+  `no_id_kartu` varchar(30) default NULL,
   `userID` int(11) NOT NULL,
   `rdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
@@ -763,17 +779,8 @@ CREATE TABLE IF NOT EXISTS `program_peserta` (
 
 -- Data exporting was unselected.
 
--- Dumping structure for table sid__304.ref_jamkesmas
-CREATE TABLE IF NOT EXISTS `ref_jamkesmas` (
-  `id` int(2) NOT NULL auto_increment,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Data exporting was unselected.
-
-
--- Dumping structure for table sid__304.ref_kelas_sosial
+-- Dumping structure for table test.ref_kelas_sosial
 CREATE TABLE IF NOT EXISTS `ref_kelas_sosial` (
   `id` int(4) NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -783,27 +790,7 @@ CREATE TABLE IF NOT EXISTS `ref_kelas_sosial` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.ref_pkh
-CREATE TABLE IF NOT EXISTS `ref_pkh` (
-  `id` int(4) NOT NULL auto_increment,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table sid__304.ref_raskin
-CREATE TABLE IF NOT EXISTS `ref_raskin` (
-  `id` int(4) NOT NULL auto_increment,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table sid__304.sentitems
+-- Dumping structure for table test.sentitems
 CREATE TABLE IF NOT EXISTS `sentitems` (
   `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `InsertIntoDB` timestamp NOT NULL default '0000-00-00 00:00:00',
@@ -845,12 +832,12 @@ CREATE TABLE IF NOT EXISTS `setting_modul` (
   `level` tinyint(1) NOT NULL default '2',
   `hidden` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.setting_sms
+-- Dumping structure for table sid__310.setting_sms
 CREATE TABLE IF NOT EXISTS `setting_sms` (
   `autoreply_text` varchar(160) default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -858,7 +845,7 @@ CREATE TABLE IF NOT EXISTS `setting_sms` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.sys_traffic
+-- Dumping structure for table test.sys_traffic
 CREATE TABLE IF NOT EXISTS `sys_traffic` (
   `Tanggal` date NOT NULL,
   `ipAddress` text NOT NULL,
@@ -869,7 +856,7 @@ CREATE TABLE IF NOT EXISTS `sys_traffic` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_alamat_sekarang
+-- Dumping structure for table sid__310.tweb_alamat_sekarang
 CREATE TABLE IF NOT EXISTS `tweb_alamat_sekarang` (
   `id` int(11) NOT NULL,
   `jalan` varchar(100) NOT NULL,
@@ -885,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `tweb_alamat_sekarang` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_cacat
+-- Dumping structure for table test.tweb_cacat
 CREATE TABLE IF NOT EXISTS `tweb_cacat` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -895,7 +882,18 @@ CREATE TABLE IF NOT EXISTS `tweb_cacat` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_desa_pamong
+-- Dumping structure for table test.tweb_cara_kb
+CREATE TABLE IF NOT EXISTS `tweb_cara_kb` (
+  `id` tinyint(5) NOT NULL auto_increment,
+  `nama` varchar(50) NOT NULL,
+  `sex` tinyint(2) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table test.tweb_desa_pamong
 CREATE TABLE IF NOT EXISTS `tweb_desa_pamong` (
   `pamong_id` int(5) NOT NULL auto_increment,
   `pamong_nama` varchar(100) default NULL,
@@ -910,7 +908,7 @@ CREATE TABLE IF NOT EXISTS `tweb_desa_pamong` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_golongan_darah
+-- Dumping structure for table test.tweb_golongan_darah
 CREATE TABLE IF NOT EXISTS `tweb_golongan_darah` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(15) default NULL,
@@ -920,13 +918,16 @@ CREATE TABLE IF NOT EXISTS `tweb_golongan_darah` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_keluarga
+-- Dumping structure for table test.tweb_keluarga
 CREATE TABLE IF NOT EXISTS `tweb_keluarga` (
   `id` int(10) NOT NULL auto_increment,
   `no_kk` varchar(160) default NULL,
   `nik_kepala` varchar(200) default NULL,
   `tgl_daftar` timestamp NULL default CURRENT_TIMESTAMP,
   `kelas_sosial` int(4) default NULL,
+  `tgl_cetak_kk` datetime default NULL,
+  `alamat` varchar(200) default NULL,
+  `id_cluster` int(11) default NULL,
   `raskin` int(4) NOT NULL default '2',
   `id_bedah_rumah` int(2) NOT NULL default '2',
   `id_pkh` int(2) NOT NULL default '2',
@@ -938,7 +939,7 @@ CREATE TABLE IF NOT EXISTS `tweb_keluarga` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk
+-- Dumping structure for table test.tweb_penduduk
 CREATE TABLE IF NOT EXISTS `tweb_penduduk` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -949,7 +950,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk` (
   `rtm_level` int(11) NOT NULL,
   `sex` tinyint(4) unsigned default NULL,
   `tempatlahir` varchar(100) NOT NULL,
-  `tanggallahir` date NOT NULL,
+  `tanggallahir` date default NULL,
   `agama_id` int(10) unsigned NOT NULL,
   `pendidikan_kk_id` int(10) unsigned NOT NULL,
   `pendidikan_id` int(10) unsigned NOT NULL,
@@ -976,16 +977,17 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk` (
   `jamkesmas` int(11) NOT NULL default '2',
   `akta_lahir` varchar(40) NOT NULL,
   `akta_perkawinan` varchar(40) NOT NULL,
-  `tanggalperkawinan` date NOT NULL,
+  `tanggalperkawinan` date default NULL,
   `akta_perceraian` varchar(40) NOT NULL,
-  `tanggalperceraian` date NOT NULL,
+  `tanggalperceraian` date default NULL,
+  `cara_kb_id` tinyint(2) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_agama
+-- Dumping structure for table test.tweb_penduduk_agama
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_agama` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -995,7 +997,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_agama` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_hubungan
+-- Dumping structure for table test.tweb_penduduk_hubungan
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_hubungan` (
   `id` int(10) NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -1005,7 +1007,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_hubungan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_kawin
+-- Dumping structure for table test.tweb_penduduk_kawin
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_kawin` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -1015,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_kawin` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__310.tweb_penduduk_mandiri
+-- Dumping structure for table test.tweb_penduduk_mandiri
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_mandiri` (
   `nik` varchar(20) NOT NULL,
   `pin` varchar(60) NOT NULL,
@@ -1027,7 +1029,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_mandiri` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__310.tweb_penduduk_map
+-- Dumping structure for table test.tweb_penduduk_map
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_map` (
   `id` int(11) NOT NULL,
   `lat` varchar(24) NOT NULL,
@@ -1037,7 +1039,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_map` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_pekerjaan
+-- Dumping structure for table test.tweb_penduduk_pekerjaan
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_pekerjaan` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(100) default NULL,
@@ -1047,7 +1049,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_pekerjaan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_pendidikan
+-- Dumping structure for table test.tweb_penduduk_pendidikan
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_pendidikan` (
   `id` tinyint(3) NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -1057,7 +1059,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_pendidikan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_pendidikan_kk
+-- Dumping structure for table test.tweb_penduduk_pendidikan_kk
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_pendidikan_kk` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(50) NOT NULL,
@@ -1067,7 +1069,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_pendidikan_kk` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_sex
+-- Dumping structure for table test.tweb_penduduk_sex
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_sex` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(15) default NULL,
@@ -1077,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_sex` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_status
+-- Dumping structure for table test.tweb_penduduk_status
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_status` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(50) default NULL,
@@ -1087,7 +1089,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_status` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_umur
+-- Dumping structure for table test.tweb_penduduk_umur
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_umur` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(25) default NULL,
@@ -1100,7 +1102,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_umur` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_penduduk_warganegara
+-- Dumping structure for table test.tweb_penduduk_warganegara
 CREATE TABLE IF NOT EXISTS `tweb_penduduk_warganegara` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(25) default NULL,
@@ -1110,7 +1112,7 @@ CREATE TABLE IF NOT EXISTS `tweb_penduduk_warganegara` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_rtm
+-- Dumping structure for table test.tweb_rtm
 CREATE TABLE IF NOT EXISTS `tweb_rtm` (
   `id` int(11) NOT NULL auto_increment,
   `nik_kepala` int(11) NOT NULL,
@@ -1123,7 +1125,7 @@ CREATE TABLE IF NOT EXISTS `tweb_rtm` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_rtm_hubungan
+-- Dumping structure for table test.tweb_rtm_hubungan
 CREATE TABLE IF NOT EXISTS `tweb_rtm_hubungan` (
   `id` tinyint(4) NOT NULL auto_increment,
   `nama` varchar(20) NOT NULL,
@@ -1133,7 +1135,7 @@ CREATE TABLE IF NOT EXISTS `tweb_rtm_hubungan` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_sakit_menahun
+-- Dumping structure for table test.tweb_sakit_menahun
 CREATE TABLE IF NOT EXISTS `tweb_sakit_menahun` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(255) NOT NULL,
@@ -1143,7 +1145,7 @@ CREATE TABLE IF NOT EXISTS `tweb_sakit_menahun` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_status_dasar
+-- Dumping structure for table test.tweb_status_dasar
 CREATE TABLE IF NOT EXISTS `tweb_status_dasar` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `nama` varchar(50) default NULL,
@@ -1153,7 +1155,7 @@ CREATE TABLE IF NOT EXISTS `tweb_status_dasar` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_surat_atribut
+-- Dumping structure for table test.tweb_surat_atribut
 CREATE TABLE IF NOT EXISTS `tweb_surat_atribut` (
   `id` int(11) NOT NULL auto_increment,
   `id_surat` int(11) NOT NULL,
@@ -1167,7 +1169,7 @@ CREATE TABLE IF NOT EXISTS `tweb_surat_atribut` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_surat_format
+-- Dumping structure for table test.tweb_surat_format
 CREATE TABLE IF NOT EXISTS `tweb_surat_format` (
   `id` int(11) NOT NULL auto_increment,
   `nama` varchar(100) NOT NULL,
@@ -1175,13 +1177,15 @@ CREATE TABLE IF NOT EXISTS `tweb_surat_format` (
   `kode_surat` varchar(10) NOT NULL,
   `kunci` tinyint(1) NOT NULL default '0',
   `favorit` tinyint(1) NOT NULL default '0',
+  `lampiran` varchar(100) default NULL,
+  UNIQUE KEY `url_surat` (`url_surat`),
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.tweb_wil_clusterdesa
+-- Dumping structure for table test.tweb_wil_clusterdesa
 CREATE TABLE IF NOT EXISTS `tweb_wil_clusterdesa` (
   `id` int(11) NOT NULL auto_increment,
   `rt` varchar(10) NOT NULL default '0',
@@ -1201,7 +1205,7 @@ CREATE TABLE IF NOT EXISTS `tweb_wil_clusterdesa` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.user
+-- Dumping structure for table test.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `username` varchar(100) NOT NULL,
@@ -1221,7 +1225,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table sid__304.user_grup
+-- Dumping structure for table test.user_grup
 CREATE TABLE IF NOT EXISTS `user_grup` (
   `id` tinyint(4) NOT NULL,
   `nama` varchar(20) NOT NULL,
@@ -1231,10 +1235,10 @@ CREATE TABLE IF NOT EXISTS `user_grup` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for view sid__304.data_surat
+-- Dumping structure for view test.data_surat
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `data_surat`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_surat` AS select `u`.`id` AS `id`,`u`.`nama` AS `nama`,`x`.`nama` AS `sex`,`u`.`tempatlahir` AS `tempatlahir`,`u`.`tanggallahir` AS `tanggallahir`,(select (date_format(from_days((to_days(now()) - to_days(`tweb_penduduk`.`tanggallahir`))),_utf8'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(``tweb_penduduk``.``tanggallahir``))),'%Y') + 0)` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `u`.`id`)) AS `umur`,`w`.`nama` AS `status_kawin`,`f`.`nama` AS `warganegara`,`a`.`nama` AS `agama`,`d`.`nama` AS `pendidikan`,`j`.`nama` AS `pekerjaan`,`u`.`nik` AS `nik`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`dusun` AS `dusun`,`k`.`no_kk` AS `no_kk`,(select `tweb_penduduk`.`nama` AS `nama` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `k`.`nik_kepala`)) AS `kepala_kk` from ((((((((`tweb_penduduk` `u` left join `tweb_penduduk_sex` `x` on((`u`.`sex` = `x`.`id`))) left join `tweb_penduduk_kawin` `w` on((`u`.`status_kawin` = `w`.`id`))) left join `tweb_penduduk_agama` `a` on((`u`.`agama_id` = `a`.`id`))) left join `tweb_penduduk_pendidikan_kk` `d` on((`u`.`pendidikan_kk_id` = `d`.`id`))) left join `tweb_penduduk_pekerjaan` `j` on((`u`.`pekerjaan_id` = `j`.`id`))) left join `tweb_wil_clusterdesa` `c` on((`u`.`id_cluster` = `c`.`id`))) left join `tweb_keluarga` `k` on((`u`.`id_kk` = `k`.`id`))) left join `tweb_penduduk_warganegara` `f` on((`u`.`warganegara_id` = `f`.`id`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `data_surat` AS select `u`.`id` AS `id`,`u`.`nama` AS `nama`,`x`.`nama` AS `sex`,`u`.`tempatlahir` AS `tempatlahir`,`u`.`tanggallahir` AS `tanggallahir`,(select (date_format(from_days((to_days(now()) - to_days(`tweb_penduduk`.`tanggallahir`))),_latin1'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(``tweb_penduduk``.``tanggallahir``))),'%Y') + 0)` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `u`.`id`)) AS `umur`,`w`.`nama` AS `status_kawin`,`f`.`nama` AS `warganegara`,`a`.`nama` AS `agama`,`d`.`nama` AS `pendidikan`,`j`.`nama` AS `pekerjaan`,`u`.`nik` AS `nik`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`dusun` AS `dusun`,`k`.`no_kk` AS `no_kk`,(select `tweb_penduduk`.`nama` AS `nama` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `k`.`nik_kepala`)) AS `kepala_kk` from ((((((((`tweb_penduduk` `u` left join `tweb_penduduk_sex` `x` on((`u`.`sex` = `x`.`id`))) left join `tweb_penduduk_kawin` `w` on((`u`.`status_kawin` = `w`.`id`))) left join `tweb_penduduk_agama` `a` on((`u`.`agama_id` = `a`.`id`))) left join `tweb_penduduk_pendidikan_kk` `d` on((`u`.`pendidikan_kk_id` = `d`.`id`))) left join `tweb_penduduk_pekerjaan` `j` on((`u`.`pekerjaan_id` = `j`.`id`))) left join `tweb_wil_clusterdesa` `c` on((`u`.`id_cluster` = `c`.`id`))) left join `tweb_keluarga` `k` on((`u`.`id_kk` = `k`.`id`))) left join `tweb_penduduk_warganegara` `f` on((`u`.`warganegara_id` = `f`.`id`)));
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
