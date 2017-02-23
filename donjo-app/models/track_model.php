@@ -2,9 +2,21 @@
 
   function __construct(){
     parent::__construct();
+    
+    $this->session->set_userdata('enable_track', TRUE);
+    
+    if($this->config->item('enable_track') == FALSE )
+    	$this->session->set_userdata('enable_track', FALSE);
+    
+    if($this->config->item('offline_mode') == TRUE)
+    	$this->session->set_userdata('enable_track', FALSE);
+    
   }
 
   function track_desa($dari){
+     
+    if (isset($_SESSION['enable_track']) && $_SESSION['enable_track'] == FALSE) return;
+
     // if(isset($_SESSION['track_desa']) AND $_SESSION['track_desa'] == date("Y m d")) return;
     $_SESSION['balik_ke'] = $dari;
     if (defined('ENVIRONMENT'))
