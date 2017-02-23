@@ -24,4 +24,4 @@ $config['sebutan_dusun'] = 'dusun';
 $config['offline_mode'] = TRUE;
 
 // Apakah akan mengirimkan data statistik ke server sid?
-$config['enable_track'] = TRUE;
+$config['enable_track'] = FALSE;
