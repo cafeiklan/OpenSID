@@ -13,9 +13,9 @@ $config['google_key'] = 'ganti-dengan-google-api-key';
 $config['libreoffice_path'] = "C:\Program Files (x86)\LibreOffice 4\program";
 
 // penyesuaian judul yang muncul di browser
-$config['website_title'] = 'Website Resmi Desa Kotapari';
-$config['login_title'] = 'Desa Kotapari';
-$config['admin_title'] = 'Sistem Informasi Desa Kotapari';
+$config['website_title'] = 'Website Resmi';
+$config['login_title'] = 'Login OpenSID';
+$config['admin_title'] = 'Sistem Informasi';
 
 // untuk mengganti penamaan wilayah 'desa'
 $config['sebutan_desa'] = 'desa';
