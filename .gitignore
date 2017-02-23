@@ -1,9 +1,8 @@
 # File ini untuk branch master, berisi source code inti OpenSID
 desa/config/database.php
 desa/arsip/*
-desa/*/baca-ini.txt
-desa/*/*/baca-ini.txt
-desa/*/*/*/baca-ini.txt
+!desa/arsip/baca-ini.txt
+
 
 donjo-app/config/db_donjo.php
 backup/
