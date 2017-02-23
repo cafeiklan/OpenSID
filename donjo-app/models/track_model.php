@@ -2,6 +2,15 @@
 
   function __construct(){
     parent::__construct();
+    
+    $this->session->set_userdata('enable_track', TRUE);
+    
+    if($this->config->item('enable_track') == FALSE )
+    	$this->session->set_userdata('enable_track', FALSE);
+    
+    if($this->config->item('offline_mode') == TRUE)
+    	$this->session->set_userdata('enable_track', FALSE);
+    
   }
 
   function track_desa($dari){
