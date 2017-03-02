@@ -7,7 +7,7 @@ class Main extends CI_Controller {
 	}
 
 	function index(){
-		if (isset($_SESSION['siteman'])){
+		if (isset($_SESSION['siteman']) AND $_SESSION['siteman'] == 1){
 			$this->load->model('user_model');
 			$grup	= $this->user_model->sesi_grup($_SESSION['sesi']);
 			switch($grup){
@@ -16,7 +16,7 @@ class Main extends CI_Controller {
 				case 3: redirect('web'); break;
 				case 4: redirect('web'); break;
 				default: {
-					if ((isset($_SESSION['siteman'])) || ($this->config->item("offline_mode")===TRUE)) {
+					if ($this->config->item("offline_mode")===TRUE) {
 						redirect('siteman');
 
 					} else {

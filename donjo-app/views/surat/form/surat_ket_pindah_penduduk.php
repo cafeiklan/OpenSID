@@ -56,16 +56,22 @@
 		} else {
 			$('#kk_show').attr("checked", true);
 			$("#kk").removeAttr('disabled');
-			$("#status_kk_pindah_show").val("3");
-			$("#status_kk_pindah_show").trigger("onchange");
-			$("#status_kk_pindah_show").attr('disabled', 'disabled');
+			if($('#klasifikasi_pindah_id').val() < 3) {
+				// Jika pindah di satu kecamatan, nomor KK tetap.
+				// Jika pindah ke luar kecamatan, nomor KK ganti.
+				$("#status_kk_pindah_show").val("3");
+				$("#status_kk_pindah_show").trigger("onchange");
+				$("#status_kk_pindah_show").attr('disabled', 'disabled');
+			} else {
+				$("#status_kk_pindah_show").removeAttr('disabled');
+			}
 			$(status_kk_tidak_pindah).removeAttr('disabled');
 			// KK and semua anggota pindah
 			if(jenis_pindah == 2){
 				if($('#kode_format').val() == "f108"){
 					$(status_kk_tidak_pindah).val("3");
 				} else {
-					$(status_kk_tidak_pindah).val("");
+					$(status_kk_tidak_pindah).val(" ");
 				}
 				$(status_kk_tidak_pindah).trigger("onchange");
 				$(status_kk_tidak_pindah).attr('disabled', 'disabled');
@@ -83,13 +89,11 @@
 		$('#kk_show').trigger("onchange");
 	}
 	function urus_masa_ktp(centang, urut){
+		// ktp_berlaku sekarang selalu 'Seumur Hidup' dan tidak diubah
 		if (centang){
 			$('#anggota' + urut).attr('disabled', 'disabled');
-			$('#ktp_berlaku' + urut).attr('disabled', 'disabled');
-			$('#ktp_berlaku' + urut).val('');
 		}
 		else {
-			$('#ktp_berlaku' + urut).removeAttr('disabled');
 			$('#anggota' + urut).removeAttr('disabled');
 		}
 	}
@@ -125,6 +129,7 @@
 			$('#kode_format').val('F-1.34');
 			$('#provinsi_tujuan_show').removeAttr('disabled');
 		}
+		$('#jenis_kepindahan_id').trigger('onchange');
 	}
 
 	$(function(){
@@ -238,7 +243,7 @@ table.form.detail td{
 	<tr>
 	  <th>Klasifikasi Pindah</th>
 	  <td>
-	    <select name="klasifikasi_pindah_id" class="required" onchange="urus_klasifikasi_pindah($(this).val());">
+	    <select id="klasifikasi_pindah_id" name="klasifikasi_pindah_id" class="required" onchange="urus_klasifikasi_pindah($(this).val());">
 	      <option value="">Pilih Klasifikasi Pindah</option>
 	      <?php foreach($kode['klasifikasi_pindah'] as $key => $value){?>
 	        <option value="<?php echo $key?>"><?php echo strtoupper($value)?></option>
@@ -300,7 +305,7 @@ table.form.detail td{
 				<tr>
 					<th>Kode Pos</th>
 					<td>
-						<input name="kode_pos_tujuan" type="text" class="inputbox required" size="40"/>
+						<input name="kode_pos_tujuan" type="text" class="inputbox" size="40"/>
 					</td>
 				</tr>
 				<tr>
@@ -315,7 +320,7 @@ table.form.detail td{
 	<tr>
 	  <th>Jenis Kepindahan</th>
 	  <td>
-	    <select name="jenis_kepindahan_id" class="required" onchange="urus_anggota($(this).val());">
+	    <select id="jenis_kepindahan_id" name="jenis_kepindahan_id" class="required" onchange="urus_anggota($(this).val());">
 	      <option value="">Pilih Jenis Kepindahan</option>
 	      <?php foreach($kode['jenis_kepindahan'] as $key => $value){?>
 	        <option value="<?php echo $key?>"><?php echo strtoupper($value)?></option>
@@ -390,7 +395,8 @@ table.form.detail td{
 									</td>
 									<td><?php echo $data['nik']?></td>
 									<td>
-										<input id="ktp_berlaku<?php echo ($i)?>" disabled="disabled" name="ktp_berlaku[]" type="text" class="inputbox datepicker required" size="20"/>
+										<input id="ktp_berlaku<?php echo ($i)?>" type="hidden" name="ktp_berlaku[]" type="text" value="Seumur Hidup"/>
+										<input disabled="disabled" type="text" value="Seumur Hidup" class="inputbox" size="20"/>
 									</td>
 									<td><?php echo unpenetration($data['nama'])?></td>
 									<td><?php echo $data['sex']?></td>

@@ -1,11 +1,11 @@
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php 
-			echo ((config_item('website_title')!=FALSE) ? config_item('website_title') : 'Website' ) 
-				. ' ' . ((config_item('sebutan_desa')) ? ucwords(config_item('sebutan_desa')) : 'Desa') 
-				. (($desa['nama_desa']) ? ' ' . unpenetration($desa['nama_desa']) : '') 
-				. get_dynamic_title_page_from_path(); 
+		<title><?php
+			echo config_item('website_title')
+				. ' ' . ucwords(config_item('sebutan_desa'))
+				. (($desa['nama_desa']) ? ' ' . unpenetration($desa['nama_desa']) : '')
+				. get_dynamic_title_page_from_path();
 		?></title>
 		<meta content="utf-8" http-equiv="encoding">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

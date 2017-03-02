@@ -1,6 +1,6 @@
 <?php
 
-define("VERSION", 'pra-1.11');
+define("VERSION", '1.11');
 define("LOKASI_LOGO_DESA", 'desa/logo/');
 define("LOKASI_ARSIP", 'desa/arsip/');
 define("LOKASI_CONFIG_DESA", 'desa/config/');
@@ -278,9 +278,7 @@ define("KODE_PEKERJAAN", serialize(array(
   // Untuk mengirim data ke OpenSID tracker
   function httpPost($url,$params)
   {
-    if (!extension_loaded('curl')) return;
-    
-    if (isset($_SESSION['enable_track']) && $_SESSION['enable_track'] == FALSE) return;
+    if (!extension_loaded('curl') OR isset($_SESSION['no_curl'])) return;
 
     $postData = '';
     //create name value pairs seperated by &

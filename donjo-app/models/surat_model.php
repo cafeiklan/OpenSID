@@ -452,7 +452,6 @@
 		// Proses surat yang membutuhkan pengambilan data khusus
 		switch ($url) {
 			case 'surat_ket_pindah_penduduk':
-			case 'surat_ket_pindah_penduduk2':
 				$buffer=str_replace("[jumlah_pengikut]",count($input['id_cb']),$buffer);
 				for ($i = 0; $i < MAX_PINDAH; $i++) {
 					$nomor = $i+1;
@@ -462,6 +461,7 @@
 						$buffer=str_replace("[pindah_no_$nomor]",$nomor,$buffer);
 						$buffer=str_replace("[pindah_nik_$nomor]",$penduduk['nik'],$buffer);
 						$buffer=str_replace("[pindah_nama_$nomor]",ucwords(strtolower($penduduk['nama'])),$buffer);
+						$buffer=str_replace("[ktp_berlaku$nomor]",$input['ktp_berlaku'][$i],$buffer);
 						$buffer=str_replace("[pindah_shdk_$nomor]",ucwords(strtolower($penduduk['hubungan'])),$buffer);
 					} else {
 						$buffer=str_replace("[pindah_no_$nomor]","",$buffer);
@@ -480,7 +480,12 @@
 					$buffer=str_replace("[alasan_pindah]",$kode['alasan_pindah'][$alasan_pindah_id],$buffer);
 				}
 				$buffer=str_replace("[jenis_kepindahan]",$kode['jenis_kepindahan'][$input['jenis_kepindahan_id']],$buffer);
-				$buffer=str_replace("[status_kk_tidak_pindah]",$kode['status_kk_pindah'][$input['status_kk_tidak_pindah_id']],$buffer);
+				if ($kode['status_kk_tidak_pindah'][$input['status_kk_tidak_pindah_id']]) {
+					$buffer=str_replace("[status_kk_tidak_pindah]",$kode['status_kk_tidak_pindah'][$input['status_kk_tidak_pindah_id']],$buffer);
+				}
+				else {
+					$buffer=str_replace("[status_kk_tidak_pindah]","-",$buffer);
+				}
 				$buffer=str_replace("[status_kk_pindah]",$kode['status_kk_pindah'][$input['status_kk_pindah_id']],$buffer);
 				break;
 
@@ -736,7 +741,7 @@
 			$buffer=str_replace("[d_alamat_ayah]","RT $ayah[rt] / RW $ayah[rw] $ayah[dusun]",$buffer);
 
 			//DATA DARI FORM INPUT SURAT
-			// Kode isian yang disediakan pada SID CRI 3.04
+			// Kode isian yang disediakan pada SID CRI
 			$buffer=str_replace("[nomor_surat]","$input[nomor]",$buffer);
 			$buffer=str_replace("[nomor_sorat]","$input[nomor]",$buffer);
 			if(isset($input['berlaku_dari'])) $buffer=str_replace("[mulai_berlaku]",tgl_indo(date('Y m d',strtotime($input['berlaku_dari']))),$buffer);
@@ -751,7 +756,7 @@
 				"tanggal_lahir", "tanggallahir_istri", "tanggallahir_suami", "tanggal_mati",
 				"tanggallahir_pasangan", "tgl_lahir_ayah", "tgl_lahir_ibu", "tgl_berakhir_paspor",
 				"tgl_akte_perkawinan", "tgl_perceraian", "tanggallahir","tanggallahir_pelapor", "tgl_lahir",
-				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah", "ktp_berlaku",
+				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah",
 				"tanggal_pindah"
 				);
 			foreach ($input as $key => $entry){
@@ -896,7 +901,7 @@
 
 		$id_format_surat = $query->row()->id;
 
-		$sql   = "SELECT no_surat,tanggal FROM log_surat WHERE id_format_surat = ?";
+		$sql   = "SELECT no_surat,tanggal FROM log_surat WHERE id_format_surat = ? ORDER BY tanggal DESC LIMIT 1";
 		$query = $this->db->query($sql, $id_format_surat);
 
 		return $query->row_array();
