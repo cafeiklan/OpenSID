@@ -2,10 +2,15 @@
 
   function __construct(){
     parent::__construct();
+
+    session_start();
   }
 
   function track_desa($dari){
-    // if(isset($_SESSION['track_desa']) AND $_SESSION['track_desa'] == date("Y m d")) return;
+
+    if ($this->config->item('enable_track') == FALSE) return;
+    if(isset($_SESSION['track_desa']) AND $_SESSION['track_desa'] == date("Y m d")) return;
+
     $_SESSION['balik_ke'] = $dari;
     if (defined('ENVIRONMENT'))
     {

@@ -347,7 +347,16 @@
 	function get_surat($url=''){
 		$sql   = "SELECT * FROM tweb_surat_format WHERE url_surat = ?";
 		$query = $this->db->query($sql,$url);
-		return $query->row_array();
+		$data = $query->row_array();
+		// Isi lokasi template surat
+		// Pakai surat ubahan desa apabila ada
+		$file = SuratExportDesa($url);
+		if($file == ""){
+			$data['lokasi_rtf'] = "surat/$url/";
+		} else {
+			$data['lokasi_rtf'] = LOKASI_SURAT_EXPORT_DESA;
+		}
+		return $data;
 	}
 
 	function bersihkan_kode_isian($buffer_in){
@@ -418,11 +427,16 @@
 					2 => "Membuat KK Baru",
 					3 => "Nomor KK Tetap"
 				);
-				$kode["status_kk_tidak_pindah"] = array(
+				$kode["status_kk_tidak_pindah_f108"] = array(
 					1 => "Numpang KK",
 					2 => "Membuat KK Baru",
 					3 => "Tidak Ada Angg. Keluarga Yang Ditinggal",
 					4 => "Nomor KK Tetap"
+				);
+				$kode["status_kk_tidak_pindah"] = array(
+					1 => "Numpang KK",
+					2 => "Membuat KK Baru",
+					3 => "Nomor KK Tetap"
 				);
 				break;
 
@@ -447,6 +461,7 @@
 						$buffer=str_replace("[pindah_no_$nomor]",$nomor,$buffer);
 						$buffer=str_replace("[pindah_nik_$nomor]",$penduduk['nik'],$buffer);
 						$buffer=str_replace("[pindah_nama_$nomor]",ucwords(strtolower($penduduk['nama'])),$buffer);
+						$buffer=str_replace("[ktp_berlaku$nomor]",$input['ktp_berlaku'][$i],$buffer);
 						$buffer=str_replace("[pindah_shdk_$nomor]",ucwords(strtolower($penduduk['hubungan'])),$buffer);
 					} else {
 						$buffer=str_replace("[pindah_no_$nomor]","",$buffer);
@@ -465,7 +480,12 @@
 					$buffer=str_replace("[alasan_pindah]",$kode['alasan_pindah'][$alasan_pindah_id],$buffer);
 				}
 				$buffer=str_replace("[jenis_kepindahan]",$kode['jenis_kepindahan'][$input['jenis_kepindahan_id']],$buffer);
-				$buffer=str_replace("[status_kk_tidak_pindah]",$kode['status_kk_pindah'][$input['status_kk_tidak_pindah_id']],$buffer);
+				if ($kode['status_kk_tidak_pindah'][$input['status_kk_tidak_pindah_id']]) {
+					$buffer=str_replace("[status_kk_tidak_pindah]",$kode['status_kk_tidak_pindah'][$input['status_kk_tidak_pindah_id']],$buffer);
+				}
+				else {
+					$buffer=str_replace("[status_kk_tidak_pindah]","-",$buffer);
+				}
 				$buffer=str_replace("[status_kk_pindah]",$kode['status_kk_pindah'][$input['status_kk_pindah_id']],$buffer);
 				break;
 
@@ -721,7 +741,7 @@
 			$buffer=str_replace("[d_alamat_ayah]","RT $ayah[rt] / RW $ayah[rw] $ayah[dusun]",$buffer);
 
 			//DATA DARI FORM INPUT SURAT
-			// Kode isian yang disediakan pada SID CRI 3.04
+			// Kode isian yang disediakan pada SID CRI
 			$buffer=str_replace("[nomor_surat]","$input[nomor]",$buffer);
 			$buffer=str_replace("[nomor_sorat]","$input[nomor]",$buffer);
 			if(isset($input['berlaku_dari'])) $buffer=str_replace("[mulai_berlaku]",tgl_indo(date('Y m d',strtotime($input['berlaku_dari']))),$buffer);
@@ -736,7 +756,7 @@
 				"tanggal_lahir", "tanggallahir_istri", "tanggallahir_suami", "tanggal_mati",
 				"tanggallahir_pasangan", "tgl_lahir_ayah", "tgl_lahir_ibu", "tgl_berakhir_paspor",
 				"tgl_akte_perkawinan", "tgl_perceraian", "tanggallahir","tanggallahir_pelapor", "tgl_lahir",
-				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah", "ktp_berlaku",
+				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah",
 				"tanggal_pindah"
 				);
 			foreach ($input as $key => $entry){
@@ -762,6 +782,36 @@
 		return $buffer;
 	}
 
+	/**
+		* Kembalikan nama file lampiran yang akan digunakan, di mana
+		* seperti Surat Keterangan Pindah Penduduk ada beberapa pilihan format dan
+		* pengguna bisa memilih format mana yang akan digunakan.
+	*/
+	function lampiran_khusus($url, $lampiran_surat, &$input){
+		switch ($url) {
+			case 'surat_ket_pindah_penduduk':
+				if ($input['kode_format'] == 'F-1.23'){
+					$input['judul_format'] = "Dalam Satu Desa/Kelurahan";
+				} elseif ($input['kode_format'] == 'F-1.25'){
+					$input['judul_format'] = "Antar Desa/Kelurahan Dalam Satu Kecamatan";
+				} elseif ($input['kode_format'] =='F-1.29'){
+					$input['judul_format'] = "Antar Kecamatan Dalam Satu Kabupaten/Kota";
+				} elseif ($input['kode_format'] == 'F-1.34'){
+					$input['judul_format'] = "Antar Kabupaten/Kota atau Antar Provinsi";
+				}
+				// $lampiran_surat dalam bentuk seperti "f-1.08.php,f-1.25.php"
+				$daftar_lampiran = explode(",", $lampiran_surat);
+				if ($input['kode_format'] == "f108")
+					return $daftar_lampiran[0];
+				else
+					return $daftar_lampiran[1];
+				break;
+
+			default:
+				return $lampiran_surat;
+		}
+	}
+
 	function lampiran($data, $nama_surat, &$lampiran){
 		$surat = $data['surat'];
 		if (!$surat['lampiran']) return;
@@ -769,12 +819,12 @@
 		$config = $data['config'];
 		$individu = $data['individu'];
 		$input = $data['input'];
+		$format_lampiran = $this->lampiran_khusus($surat['url_surat'],$surat['lampiran'],$input);
 		$lampiran = pathinfo($nama_surat, PATHINFO_FILENAME)."_lampiran.pdf";
-		$format_lampiran = "surat/".$surat['url_surat']."/".$surat['lampiran'];
 
     // get the HTML
     ob_start();
-    include(dirname(__FILE__)."/../../".$format_lampiran);
+    include(dirname(__FILE__)."/../../".$surat['lokasi_rtf'].$format_lampiran);
     $content = ob_get_clean();
 
     // convert in PDF
@@ -843,6 +893,19 @@
 
 		$_SESSION['success']=8;
 		header("location:".base_url($berkas_arsip));
+	}
+
+	function get_last_nosurat_log($url){
+		$sql   = "SELECT id FROM tweb_surat_format WHERE url_surat = ?";
+		$query = $this->db->query($sql, $url);
+
+		$id_format_surat = $query->row()->id;
+
+		$sql   = "SELECT no_surat,tanggal FROM log_surat WHERE id_format_surat = ? ORDER BY tanggal DESC LIMIT 1";
+		$query = $this->db->query($sql, $id_format_surat);
+
+		return $query->row_array();
+
 	}
 
 }
