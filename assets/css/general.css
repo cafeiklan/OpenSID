@@ -247,10 +247,10 @@ table.list{
         background:#ffffff;
     }
     table.list th{
-      color:#661c02!important;
+      color:#000000!important;
 	padding:4px 5px;
-    border:1px solid #ca9522;
-    background:#f6c864;
+    border:1px solid #68b2e4;
+    background:#439dda;
     }
     table th a{
       color:#111!important;
