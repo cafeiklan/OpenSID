@@ -216,7 +216,7 @@
 		//print_r($data);
 		$last_id = $this->db->select('*')->from('log_surat')->where($data)->limit(1)->order_by('id', 'desc')->get()->row()->id;
 		if($last_id){
-			$data['id'] = $last_id;
+			$this->db->where('id', $last_id);
 			$this->db->update('log_surat',$data);
 		} else {
 			$this->db->insert('log_surat',$data);
