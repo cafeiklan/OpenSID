@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+<?php 
+if(!function_exists('sid_override')){
+	/** 
+	* Override file if target exist
+	* 
+	* @Usage sid_override(__FILE__);
+	*/
+	function sid_override($data, $full_path_file){
+		$path = pathinfo($full_path_file);
+		$dirname = explode('donjo-app', $path['dirname']);
+		$dirname = $dirname[1];
+			
+		$base = dirname(dirname(dirname(__FILE__))) . '/desa/app';
+		$target = $base . $dirname . '/' . $path['filename'] . '.' . $path['extension'];
+		if (is_file($target)) {
+			include($target);
+			exit;
+		}
+	}
+}
+sid_override($desa, __file__);
+?><!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
