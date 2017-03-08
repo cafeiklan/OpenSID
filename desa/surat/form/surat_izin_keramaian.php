@@ -85,7 +85,7 @@ padding:5px;
 </tr>
 <th>Nomor Handphone</th>
 <td>
-<input name="ho_hp" type="text" class="inputbox required" size="40"/>
+<input name="no_hp" type="text" class="inputbox required" size="40"/>
 </td>
 </tr>
 <th><u>Yang akan dilaksanakan pada : </u>
