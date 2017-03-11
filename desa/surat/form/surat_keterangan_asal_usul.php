@@ -41,7 +41,7 @@ padding:5px;
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Tentang Orang Tua</h3>
+<h3>Surat Keterangan Asal Usu</h3>
 </div>
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
@@ -67,7 +67,7 @@ padding:5px;
 </td>
 </tr>
 <tr>
-	<th>DATA AYAH (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+	<th>DATA AYAH : </th>
 </tr>
 <tr>
 <th>Nama Lengkap</th>
@@ -103,7 +103,7 @@ padding:5px;
 </td>
 </tr>
 <tr>
-	<th>DATA IBU (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+	<th>DATA IBU : </th>
 </tr>
 <tr>
 <th>Nama Lengkap</th>
@@ -132,8 +132,7 @@ padding:5px;
 <td>
 <input name="pekerjaan_ibu" type="text" class="inputbox" size="40"/>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <th>Tempat Tinggal</th>
 <td>
 <input name="tempat_tinggal_ibu" type="text" class="inputbox" size="40"/>

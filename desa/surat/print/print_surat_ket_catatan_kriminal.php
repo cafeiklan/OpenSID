@@ -104,7 +104,11 @@
 <tr><td>Umur</td><td>:</td><td><?php echo $input['umur_ayah']?></td></tr>
 <tr><td>Pekerjaan</td><td>:</td><td><?php echo $input['pekerjaan_ayah']?></td></tr>
 <tr><td>Alamat</td><td>:</td><td><?php echo $input['alamat_ayah']?></td></tr>
+<tr></tr>
+<tr></tr>
 <td>Dengan seorang Wanita : </td>
+<tr></tr>
+<tr></tr>
 <tr><td>Nama</td><td>:</td><td><?php echo $input['nama_ibu']?></td></tr>
 <tr><td>Umur</td><td>:</td><td><?php echo $input['umur_ibu']?></td></tr>
 <tr><td>Pekerjaan</td><td>:</td><td><?php echo $input['pekerjaan_ibu']?></td></tr>

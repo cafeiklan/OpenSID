@@ -23,121 +23,74 @@ $('#'+'main').submit();
 
 <style>
 table.form.detail th{
-padding:5px;
-background:#fafafa;
-border-right:1px solid #eee;
+    padding:5px;
+    background:#fafafa;
+    border-right:1px solid #eee;
 }
 table.form.detail td{
-padding:5px;
+    padding:5px;
 }
+
 </style>
 <div id="pageC">
 <table class="inner">
 <tr style="vertical-align:top">
+<td class="side-menu">
+<fieldset>
+<legend>Surat Administrasi</legend>
+<div  id="sidecontent2" class="lmenu">
+<ul>
+<?php foreach($menu_surat AS $data){?>
+        <li <?php  if($data['url_surat']==$lap){?>class="selected"<?php  }?>><a href="<?php echo site_url()?>surat/<?php echo $data['url_surat']?>"><?php echo unpenetration($data['nama'])?></a></li>
+<?php }?>
+</ul>
+</div>
+</fieldset>
 
+</td>
 <td style="background:#fff;padding:5px;">
+
 <div class="content-header">
 
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Tentang Orang Tua</h3>
+<h3>Surat Pernyataan Belum Memiliki Akte Lahirr</h3>
 </div>
-<div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+
+    <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
-<th>DATA ANAK : </th>
-<tr>
-<th>NIK / Nama</th>
+<th>NIK / Nama Ayah</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
 </form>
 </tr>
-
 <form id="validasi" action="<?php echo $form_action?>" method="POST" target="_blank">
-<input type="hidden" name="nik" value="<?php echo $individu['id']?>">
+<input type="hidden" name="nik" value="<?php echo $individu['id']?>"  class="inputbox required">
 <?php if($individu){ //bagian info setelah terpilih?>
   <?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
 <?php }?>
 <tr>
 <th>Nomor Surat</th>
-<td>
-<input name="nomor" type="text" class="inputbox required" size="20"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
-</td>
+<td><input name="nomor" type="text" class="inputbox required" size="20"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span></td>
 </tr>
 <tr>
-	<th>DATA AYAH (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+<th>DATA KELAHIRAN</th>
 </tr>
 <tr>
-<th>Nama Lengkap</th>
-<td>
-<input name="nama_ayah" type="text" class="inputbox" size="40"/>
-</td>
+<th>Nama</th>
+<td><input name="nama" type="text" class="inputbox required" size="30"/></td>
 </tr>
 <tr>
 <th>Tempat Tanggal Lahir</th>
-<td>
-<input name="tempat_lahir_ayah" type="text" class="inputbox" size="30"/>
-<input name="tgl_lahir_ayah" type="text" class="inputbox datepicker" size="15"/>
-</td>
-</tr><tr>
-<th>Warganegara</th>
-<td>
-<input name="wn_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Agama</th>
-<td>
-<input name="agama_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Pekerjaan</th>
-<td>
-<input name="pekerjaan_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Tempat Tinggal</th>
-<td>
-<input name="tempat_tinggal_ayah" type="text" class="inputbox" size="40"/>
-</td>
+<td><input name="tempatlahir" type="text" class="inputbox required" size="10"/>
+<input name="tanggllahir" type="text" class="inputbox required datepicker" size="10"/></td>
 </tr>
 <tr>
-	<th>DATA IBU (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
-</tr>
-<tr>
-<th>Nama Lengkap</th>
-<td>
-<input name="nama_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr>
-<tr>
-<th>Tempat Tanggal Lahir</th>
-<td>
-<input name="tempat_lahir_ibu" type="text" class="inputbox" size="30"/>
-<input name="tgl_lahir_ibu" type="text" class="inputbox datepicker" size="15"/>
-</td>
-</tr><tr>
-<th>Warganegara</th>
-<td>
-<input name="wn_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Agama</th>
-<td>
-<input name="agama_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Pekerjaan</th>
-<td>
-<input name="pekerjaan_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr>
-<tr>
-<th>Tempat Tinggal</th>
-<td>
-<input name="tempat_tinggal_ibu" type="text" class="inputbox" size="40"/>
-</td>
+<th>Jenis Kelamin</th>
+<td><input name="sex" type="text" class="inputbox required" size="10"/> </td>
 </tr>
 <tr>
 <th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
@@ -161,6 +114,7 @@ padding:5px;
 </select>
 </td>
 </tr>
+
 </table>
 </div>
 

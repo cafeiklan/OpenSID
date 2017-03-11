@@ -6,7 +6,9 @@
 <link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
 <div>
 <table width="100%">
-<tr style="font-weight: normal;"><td colspan="3" align="right">Lampiran PMA No. 2 Tahun 1990</td></tr>
+<tr style="font-weight: normal;"><td colspan="3" align="right">Lampiran 7 KMA No. 2 Tahun 1992</td></tr>
+<tr style="font-weight: normal;"><td colspan="3" align="right">Pasal 8 Ayat (1) Huruf a-</td></tr>
+<tr>&nbsp;</tr>
 <tr>&nbsp;</tr>
 <tr>&nbsp;</tr>
 <tr>&nbsp;</tr>
@@ -17,10 +19,10 @@
 <tr style="font-weight: bold;"><td colspan="3" align="right"><b>Model N-4</b></td></tr>
 <tr style="font-weight: bold;"><td width="35%">KANTOR DESA/KELURAHAN</td><td width="3%">:</td><td width="60%"><?php echo strtoupper(unpenetration($desa['nama_desa']))?></td></tr>
 <tr style="font-weight: bold;"><td>KECAMATAN</td><td>:</td><td><?php echo strtoupper(unpenetration($desa['nama_kecamatan']))?></td></tr>
-<tr style="font-weight: bold;"><td>KABUPATEN</td><td>:</td><td><?php echo strtoupper(unpenetration($desa['nama_kabupaten']))?></td></tr>
+<tr style="font-weight: bold;"><td>KABUPATEN/KOTA</td><td>:</td><td><?php echo strtoupper(unpenetration($desa['nama_kabupaten']))?></td></tr>
 <table>
 
-<div align="center"><h5 class="kop3" style="margin: 30px 0 0 0"><u>SURAT KETERANGAN TENTANG ORANG TUA</u></h5></div>
+<div align="center"><h5 class="kop3" style="margin: 30px 0 0 0"><u>SURAT KETERANGAN ASAL USUL</u></h5></div>
 <div align="center"><div style="margin: 6px 0 0 0">Nomor: <?php echo $input['nomor']?></div></div>
 </table>
 <div class="clear"></div>
@@ -72,7 +74,7 @@
 <tr><td></td><td>4. Agama</td><td>:</td><td><?php echo $pribadi['agama']; ?></td></tr>
 <tr><td></td><td>5. Jenis kelamin</td><td>:</td><td><?php echo $pribadi['sex']; ?></td></tr>
 <tr><td></td><td>6. Pekerjaan</td><td>:</td><td><?php echo $pribadi['pek']; ?></td></tr>
-<tr><td></td><td>7. Tempat tinggal</td><td>:</td><td>RT. <?php echo $pribadi['rt']; ?>, RW. <?php echo $pribadi['rw']; ?>, Dusun <?php echo unpenetration(ununderscore($pribadi['dusun'])); ?>, Kel. <?php echo unpenetration($desa['nama_desa']); ?>, Kec. <?php echo unpenetration($desa['nama_kecamatan']); ?>, Kab. <?php echo unpenetration($desa['nama_kabupaten']); ?></td></tr>
+<tr><td></td><td>7. Tempat tinggal</td><td>:</td><td>Dusun <?php echo unpenetration(ununderscore($pribadi['dusun'])); ?>, Desa <?php echo unpenetration($desa['nama_desa']); ?>, Kec. <?php echo unpenetration($desa['nama_kecamatan']); ?>, Kab. <?php echo unpenetration($desa['nama_kabupaten']); ?></td></tr>
 </table>
 
 <table width="100%">

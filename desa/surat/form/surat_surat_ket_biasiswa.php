@@ -39,7 +39,7 @@ table.form.detail td{
 	<td style="background:#fff;">
 		<div id="contentpane">
 			<div class="ui-layout-center" id="maincontent" style="padding: 5px;">
-				<h3>Formulir Layanan : Surat Keterangan Beasiswa</h3>
+				<h3>Formulir Layanan : Surat Surat Ket Biasiswa</h3>
 				<div id="form-cari-pemohon">
 					<form action="" id="main" name="main" method="POST" class="formular">
 					<table class="form">
@@ -52,8 +52,6 @@ table.form.detail td{
 					</table>
 					</form>
 				</div>
-
-
 				<div id="form-melengkapi-data-permohonan">
 					<form id="validasi" action="" method="POST" target="_blank">
 					<input type="hidden" name="nik" value="<?php echo $individu['id']?>" class="inputbox required" >
@@ -66,33 +64,22 @@ table.form.detail td{
 						<tr>
 							<th width="40%">Nomor Surat</th>
 							<td width="60%">
-								<input name="nomor" type="text" class="inputbox required" size="20"/>
+								<input name="nomor" type="text" class="inputbox required" size="12"/>
 								<span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
 							</td>
 						</tr>
 						<tr>
-							<th>Sedang Sekolah/Kuliah</th>
-							<td><input name="sdg_sekolah" type="text" class="inputbox" size="15"/></td>
-						</tr>
-						<th>Data Anak : </th>
-						<tr>
-							<th>Nama Lengkap</th>
-							<td><input name="nama_lengkap" type="text" class="inputbox" size="40"/></td>
+							<th>Keperluan</th>
+							<td><textarea name="keperluan" class=" required" style="resize: none; height:80px; width:300px;" size="500"></textarea></td>
 						</tr>
 						<tr>
-						  <th>Tempat/Tanggal lahir</th>
-						  <td><input name="tempatlahir_anak" type="text" class="inputbox required" size="10"/> / 
-						  <input name="tanggallahir_anak" type="text" class="inputbox required datepicker" size="10"/></td>
+							<th>Keterangan</th>
+							<td><input name="keterangan" type="text" class="inputbox" size="40"/></td>
 						</tr>
 						<tr>
-							<th>Tempat Sekolah/Kuliah</th>
-							<td><input name="tempat_sekolah" type="text" class="inputbox" size="40"/></td>
+							<th>Berlaku</th>
+							<td><input name="berlaku_dari" type="text" class="inputbox required datepicker" size="20"/> sampai <input name="berlaku_sampai" type="text" class="inputbox datepicker " size="20"/></td>
 						</tr>
-						<tr>
-							<th>Alamat Sekolah/Kuliah</th>
-							<td><input name="alamat_sekolah" type="text" class="inputbox" size="40"/></td>
-						</tr>
-						
 						<tr>
 							<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 							<td><select name="pamong"  class="inputbox required">
@@ -111,7 +98,6 @@ table.form.detail td{
 								<?php }?>
 								</select></td>
 						</tr>
-					
 					</table>
 				</div>
 			</div>
