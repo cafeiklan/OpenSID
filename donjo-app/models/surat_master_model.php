@@ -135,37 +135,43 @@
 		$raw_path="surat/raw/";
 
 		//doc
-		$file = $raw_path."template.rtf";
-		$handle = fopen($file,'r');
-		$buffer = stream_get_contents($handle);
-		$berkas = LOKASI_SURAT_EXPORT_DESA.$data['url_surat'].".rtf";
-		$handle = fopen($berkas,'w+');
-		fwrite($handle,$buffer);
-		fclose($handle);
+		if(!file_exists(LOKASI_SURAT_EXPORT_DESA.$data['url_surat'].".rtf")){
+			$file = $raw_path."template.rtf";
+			$handle = fopen($file,'r');
+			$buffer = stream_get_contents($handle);
+			$berkas = LOKASI_SURAT_EXPORT_DESA.$data['url_surat'].".rtf";
+			$handle = fopen($berkas,'w+');
+			fwrite($handle,$buffer);
+			fclose($handle);
+		}
 
 		//form
 		if (!file_exists(LOKASI_SURAT_FORM_DESA)) {
 			mkdir(LOKASI_SURAT_FORM_DESA, 0777, true);
 		}
-		$file = $raw_path."form.raw";
-		$handle = fopen($file,'r');
-		$buffer = stream_get_contents($handle);
-		$berkas = LOKASI_SURAT_FORM_DESA.$data['url_surat'].".php";
-		$handle = fopen($berkas,'w+');
-		$buffer=str_replace("[nama_surat]","Surat $data[nama]",$buffer);
-		fwrite($handle,$buffer);
-		fclose($handle);
+		if(!file_exists(LOKASI_SURAT_FORM_DESA.$data['url_surat'].".php")){
+			$file = $raw_path."form.raw";
+			$handle = fopen($file,'r');
+			$buffer = stream_get_contents($handle);
+			$berkas = LOKASI_SURAT_FORM_DESA.$data['url_surat'].".php";
+			$handle = fopen($berkas,'w+');
+			$buffer=str_replace("[nama_surat]","Surat $data[nama]",$buffer);
+			fwrite($handle,$buffer);
+			fclose($handle);
+		}
 
 		//cetak
-		$file = $raw_path."print.raw";
-		$handle = fopen($file,'r');
-		$buffer = stream_get_contents($handle);
-		$berkas = LOKASI_SURAT_PRINT_DESA."print_".$data['url_surat'].".php";
-		$handle = fopen($berkas,'w+');
-		$nama_surat = strtoupper($data['nama']);
-		$buffer=str_replace("[nama_surat]","SURAT $nama_surat",$buffer);
-		fwrite($handle,$buffer);
-		fclose($handle);
+		if(!file_exists(LOKASI_SURAT_PRINT_DESA."print_".$data['url_surat'].".php")){
+			$file = $raw_path."print.raw";
+			$handle = fopen($file,'r');
+			$buffer = stream_get_contents($handle);
+			$berkas = LOKASI_SURAT_PRINT_DESA."print_".$data['url_surat'].".php";
+			$handle = fopen($berkas,'w+');
+			$nama_surat = strtoupper($data['nama']);
+			$buffer=str_replace("[nama_surat]","SURAT $nama_surat",$buffer);
+			fwrite($handle,$buffer);
+			fclose($handle);
+		}
 
 		if($outp) $_SESSION['success']=1;
 			else $_SESSION['success']=-1;
