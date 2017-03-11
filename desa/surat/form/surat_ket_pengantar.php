@@ -86,12 +86,27 @@ table.form.detail td{
 								<?php foreach($pamong AS $data){?>
 									<option ><?php echo $data['jabatan']?></option>
 								<?php }?>
-								</select></td>
+							</select></td>
+
 						</tr>
+				<table>
+				<ol>
+				<b><u>Surat ini dapat digunakan untuk :</u></b>
+				<br>
+				<b>
+				<li><span style="background-color: #ffff99; color: #000000;">Membuat Surat Keterangan Umum</span></li>
+				</b>
+				</ol>		
+ 				</table>
+						
 					</table>
 				</div>
 			</div>
-				<div class="ui-layout-south panel bottom">
+		<div>
+			<table>
+			</table>
+			</div>
+			<div class="ui-layout-south panel bottom">
 					<div class="left">
 						<a href="<?php echo site_url()?>surat" class="uibutton icon prev">Kembali</a>
 					</div>

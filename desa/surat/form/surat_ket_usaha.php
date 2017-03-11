@@ -65,9 +65,14 @@ padding:5px;
 </td>
 </tr>
 <tr>
-<th>Nama/ Jenis Usaha</th>
+<th>Nama Usaha</th>
 <td>
 <input name="usaha" type="text" class="inputbox required" size="40"/>
+</td>
+<tr>
+<th>Jenis Usaha</th>
+<td>
+<input name="jenis_usaha" type="text" class="inputbox required" size="40"/>
 </td>
 </tr>
 <tr>

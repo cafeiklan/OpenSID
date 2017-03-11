@@ -18,7 +18,7 @@
 <div style="text-align: center;">
 <hr></div></div>
 
-<div align="center"><u><h4 class="kop">SURAT KETERANGAN</h4></u></div>
+<div align="center"><u><h4 class="kop">SURAT KETERANGAN TERNAK</h4></u></div>
 <div align="center"><h4 class="kop3">Nomor : <?php echo $input['nomor']?></h4></div>
 </table>
 
@@ -35,20 +35,19 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <table width="100%">
 <tr><td width="20%">Nama Lengkap</td><td width="2%">:</td><td width="64%"><?php echo unpenetration($data['nama'])?></td></tr>
 <tr><td>Nomor KTP</td><td>:</td><td><?php echo $data['nik']?></td></tr>
-<tr><td>Pekerjaan</td><td>:</td><td><?php echo $data['pekerjaan']?></td></tr>
-<tr><td>Kewarganegaraan </td><td>:</td><td><?php echo $data['warganegara']?></td></tr>
 <tr><td>Tempat dan Tgl. Lahir </td><td>:</td><td><?php echo ($data['tempatlahir'])?>, <?php echo tgl_indo($data['tanggallahir'])?> </td></tr>
+<tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $data['sex']?></td></tr>
 <tr><td>Alamat/ Tempat Tinggal</td><td>:</td><td>Dusun <?php echo ununderscore(unpenetration($data['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
 <table width="100%">
-<tr><td  class="indentasi">Benar Nama <?php echo unpenetration($data['nama'])?> adalah Penduduk Desa <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
-Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> dan menurut pengamatan kami bahwa anak dari keluarga <?php echo $data['nama']?> layak diberikan <b>Beasiswa</b> kepada anaknya yang sedang <b><?php echo $input['sdg_sekolah']?></b> berikut biodatanya :
+<tr><td>Benar Nama diatas ada menjual Ternak : <?php echo $input['menjual']?> Sebanyak <?php echo $input['ekor']?> ekor kepada : </td></tr>
 </table>
 <table width="100%">
-<tr><td width="20%">Nama Lengkap</td><td width="2%">:</td><td width="64%"><?php echo unpenetration($input['nama_lengkap'])?></td></tr>
-<tr><td>Tempat / Tgl. Lahir </td><td>:</td><td><?php echo $data['tempatlahir']?>, <?php echo tgl_indo($data['tanggallahir'])?> </td></tr>
-<tr><td>Tempat Sekolah/Kuliah</td><td>:</td><td> <?php echo $input['tempat_sekolah']?></td></tr>
-<tr><td>Alamat Sekolah/Kuliah</td><td>:</td><td> <?php echo $input['alamat_sekolah']?></td></tr>
-
+<tr><td width="20%">Nama Lengkap</td><td width="2%">:</td><td width="64%"><?php echo unpenetration($input['nama_pembeli'])?></td></tr>
+<tr><td>Umur </td><td>:</td><td> <?php echo $input['umur']?></td></tr>
+<tr><td>Alamat </td><td>:</td><td> <?php echo $input['alamat']?></td></tr>
+<table width="100%">
+<tr><td>Ternak tersebut dibawa dengan mobil berplat <?php echo $input['bk']?> Tujuan <?php echo $input['tujuan']?> dalam keadaan baik dan sehat.
+</table>
 <table width="100%">
 <tr></tr>
 <tr></tr>
@@ -58,6 +57,17 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <tr></tr>
 <tr></tr>
 <tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<table width="100%">
+<tr><td width="20%"><b>Catatan : </b></td><td width="2%">:</td><td width="64%"><?php echo unpenetration($input['catatan'])?></td></tr>
+</table>
 <tr></tr>
 <tr></tr>
 </table></div>

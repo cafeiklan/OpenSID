@@ -44,7 +44,11 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <tr><td>Keterangan </td><td>:</td><td>Bahwa orang tersebut adalah benar-benar warga kami yang bertempat tinggal di Dusun <?php echo unpenetration(ununderscore($data['dusun']))?>, Rt. <?php echo $data['rt']?>, <?php echo unpenetration($desa['nama_desa'])?>, <?php echo unpenetration($desa['nama_kecamatan'])?>, <?php echo unpenetration($desa['nama_kabupaten'])?> tercatat dalam
 No. KK: <?php echo $data['no_kk']?> dengan NIK: <?php echo $data['nik']?>, kepala keluarga : <?php echo unpenetration($data['kepala_kk'])?> yang memiliki usaha sebagai berikut :</td></tr>
 </div>
-<tr><td>Nama / Jenis Usaha</td><td>:</td><td><?php echo $input['usaha']?></td></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr><td>Nama Usaha</td><td>:</td><td><?php echo $input['usaha']?></td></tr>
+<tr><td>Jenis Usaha</td><td>:</td><td><?php echo $input['jenis_usaha']?></td></tr>
 <tr><td>Usaha Tambahan</td><td>:</td><td><?php echo $input['usaha_tambahan']?></td></tr>
 <tr><td>Alamat & Luas Usaha</td><td>:</td><td><?php echo $input['alamat_usaha']?></td></tr>
 </table>

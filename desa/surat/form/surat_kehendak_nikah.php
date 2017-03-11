@@ -41,14 +41,12 @@ padding:5px;
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Keterangan Tentang Orang Tua</h3>
+<h3>Surat Pemberitahuan Kehendak Nikah</h3>
 </div>
 <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
-<th>DATA ANAK : </th>
-<tr>
-<th>NIK / Nama</th>
+<th>NIK / Nama yang Melapor</th>
 <td>
 <form action="" id="main" name="main" method="POST">
 <div id="nik" name="nik"></div>
@@ -58,86 +56,75 @@ padding:5px;
 <form id="validasi" action="<?php echo $form_action?>" method="POST" target="_blank">
 <input type="hidden" name="nik" value="<?php echo $individu['id']?>">
 <?php if($individu){ //bagian info setelah terpilih?>
-  <?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
+	<?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
 <?php }?>
 <tr>
 <th>Nomor Surat</th>
 <td>
-<input name="nomor" type="text" class="inputbox required" size="20"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
+<input name="nomor" type="text" class="inputbox required" size="12"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
 </td>
 </tr>
 <tr>
-	<th>DATA AYAH (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+	<th>Calon Mempelai Pria</th>
+	<td><input name="suami" type="text" class="inputbox required" size="40"/></td>
 </tr>
 <tr>
-<th>Nama Lengkap</th>
-<td>
-<input name="nama_ayah" type="text" class="inputbox" size="40"/>
-</td>
+	<th>Calon Mempelai Wanita</th>
+	<td><input name="istri" type="text" class="inputbox required" size="40"/></td>
 </tr>
 <tr>
-<th>Tempat Tanggal Lahir</th>
-<td>
-<input name="tempat_lahir_ayah" type="text" class="inputbox" size="30"/>
-<input name="tgl_lahir_ayah" type="text" class="inputbox datepicker" size="15"/>
-</td>
-</tr><tr>
-<th>Warganegara</th>
-<td>
-<input name="wn_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Agama</th>
-<td>
-<input name="agama_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Pekerjaan</th>
-<td>
-<input name="pekerjaan_ayah" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Tempat Tinggal</th>
-<td>
-<input name="tempat_tinggal_ayah" type="text" class="inputbox" size="40"/>
-</td>
+	<th>Hari, Tanggal, Jam</th>
+	<td><input name="hari" type="text" class="inputbox required" size="15"/>,
+	<input name="tanggal" type="text" class="inputbox required datepicker" size="15"/>,
+	<input name="jam" type="text" class="inputbox required" size="10"/></td>
 </tr>
 <tr>
-	<th>DATA IBU (Jika bukan orang <?php echo strtolower(config_item('sebutan_desa'))?>) : </th>
+	<th>Mas Kawin</th>
+	<td><input name="mas_kawin" type="text" class="inputbox required" size="40"/></td>
 </tr>
 <tr>
-<th>Nama Lengkap</th>
-<td>
-<input name="nama_ibu" type="text" class="inputbox" size="40"/>
-</td>
+	<th>Tunai / Hutang</th>
+	<td><input name="tunai" type="text" class="inputbox required" size="10" value="tunai"/></td>
 </tr>
 <tr>
-<th>Tempat Tanggal Lahir</th>
-<td>
-<input name="tempat_lahir_ibu" type="text" class="inputbox" size="30"/>
-<input name="tgl_lahir_ibu" type="text" class="inputbox datepicker" size="15"/>
-</td>
-</tr><tr>
-<th>Warganegara</th>
-<td>
-<input name="wn_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Agama</th>
-<td>
-<input name="agama_ibu" type="text" class="inputbox" size="40"/>
-</td>
-</tr><tr>
-<th>Pekerjaan</th>
-<td>
-<input name="pekerjaan_ibu" type="text" class="inputbox" size="40"/>
-</td>
+	<th>Tempat</th>
+	<td><input name="tempat" type="text" class="inputbox required" size="40"/></td>
 </tr>
 <tr>
-<th>Tempat Tinggal</th>
-<td>
-<input name="tempat_tinggal_ibu" type="text" class="inputbox" size="40"/>
-</td>
+	<th>Jumlah Lampiran</th>
+	<td><input name="jml_lampiran" type="text" class="inputbox required" size="10"/></td>
+</tr>
+<tr>
+	<th>Lampiran 1</th>
+	<td><input name="lampiran1" type="text" class="inputbox " size="40" value="Surat Keterangan Untuk Nikah (model N-1)"/></td>
+</tr>
+<tr>
+	<th>Lampiran 2</th>
+	<td><input name="lampiran2" type="text" class="inputbox " size="40" value="Surat Keterangan Asal Usul (model N-2)"/></td>
+</tr>
+<tr>
+	<th>Lampiran 3</th>
+	<td><input name="lampiran3" type="text" class="inputbox " size="40" value="Surat Persetujuan Mempelai (model N-3)"/></td>
+</tr>
+<tr>
+	<th>Lampiran 4</th>
+	<td><input name="lampiran4" type="text" class="inputbox " size="40" value="Surat Keterangan Tentang Orang Tua (model N-4)"/></td>
+</tr>
+<tr>
+	<th>Lampiran 5</th>
+	<td><input name="lampiran5" type="text" class="inputbox " size="40" value="Surat Keterangan Izin Orang Tua (model N-5)"/></td>
+</tr>
+<tr>
+	<th>Lampiran 6</th>
+	<td><input name="lampiran6" type="text" class="inputbox " size="40" value=""/></td>
+</tr>
+<tr>
+	<th>Lampiran 7</th>
+	<td><input name="lampiran7" type="text" class="inputbox " size="40" value=""/></td>
+</tr>
+<tr>
+	<th>Lampiran 8</th>
+	<td><input name="lampiran8" type="text" class="inputbox " size="40" value=""/></td>
 </tr>
 <tr>
 <th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
@@ -156,7 +143,7 @@ padding:5px;
 <select name="jabatan"  class="inputbox required">
 <option value="">Pilih Jabatan</option>
 <?php foreach($pamong AS $data){?>
-<option ><?php echo $data['jabatan']?></option>
+<option ><?php echo unpenetration($data['jabatan'])?></option>
 <?php }?>
 </select>
 </td>

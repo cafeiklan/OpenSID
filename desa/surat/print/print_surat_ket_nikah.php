@@ -5,28 +5,27 @@
 <div id="content-main" class="grid_7">
 
 <table width="100%">
-<tr>
-<td style="text-align:left">KANTOR DESA/KELURAHAN </td><td>:</td><td> Kota Pari</td>
-<td style="text-align:right">Lampiran 7 KMA No. 298 Tahun 2003</td>
-</tr>
-<tr>
-<td style="text-align:left">KECAMATAN</td><td>:</td><td> Pantai Cermin</td>
-<td style="text-align:right">Pasal 5 Ayat (1)</td>
-</tr>
-<tr>
-<td style="text-align:left">KABUPATEN/KOTA MADYA </td><td>:</td><td> Serdang Bedagai</td>
-<td style="text-align:right">Model N-1</td>
-</tr>
-</table>
-<br>
-<link href="<?php echo base_url()?>assets/css/surat.css" rel="stylesheet" type="text/css" />
-<div>
-<table width="100%">
+<tr style="font-weight: normal;"><td colspan="3" align="right">Lampiran 7 KMA No. 298 Tahun 2003</td></tr>
+<tr style="font-weight: normal;"><td colspan="3" align="right">Pasal 5 Ayat (1)</td></tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr>&nbsp;</tr>
+<tr style="font-weight: bold;"><td colspan="3" align="right"><b>Model N-1</b></td></tr>
+<tr style="font-weight: bold;"><td width="35%">KANTOR DESA/KELURAHAN</td><td width="3%">:</td><td width="60%"><?php echo strtoupper(unpenetration($desa['nama_desa']))?></td></tr>
+<tr style="font-weight: bold;"><td>KECAMATAN</td><td>:</td><td><?php echo strtoupper(unpenetration($desa['nama_kecamatan']))?></td></tr>
+<tr style="font-weight: bold;"><td>KABUPATEN/KOTA</td><td>:</td><td><?php echo strtoupper(unpenetration($desa['nama_kabupaten']))?></td></tr>
+<table>
 
-<div align="center"><u><h4 class="kop">SURAT KETERANGAN UNTUK NIKAH</h4></u></div>
-<div align="center"><h4 class="kop3">NO: <?php echo $input['nomor']?></h4></div>
+<div align="center"><h5 class="kop3" style="margin: 30px 0 0 0"><u>SURAT KETERANGAN UNTUK NIKAH</u></h5></div>
+<div align="center"><div style="margin: 6px 0 0 0">Nomor: <?php echo $input['nomor']?></div></div>
 </table>
 <div class="clear"></div>
+
 
 <table width="100%">
 <tr></tr>
@@ -35,29 +34,33 @@
 <td class="indentasi">Yang bertanda tangan dibawah ini menerangkan dengan sesungguhnya bahwa:  </td></tr>
 </table><div id="isi3">
 <table width="100%">
-<tr><td width="30%">Nama Lengkap</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($data['nama'])?></td></tr>
-<tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $data['sex']?></td></tr>
-<tr><td>Tempat dan Tgl. Lahir </td><td>:</td><td><?php echo $data['tempatlahir'] ?>, <?php echo tgl_indo($data['tanggallahir'])?> </td></tr>
-<tr><td>Warga negara</td><td>:</td><td><?php echo $data['warganegara']?></td></tr>
-<tr><td>Agama</td><td>:</td><td><?php echo $data['agama']; ?></td></tr>
-<tr><td>Pekerjaan</td><td>:</td><td><?php echo $data['pekerjaan']?></td></tr>
-<tr><td>Tempat Tinggal</td><td>:</td><td>RT. <?php echo $data['rt']?>, RW. <?php echo $data['rw']?>, Dusun <?php echo unpenetration(ununderscore($data['dusun']))?>, Kel. <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
-<tr><td>Bin/Binti</td><td>:</td><td><?php echo $input['bin'] ?></td></tr>
-
-<tr><td>Status Perkawinan</td><td></td><td></td></tr>
-<tr><td>a. Jika pria, terangkan jejaka, duda atau beristri dan berapa istrinya</td><td>:</td><td><?php  echo ($input['jaka']) ;
- ?></td></tr>
-<tr><td>b. Jika wanita, terangkan gadis atau janda</td><td>:</td><td><?php echo ($input['perawan']) ;?></td></tr>
-<tr><td>Nama Istri/Suami terdahulu</td><td>:</td><td><?php echo $input['pasangan_dulu'];?></td></tr>
-
-</table>
+<tr><td width="30%">1.  Nama Lengkap dan alias</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($data['nama'])?></td></tr>
+<tr><td>2.  Jenis Kelamin</td><td>:</td><td><?php echo $data['sex']?></td></tr>
+<tr><td>3.  Tempat dan Tgl. Lahir </td><td>:</td><td><?php echo $data['tempatlahir'] ?>, <?php echo tgl_indo($data['tanggallahir'])?> </td></tr>
+<tr><td>4.  Warga negara</td><td>:</td><td><?php echo $data['warganegara']?></td></tr>
+<tr><td>5.  Agama</td><td>:</td><td><?php echo $data['agama']; ?></td></tr>
+<tr><td>6.  Pekerjaan</td><td>:</td><td><?php echo $data['pekerjaan']?></td></tr>
+<tr><td>7.  Tempat Tinggal</td><td>:</td><td>Dusun <?php echo unpenetration(ununderscore($data['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
+<tr><td>8. Bin/Binti</td><td>:</td><td><?php echo $input['bin'] ?></td></tr>
+<tr><td>9.  Status Perkawinan</td><td></td><td></td></tr>
+<tr></tr>
 <table width="100%">
+<tr><td width="5%" align="right">&nbsp;&nbsp;</td><td width="25%">a. Jika pria, terangkan jejaka, duda atau beristri dan berapa istrinya</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($input['jaka'])?></td></tr>
+<tr><td></td><td>b. Jika wanita, terangkan gadis atau janda</td><td>:</td><td><?php echo unpenetration($input['gadis'])?></td></tr>
+<table width="100%">
+<tr><td width="30%">10. Nama istri/suami terdahulu</td><td width="3%">:</td><td width="64%"><?php echo unpenetration($input['pasangan_dulu'])?></td></tr>
+</table>
+
 <tr></tr>
 <tr></tr>
 <tr>
 
 <td class="indentasi">Demikianlah, surat keterangan ini dibuat dengan mengingat sumpah jabatan dan untuk dipergunakan seperlunya.</td>
 </tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>

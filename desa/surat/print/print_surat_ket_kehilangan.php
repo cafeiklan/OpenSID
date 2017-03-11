@@ -26,7 +26,6 @@
 <div class="clear"></div>
 
 <table width="100%">
-
 <td class="indentasi">Yang bertanda tangan dibawah ini <?php echo unpenetration($input['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
 Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan dengan sebenarnya bahwa:  </td></tr>
 </table>
@@ -38,11 +37,29 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <tr><td>Jenis Kelamin</td><td>:</td><td><?php echo $data['sex']?></td></tr>
 <tr><td>Alamat/ Tempat Tinggal</td><td>:</td><td>Dusun <?php echo unpenetration(ununderscore($data['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
 <br>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 <tr><td class="indentasi" colspan="3">Bahwa orang tersebut adalah benar-benar warga kami yang bertempat tinggal di Dusun <?php echo unpenetration(ununderscore($data['dusun']))?>, Rt. <?php echo $data['rt']?>, <?php echo unpenetration($desa['nama_desa'])?>, <?php echo unpenetration($desa['nama_kecamatan'])?>, <?php echo unpenetration($desa['nama_kabupaten'])?> tercatat dalam
 No. KK: <?php echo $data['no_kk']?> dengan NIK: <?php echo $data['nik']?>.</td></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 <tr><td class="indentasi" colspan="3">Orang tersebut telah datang kepada kami untuk melapor dan mengaku telah kehilangan <?php echo $input['barang']?>. </td></tr>
 <tr><td>Rincian </td><td>:</td><td> <?php echo $input['rincian']?>. </td></tr>
 <tr><td>Keterangan</td><td>:</td><td> <?php echo $input['keterangan']?>. </td></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 <tr><td class="indentasi" colspan="3">Dikeluarkannya Surat Keterangan ini guna untuk melaporkan kehilangan<?php echo $input['barang']?>, dan untuk mendapatkan Surat Keterangan Kehilangan dari Polsek Pantai Cermin.</td></tr>
 <tr></tr>
 <tr></tr>

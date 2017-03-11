@@ -1,4 +1,3 @@
-
 <script>
 $(function(){
 var nik = {};
@@ -24,28 +23,29 @@ $('#'+'main').submit();
 
 <style>
 table.form.detail th{
-padding:5px;
-background:#fafafa;
-border-right:1px solid #eee;
+    padding:5px;
+    background:#fafafa;
+    border-right:1px solid #eee;
 }
 table.form.detail td{
-padding:5px;
+    padding:5px;
 }
 </style>
 <div id="pageC">
-<table class="inner">
-<tr style="vertical-align:top">
+	<table class="inner">
+	<tr style="vertical-align:top">
 
-<td style="background:#fff;padding:5px;">
+		<td style="background:#fff;padding:5px;">
+
 <div class="content-header">
 
 </div>
 <div id="contentpane">
 <div class="ui-layout-north panel">
-<h3>Surat Pengantar Izin Keramaian</h3>
+<h3>Surat Keterangan Jamkesos</h3>
 </div>
 
-<div class="ui-layout-center" id="maincontent" style="padding: 5px;">
+   <div class="ui-layout-center" id="maincontent" style="padding: 5px;">
 <table class="form">
 <tr>
 <th>NIK / Nama</th>
@@ -54,73 +54,29 @@ padding:5px;
 <div id="nik" name="nik"></div>
 </form>
 </tr>
-
 <form id="validasi" action="<?php echo $form_action?>" method="POST" target="_blank">
-<input type="hidden" name="nik" value="<?php echo $individu['id']?>" class="inputbox required" >
+<input type="hidden" name="nik" value="<?php echo $individu['id']?>"  class="inputbox required" >
 <?php if($individu){ //bagian info setelah terpilih?>
   <?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
 <?php }?>
-<tr>
-<th>Nomor Surat</th>
-<td>
-<input name="nomor" type="text" class="inputbox required" size="20"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
-</td>
-</tr>
-<th><u>Untuk izin Hiburan :</u>
-<tr>
-<th>Jenis Hiburan</th>
-<td>
-<input name="jenis_keramaian" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<tr>
-<th>Nama Grup</th>
-<td>
-<input name="nama_grup" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<th>Alamat Grup</th>
-<td>
-<input name="alamat_grup" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<th>Nomor Handphone</th>
-<td>
-<input name="no_hp" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<th><u>Yang akan dilaksanakan pada : </u>
-<tr>
-<th>Hari</th>
-<td>
-<input name="hari" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<tr>
-	<th>Tanggal</th>
-	<td><input name="tanggal" type="text" class="inputbox  datepicker" size="20"/></td>
-</tr>
-
-<tr>
-<th>Tempat</th>
-<td>
-<input name="tempat" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<tr>
-<th>Pukul</th>
-<td>
-<input name="pukul" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-<tr>
-<th>Acara</th>
-<td>
-<input name="acara" type="text" class="inputbox required" size="40"/>
-</td>
-</tr>
-
-
+			<tr>
+				<th>Nomor Surat</th>
+				<td>
+					<input name="nomor" type="text" class="inputbox required" size="12"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
+				</td>
+			</tr>
+			<tr>
+				<th>No Kartu JAMKESOS</th>
+				<td>
+					<input name="no_jamkesos" type="text" class="inputbox required" size="40"/>
+				</td>
+			</tr>
+			<tr>
+				<th>Keperluan</th>
+				<td>
+					<input name="keterangan" type="text" class="inputbox required" size="40"/>
+				</td>
+			</tr>
 
 
 <tr>
@@ -145,22 +101,23 @@ padding:5px;
 </select>
 </td>
 </tr>
-</table>
-</div>
 
-<div class="ui-layout-south panel bottom">
-<div class="left">
-<a href="<?php echo site_url()?>surat" class="uibutton icon prev">Kembali</a>
-</div>
-<div class="right">
-<div class="uibutton-group">
-<button class="uibutton" type="reset">Clear</button>
+        </table>
+    </div>
+
+    <div class="ui-layout-south panel bottom">
+        <div class="left">
+            <a href="<?php echo site_url()?>surat" class="uibutton icon prev">Kembali</a>
+        </div>
+        <div class="right">
+            <div class="uibutton-group">
+                <button class="uibutton" type="reset">Clear</button>
 
 							<button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action?>');$('#'+'validasi').submit();" class="uibutton special"><span class="ui-icon ui-icon-print">&nbsp;</span>Cetak</button>
 							<?php if (SuratExport($url)) { ?><button type="button" onclick="$('#'+'validasi').attr('action','<?php echo $form_action2?>');$('#'+'validasi').submit();" class="uibutton confirm"><span class="ui-icon ui-icon-document">&nbsp;</span>Export Doc</button><?php } ?>
-</div>
-</div>
-</div> </form>
+            </div>
+        </div>
+    </div> </form>
 </div>
 </td></tr></table>
 </div>
