@@ -447,7 +447,7 @@
 		return $kode;
 	}
 
-	function surat_rtf_khusus($url, $input, &$buffer, $config, $individu, $ayah, $ibu) {
+	function surat_rtf_khusus($url, $input, &$buffer, $config, $individu, $ayah, $ibu) { //var_dump($ayah);exit;
 		$alamat_desa = ucwords(config_item('sebutan_desa'))." ".$config['nama_desa'].", Kecamatan ".$config['nama_kecamatan'].", Kabupaten ".$config['nama_kabupaten'];
 		// Proses surat yang membutuhkan pengambilan data khusus
 		switch ($url) {
@@ -601,9 +601,32 @@
 				break;
 
 			default:
+				// Kotapari
+				if ($ayah) {
+					$buffer=str_replace("[form_default_nama_ayah]",$ayah['nama'],$buffer);
+					$buffer=str_replace("[form_default_tgl_lahir_ayah]",tgl_indo_dari_str($ayah['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_default_tempat_lahir_ayah]",$ayah['tempatlahir'],$buffer);
+					$buffer=str_replace("[form_default_umur_ayah]",$ayah['umur'],$buffer);
+					$buffer=str_replace("[form_default_wn_ayah]",$ayah['wn'],$buffer);
+					$buffer=str_replace("[form_default_agama_ayah]",$ayah['agama'],$buffer);
+					$buffer=str_replace("[form_default_pekerjaan_ayah]",$ayah['pek'],$buffer);
+					$buffer=str_replace("[form_default_tempat_tinggal_ayah]","RT $ayah[rt] / RW $ayah[rw] $ayah[dusun] $alamat_desa",$buffer);
+				}
+				if ($ibu) {
+					$buffer=str_replace("[form_default_nama_ibu]",$ibu['nama'],$buffer);
+					$buffer=str_replace("[form_default_tempat_lahir_ibu]",$ibu['tempatlahir'],$buffer);
+					$buffer=str_replace("[form_default_tgl_lahir_ibu]",tgl_indo_dari_str($ibu['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_default_umur_ibu]",$ibu['umur'],$buffer);
+					$buffer=str_replace("[form_default_wn_ibu]",$ibu['wn'],$buffer);
+					$buffer=str_replace("[form_default_agama_ibu]",$ibu['agama'],$buffer);
+					$buffer=str_replace("[form_default_pekerjaan_ibu]",$ibu['pek'],$buffer);
+					$buffer=str_replace("[form_default_tempat_tinggal_ibu]","RT $ibu[rt] / RW $ibu[rw] $ibu[dusun] $alamat_desa",$buffer);
+				}
+				
 				# code...
 				break;
 		}
+		// echo $buffer;exit;
 	}
 
 	/* Dipanggil untuk setiap kode isian ditemukan,
@@ -759,6 +782,7 @@
 				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah",
 				"tanggal_pindah"
 				);
+
 			foreach ($input as $key => $entry){
 				// Isian tanggal diganti dengan format tanggal standar
 				if (in_array($key, $isian_tanggal)){

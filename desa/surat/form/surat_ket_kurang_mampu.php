@@ -59,18 +59,60 @@ padding:5px;
   <?php include("donjo-app/views/surat/form/konfirmasi_pemohon.php"); ?>
 <?php }?>
 <tr>
+<th>Keterangan</th>
+<td>
+<input name="keterangan" type="text" class="inputbox required" size="40" value="SURAT KETERANGAN"/>
+</td>
+</tr>
+<tr>
 <th>Nomor Surat</th>
 <td>
 <input name="nomor" type="text" class="inputbox required" size="20"/> <span>Terakhir: <?php echo $surat_terakhir['no_surat'];?> (tgl: <?php echo $surat_terakhir['tanggal']?>)</span>
 </td>
 </tr>
+
 <tr>
-<th>Keterangan</th>
-<td>
-<input name="keterangan" type="text" class="inputbox required" size="40"/>
-</td>
+<th>DATA AYAH (Isi jika ayah bukan warga <?php echo strtolower(config_item('sebutan_desa'))?> ini)</th>
+<td></td>
 </tr>
 <tr>
+<th>Nama</th>
+<td><input name="nama_ayah" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Umur</th>
+<td><input name="umur_ayah" type="text" class="inputbox " size="15"/>
+</tr>
+<tr>
+<th>Pekerjaan</th>
+<td><input name="pekerjaan_ayah" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Alamat</th>
+<td><input name="tempat_tinggal_ayah" type="text" class="inputbox " size="40"/></td>
+</tr>
+<tr>
+<th>DATA IBU (Isi jika ibu bukan warga <?php echo strtolower(config_item('sebutan_desa'))?> ini)</th>
+<td></td>
+</tr>
+<tr>
+<th>Nama</th>
+<td><input name="nama_ibu" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Umur</th>
+<td><input name="umur_ibu" type="text" class="inputbox " size="15"/></td>
+</tr>
+<tr>
+<th>Pekerjaan</th>
+<td><input name="pekerjaan_ibu" type="text" class="inputbox " size="30"/></td>
+</tr>
+<tr>
+<th>Alamat</th>
+<td><input name="tempat_tinggal_ibu" type="text" class="inputbox " size="40"/></td>
+</tr>
+
+
 <th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
 <td>
 <select name="pamong"  class="inputbox required">
