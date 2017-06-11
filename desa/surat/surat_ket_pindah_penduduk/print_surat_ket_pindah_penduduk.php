@@ -21,11 +21,11 @@
 
 
 <div align="center"><u><h4 class="kop">SURAT KETERANGAN PINDAH</h4></u></div>
-<div align="center"><h4 class="kop">NO: <?php echo $input['nomor']?></h4></div>
+<div align="center"><h4 class="kop3">NO: <?php echo $input['nomor']?></h4></div>
 <tr>
 <div class="clear"></div>
 
-<td class="indentasi">Yang bertanda tangan dibawah ini <?php echo unpenetration($pamong['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
+<td class="indentasi"><?php echo unpenetration($pamong['jabatan'])?> <?php echo unpenetration($desa['nama_desa'])?>, Kecamatan <?php echo unpenetration($desa['nama_kecamatan'])?>,
 Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php echo unpenetration($desa['nama_propinsi'])?> menerangkan bahwa:  </td></tr>
 </table><div id="isi3">
 <table width="100%">
@@ -36,14 +36,14 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <tr><td>Kewarganegaraan / Agama</td><td>:</td><td><?php echo $pribadi['wn']?> / <?php echo $data['agama']?></td></tr>
 <tr><td>Pekerjaan</td><td>:</td><td><?php echo $data['pekerjaan']?></td></tr>
 <tr><td>No KTP</td><td>:</td><td><?php echo $data['nik']?></td></tr>
-<tr><td>Alamat</td><td>:</td><td>RT. <?php echo $data['rt']?>, RW. <?php echo $data['rw']?>, Dusun <?php echo ununderscore(unpenetration($data['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
+<tr><td>Alamat</td><td>:</td><td>Dusun <?php echo ununderscore(unpenetration($data['dusun']))?>, Desa <?php echo unpenetration($desa['nama_desa'])?>, Kec. <?php echo unpenetration($desa['nama_kecamatan'])?>, Kab. <?php echo unpenetration($desa['nama_kabupaten'])?></td></tr>
 
 
-<tr><td>Alamat yang dituju</td><td>:</td><td>RT. <?php echo $input['rt_tujuan']?>, RW. <?php echo $input['rw_tujuan']?>, Kampung <?php echo $input['kampung_tujuan']?>, Dusun <?php echo ununderscore(unpenetration($input['dusun_tujuan']))?>, Desa <?php echo unpenetration($input['desa_tujuan'])?>, Kec. <?php echo unpenetration($input['kecamatan_tujuan'])?>, Kab. <?php echo unpenetration($input['kabupaten_tujuan'])?></td></tr>
+<tr><td>Alamat yang dituju</td><td>:</td><td>RT. <?php echo $input['rt_tujuan']?>, RW. <?php echo $input['rw_tujuan']?>, Dusun <?php echo ununderscore(unpenetration($input['dusun_tujuan']))?>, Desa/Kelurahan : <?php echo unpenetration($input['desa_tujuan'])?>, Kec. <?php echo unpenetration($input['kecamatan_tujuan'])?>, Kab. <?php echo unpenetration($input['kabupaten_tujuan'])?></td></tr>
 
 <tr><td>Alasan </td><td>:</td><td> <?php echo $input['alasan']?></td></tr>
-
-<tr><td>Tanggal pindah </td><td>:</td><td> <?php echo tgl_indo(tgl_indo_in($input['awal']))?></td></tr>
+<tr><td>Barang yang dibawa </td><td>:</td><td> <?php echo $input['barang_pindah']?></td></tr>
+<tr><td>Tanggal pindah </td><td>:</td><td> <?php echo tgl_indo(tgl_indo_in($input['tanggal_pindah']))?></td></tr>
 <?php
 	$i=0;
 	if($pengikut){
@@ -52,7 +52,7 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 		}
 	}
 ?>
-<tr><td>Jumlah Pengikut </td><td>:</td><td> <?php echo $i;?> orang</td></tr>
+<tr><td>Jumlah Keluarga yang ikut </td><td>:</td><td> <?php echo $i;?> orang</td></tr>
 </table>
 
 
@@ -90,15 +90,18 @@ Kabupaten <?php echo unpenetration($desa['nama_kabupaten'])?>, Provinsi <?php ec
 <table width="100%">
 <tr></tr>
 <tr></tr>
-<tr><td>Surat keterangan ini diterbitkan sebagai <?php echo $input['keterangan']?>.</td></tr>
-<tr></tr>
-<tr></tr>
-
-<td class="indentasi">Demikianlah surat ini kami buat dengan sesungguhnya semoga dapat dipergunakan sebagaimana mestinya.</td>
+<tr>
+<b>Catatan :</b>
+<tr><td>1. Nama tersebut diatas adalah benar penduduk Desa Kota Pari, Kec. Pantai Cermin</td></tr>
+<tr><td>2. Sesampainya di tempat yang dituju, harus segera melaporkan diri kepada pemerintah setempat</td></tr>
+<tr><td>3. Demikian Surat Keternagan Pindah Ini dibuat untuk dapat dipergunakan sebagai mana mestinya.</td></tr>
 </table>
 <table width="100%">
 <tr></tr>
-
+<tr></tr>
+<tr></tr>
+<tr></tr>
+<tr></tr>
 <tr></tr>
 <tr></tr>
 <tr><td width="23%"></td><td width="30%"></td><td  align="center"><?php echo unpenetration($desa['nama_desa'])?>, <?php echo $tanggal_sekarang?></td></tr>
