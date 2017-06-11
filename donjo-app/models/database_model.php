@@ -21,6 +21,34 @@
 		$this->db->db_debug = $db_debug; //restore setting
   }
 
+  function reset_setting_aplikasi() {
+    $this->db->truncate('setting_aplikasi');
+    $query = "
+      INSERT INTO setting_aplikasi (`id`, `key`, `value`, `keterangan`, `jenis`,`kategori`) VALUES
+      (1, 'sebutan_kabupaten','kabupaten','Pengganti sebutan wilayah kabupaten','',''),
+      (2, 'sebutan_kabupaten_singkat','kab.','Pengganti sebutan singkatan wilayah kabupaten','',''),
+      (3, 'sebutan_kecamatan','kecamatan','Pengganti sebutan wilayah kecamatan','',''),
+      (4, 'sebutan_kecamatan_singkat','kec.','Pengganti sebutan singkatan wilayah kecamatan','',''),
+      (5, 'sebutan_desa','desa','Pengganti sebutan wilayah desa','',''),
+      (6, 'sebutan_dusun','dusun','Pengganti sebutan wilayah dusun','',''),
+      (7, 'sebutan_camat','camat','Pengganti sebutan jabatan camat','',''),
+      (8, 'website_title','Website Resmi','Judul tab browser modul web','','web'),
+      (9, 'login_title','OpenSID', 'Judul tab browser halaman login modul administrasi','',''),
+      (10, 'admin_title','Sistem Informasi Desa','Judul tab browser modul administrasi','',''),
+      (11, 'web_theme', 'default','Tema penampilan modul web','','web'),
+      (12, 'offline_mode',FALSE,'Apakah modul web akan ditampilkan atau tidak','boolean',''),
+      (13, 'enable_track',TRUE,'Apakah akan mengirimkan data statistik ke tracker','boolean',''),
+      (14, 'dev_tracker','','Host untuk tracker pada development','','development'),
+      (15, 'nomor_terakhir_semua_surat', FALSE,'Gunakan nomor surat terakhir untuk seluruh surat tidak per jenis surat','boolean',''),
+      (16, 'google_key','','Google API Key untuk Google Maps','','web'),
+      (17, 'libreoffice_path','','Path tempat instal libreoffice di server SID','','')
+    ";
+    $this->db->query($query);
+
+
+
+  }
+
   function migrasi_db_cri() {
     $this->migrasi_cri_lama();
     $this->migrasi_03_ke_04();
@@ -39,6 +67,142 @@
     $this->migrasi_18_ke_19();
     $this->migrasi_19_ke_110();
     $this->migrasi_110_ke_111();
+    $this->migrasi_111_ke_112();
+    $this->migrasi_112_ke_113();
+    $this->migrasi_113_ke_114();
+    $this->migrasi_114_ke_115();
+    $this->migrasi_115_ke_116();
+    $this->migrasi_116_ke_117();
+    $this->migrasi_117_ke_20();
+  }
+
+  function migrasi_117_ke_20(){
+    if (!$this->db->table_exists('setting_aplikasi') ) {
+      $query = "
+        CREATE TABLE `setting_aplikasi` (
+          `id` int NOT NULL AUTO_INCREMENT,
+          `key` varchar(50),
+          `value` varchar(200),
+          `keterangan` varchar(200),
+          `jenis` varchar(30),
+          `kategori` varchar(30),
+          PRIMARY KEY  (`id`)
+        );
+      ";
+      $this->db->query($query);
+
+      $this->reset_setting_aplikasi();
+    }
+  }
+
+  function migrasi_116_ke_117(){
+    // Tambah kolom log_penduduk
+    if (!$this->db->field_exists('no_kk', 'log_penduduk')) {
+      $query = "ALTER TABLE log_penduduk ADD no_kk decimal(16,0)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('nama_kk', 'log_penduduk')) {
+      $query = "ALTER TABLE log_penduduk ADD nama_kk varchar(100)";
+      $this->db->query($query);
+    }
+    // Hapus surat_ubah_sesuaikan
+    $this->db->where('url_surat', 'surat_ubah_sesuaikan')->delete('tweb_surat_format');
+    // Tambah kolom log_surat untuk surat non-warga
+    if (!$this->db->field_exists('nik_non_warga', 'log_surat')) {
+      $query = "ALTER TABLE log_surat ADD nik_non_warga decimal(16,0)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('nama_non_warga', 'log_surat')) {
+      $query = "ALTER TABLE log_surat ADD nama_non_warga varchar(100)";
+      $this->db->query($query);
+    }
+    $query = "ALTER TABLE log_surat MODIFY id_pend int(11) DEFAULT NULL";
+    $this->db->query($query);
+    // Tambah contoh surat non-warga
+    $query = "
+      INSERT INTO tweb_surat_format(nama, url_surat, kode_surat, jenis) VALUES
+      ('Domisili Usaha Non-Warga', 'surat_domisili_usaha_non_warga', 'S-37', 1)
+      ON DUPLICATE KEY UPDATE
+        nama = VALUES(nama),
+        url_surat = VALUES(url_surat),
+        kode_surat = VALUES(kode_surat),
+        jenis = VALUES(jenis);
+    ";
+    $this->db->query($query);
+  }
+
+  function migrasi_115_ke_116(){
+    // Ubah surat N-1 menjadi surat gabungan N-1 s/d N-7
+    $this->db->where('url_surat','surat_ket_nikah')->update('tweb_surat_format',array('nama'=>'Keterangan Untuk Nikah (N-1 s/d N-7)'));
+    // Hapus surat N-2 s/d N-7 yang sudah digabungkan ke surat_ket_nikah
+    $this->db->where('url_surat','surat_ket_asalusul')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_persetujuan_mempelai')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_ket_orangtua')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_izin_orangtua')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_ket_kematian_suami_istri')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_kehendak_nikah')->delete('tweb_surat_format');
+    $this->db->where('url_surat','surat_ket_wali')->delete('tweb_surat_format');
+    // Tambah kolom untuk penandatangan surat
+    if (!$this->db->field_exists('pamong_ttd', 'tweb_desa_pamong')) {
+      $query = "ALTER TABLE tweb_desa_pamong ADD pamong_ttd tinyint(1)";
+      $this->db->query($query);
+    }
+    // Hapus surat_pindah_antar_kab_prov
+    $this->db->where('url_surat','surat_pindah_antar_kab_prov')->delete('tweb_surat_format');
+  }
+
+  function migrasi_114_ke_115(){
+    // Tambah kolom untuk peserta program
+    if (!$this->db->field_exists('kartu_nik', 'program_peserta')) {
+      $query = "ALTER TABLE program_peserta ADD kartu_nik decimal(16,0)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('kartu_nama', 'program_peserta')) {
+      $query = "ALTER TABLE program_peserta ADD kartu_nama varchar(100)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('kartu_tempat_lahir', 'program_peserta')) {
+      $query = "ALTER TABLE program_peserta ADD kartu_tempat_lahir varchar(100)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('kartu_tanggal_lahir', 'program_peserta')) {
+      $query = "ALTER TABLE program_peserta ADD kartu_tanggal_lahir date";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('kartu_alamat', 'program_peserta')) {
+      $query = "ALTER TABLE program_peserta ADD kartu_alamat varchar(200)";
+      $this->db->query($query);
+    }
+  }
+
+  function migrasi_113_ke_114(){
+    // Tambah kolom untuk slider
+    if (!$this->db->field_exists('slider', 'gambar_gallery')) {
+      $query = "ALTER TABLE gambar_gallery ADD slider tinyint(1)";
+      $this->db->query($query);
+    }
+  }
+
+  function migrasi_112_ke_113(){
+    // Tambah data desa
+    if (!$this->db->field_exists('nip_kepala_desa', 'config')) {
+      $query = "ALTER TABLE config ADD nip_kepala_desa decimal(18,0)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('email_desa', 'config')) {
+      $query = "ALTER TABLE config ADD email_desa varchar(50)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('telepon', 'config')) {
+      $query = "ALTER TABLE config ADD telepon varchar(50)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('website', 'config')) {
+      $query = "ALTER TABLE config ADD website varchar(100)";
+      $this->db->query($query);
+    }
+    // Gabung F-1.15 dan F-1.01 menjadi satu lampiran surat_permohonan_kartu_keluarga
+    $this->db->where('url_surat','surat_permohonan_kartu_keluarga')->update('tweb_surat_format',array('lampiran'=>'f-1.15.php,f-1.01.php'));
   }
 
   // Berdasarkan analisa database yang dikirim oleh AdJie Reverb Impulse
@@ -766,6 +930,109 @@
         lampiran = VALUES(lampiran);
     ";
     $this->db->query($query);
+  }
+
+  function migrasi_111_ke_112() {
+    // Ubah surat bio penduduk untuk menambah format lampiran
+    $query = "
+      INSERT INTO `tweb_surat_format` (`id`, `url_surat`, `lampiran`) VALUES
+      (3, 'surat_bio_penduduk', 'f-1.01.php')
+      ON DUPLICATE KEY UPDATE
+        url_surat = VALUES(url_surat),
+        lampiran = VALUES(lampiran);
+    ";
+    $this->db->query($query);
+
+    // Tabel tweb_penduduk melengkapi data F-1.01
+    if (!$this->db->field_exists('telepon', 'tweb_penduduk')) {
+      $query = "ALTER TABLE tweb_penduduk ADD `telepon` varchar(20)";
+      $this->db->query($query);
+    }
+    if (!$this->db->field_exists('tanggal_akhir_paspor', 'tweb_penduduk')) {
+      $query = "ALTER TABLE tweb_penduduk ADD `tanggal_akhir_paspor` date";
+      $this->db->query($query);
+    }
+
+    // Ketinggalan tabel gis_simbol
+    if (!$this->db->table_exists('gis_simbol') ) {
+      $query = "
+        CREATE TABLE `gis_simbol` (
+          `simbol` varchar(40) DEFAULT NULL
+        ) ENGINE=".$this->engine." DEFAULT CHARSET=utf8;
+      ";
+      $this->db->query($query);
+      // Isi dengan daftar icon yang ada di folder assets/images/gis/point
+      $simbol_folder = FCPATH . 'assets/images/gis/point';
+      $list_gis_simbol = scandir($simbol_folder);
+      foreach ($list_gis_simbol as $simbol) {
+        if ($simbol['0'] == '.') continue;
+        $this->db->insert('gis_simbol', array('simbol' => $simbol));
+      }
+    }
+    if (!$this->db->field_exists('jenis', 'tweb_surat_format')) {
+      $query = "ALTER TABLE tweb_surat_format ADD jenis tinyint(2) NOT NULL DEFAULT 2";
+      $this->db->query($query);
+      // Update semua surat yang disediakan oleh rilis OpenSID
+      $surat_sistem = array(
+        'surat_ket_pengantar',
+        'surat_ket_penduduk',
+        'surat_bio_penduduk',
+        'surat_ket_pindah_penduduk',
+        'surat_ket_jual_beli',
+        'surat_pindah_antar_kab_prov',
+        'surat_ket_catatan_kriminal',
+        'surat_ket_ktp_dalam_proses',
+        'surat_ket_beda_nama',
+        'surat_jalan',
+        'surat_ket_kurang_mampu',
+        'surat_izin_keramaian',
+        'surat_ket_kehilangan',
+        'surat_ket_usaha',
+        'surat_ket_jamkesos',
+        'surat_ket_domisili_usaha',
+        'surat_ket_kelahiran',
+        'surat_permohonan_akta',
+        'surat_pernyataan_akta',
+        'surat_permohonan_duplikat_kelahiran',
+        'surat_ket_kematian',
+        'surat_ket_lahir_mati',
+        'surat_ket_nikah',
+        'surat_ket_asalusul',
+        'surat_persetujuan_mempelai',
+        'surat_ket_orangtua',
+        'surat_izin_orangtua',
+        'surat_ket_kematian_suami_istri',
+        'surat_kehendak_nikah',
+        'surat_ket_pergi_kawin',
+        'surat_ket_wali',
+        'surat_ket_wali_hakim',
+        'surat_permohonan_duplikat_surat_nikah',
+        'surat_permohonan_cerai',
+        'surat_ket_rujuk_cerai'
+      );
+      // Jenis surat yang bukan bagian rilis sistem sudah otomatis berisi nilai default (yaitu, 2)
+      foreach ($surat_sistem as $url_surat) {
+        $this->db->where('url_surat',$url_surat)->update('tweb_surat_format',array('jenis'=>1));
+      }
+    }
+    // Tambah surat_permohonan_kartu_keluarga
+    $this->db->where('url_surat', 'surat_ubah_sesuaikan')->update('tweb_surat_format',array('kode_surat' => 'P-01'));
+    $query = "
+      INSERT INTO tweb_surat_format (nama, url_surat, lampiran, kode_surat, jenis) VALUES
+      ('Permohonan Kartu Keluarga', 'surat_permohonan_kartu_keluarga', 'f-1.15.php', 'S-36', 1)
+      ON DUPLICATE KEY UPDATE
+        nama = VALUES(nama),
+        url_surat = VALUES(url_surat),
+        lampiran = VALUES(lampiran),
+        kode_surat = VALUES(kode_surat),
+        jenis = VALUES(jenis);
+    ";
+    $this->db->query($query);
+    // Tambah kolom no_kk_sebelumnya untuk penduduk yang pecah dari kartu keluarga
+    if (!$this->db->field_exists('no_kk_sebelumnya', 'tweb_penduduk')) {
+      $query = "ALTER TABLE tweb_penduduk ADD no_kk_sebelumnya varchar(30)";
+      $this->db->query($query);
+    }
   }
 
   function kosongkan_db(){

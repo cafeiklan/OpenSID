@@ -181,42 +181,54 @@
 		return $nama_surat;
 	}
 
-	function log_surat($f=0,$id='',$g='',$u='',$z='', $nama_surat, $lampiran){
+	function log_surat($data_log_surat){
 
-		$data['id_pend']=$id;
+		$url_surat = $data_log_surat['url_surat'];
+		$nama_surat = $data_log_surat['nama_surat'];
+		unset($data_log_surat['url_surat']);
+		$pamong_nama = $data_log_surat['pamong_nama'];
+		unset($data_log_surat['pamong_nama']);
 
-			$sql   = "SELECT id FROM tweb_surat_format WHERE url_surat = ?";
-			$query = $this->db->query($sql,$f);
-			if($query->num_rows() > 0){
-				$pam=$query->row_array();
-				$data['id_format_surat']=$pam['id'];
-			}else{
-				$data['id_format_surat'] = $f;
-			}
+		foreach($data_log_surat as $key => $val){
+			$data[$key] = $val;
+		}
 
-			$sql   = "SELECT pamong_id FROM tweb_desa_pamong WHERE pamong_nama = ?";
-			$query = $this->db->query($sql,$g);
-			if($query->num_rows() > 0){
-				$pam=$query->row_array();
-				$data['id_pamong']=$pam['pamong_id'];
-			}else{
-				$data['id_pamong'] = 1;
-			}
+		$sql   = "SELECT id FROM tweb_surat_format WHERE url_surat = ?";
+		$query = $this->db->query($sql,$url_surat);
+		if($query->num_rows() > 0){
+			$pam=$query->row_array();
+			$data['id_format_surat']=$pam['id'];
+		}else{
+			$data['id_format_surat'] = $url_surat;
+		}
+
+		$sql   = "SELECT pamong_id FROM tweb_desa_pamong WHERE pamong_nama = ?";
+		$query = $this->db->query($sql,$pamong_nama);
+		if($query->num_rows() > 0){
+			$pam=$query->row_array();
+			$data['id_pamong']=$pam['pamong_id'];
+		}else{
+			$data['id_pamong'] = 1;
+		}
 
 
 		if($data['id_pamong']=='')
 			$data['id_pamong'] = 1;
 
-		$data['id_user']=$u;
 		$data['bulan']=date('m');
 		$data['tahun']=date('Y');
-		$data['no_surat']=$z;
-		$data['nama_surat']=$nama_surat;
-		$data['lampiran'] = $lampiran;
 		//print_r($data);
-		$last_id = $this->db->select('*')->from('log_surat')->where($data)->limit(1)->order_by('id', 'desc')->get()->row()->id;
-		if($last_id){
-			$this->db->where('id', $last_id);
+		/**
+			Penambahan atau update log disesuaikan dengan file surat yang tersimpan di arsip,
+			sehingga hanya ada satu entri di log surat untuk setiap versi surat di arsip.
+			File surat disimpan di arsip untuk setiap URL-NIK-nomor surat-tanggal yang unik,
+			lihat fungsi nama_surat_arsip (kolom nama_surat di tabel log_surat).
+			Entri itu akan berisi timestamp (pencetakan) terakhir untuk file surat yang bersangkutan.
+		*/
+		$log_id = $this->db->select('id')->from('log_surat')->where('nama_surat', $nama_surat)->limit(1)->get()->row()->id;
+		if($log_id){
+			$data['tanggal'] = date('Y-m-d H:i:s');
+			$this->db->where('id', $log_id);
 			$this->db->update('log_surat',$data);
 		} else {
 			$this->db->insert('log_surat',$data);

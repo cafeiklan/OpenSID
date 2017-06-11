@@ -54,7 +54,7 @@ source: keyword
                 </select>
 
                 <select name="dusun" onchange="formAction('mainform','<?php echo site_url('penduduk_log/dusun')?>')">
-                    <option value=""><?php echo ucwords(config_item('sebutan_dusun'))?></option>
+                    <option value=""><?php echo ucwords($this->setting->sebutan_dusun)?></option>
 					<?php foreach($list_dusun AS $data){?>
                     <option value="<?php echo $data['dusun']?>" <?php if($dusun == $data['dusun']) :?>selected<?php endif?>><?php echo unpenetration($data['dusun'])?></option>
 					<?php }?>
@@ -88,11 +88,11 @@ source: keyword
 			<th><input type="checkbox" class="checkall"/></th>
 			<th width="85">Aksi</th>
 			<?php  if($o==2): ?>
-			<th align="left" width='150'><a href="<?php echo site_url("penduduk_log/index/$p/1")?>">NIK<span class="ui-icon ui-icon-triangle-1-n"></span></a></th>
+			<th align="left"><a href="<?php echo site_url("penduduk_log/index/$p/1")?>">NIK<span class="ui-icon ui-icon-triangle-1-n"></span></a></th>
 			<?php  elseif($o==1): ?>
-			<th align="left" width='150'><a href="<?php echo site_url("penduduk_log/index/$p/2")?>">NIK<span class="ui-icon ui-icon-triangle-1-s"></span></a></th>
+			<th align="left"><a href="<?php echo site_url("penduduk_log/index/$p/2")?>">NIK<span class="ui-icon ui-icon-triangle-1-s"></span></a></th>
 			<?php  else: ?>
-			<th align="left" width='150'><a href="<?php echo site_url("penduduk_log/index/$p/1")?>">NIK<span class="ui-icon ui-icon-triangle-2-n-s"></span></a></th>
+			<th align="left"><a href="<?php echo site_url("penduduk_log/index/$p/1")?>">NIK<span class="ui-icon ui-icon-triangle-2-n-s"></span></a></th>
 			<?php  endif; ?>
 
 			<?php  if($o==4): ?>
@@ -103,16 +103,16 @@ source: keyword
 			<th align="left"><a href="<?php echo site_url("penduduk_log/index/$p/3")?>">Nama<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a></th>
 			<?php  endif; ?>
 
-			<th width="100" align="left">
+			<th align="left">
 			<?php  if($o==6): ?>
-			<a href="<?php echo site_url("penduduk_log/index/$p/5")?>">No. KK<span class="ui-icon ui-icon-triangle-1-n">
+			<a href="<?php echo site_url("penduduk_log/index/$p/5")?>">No. KK / Nama KK<span class="ui-icon ui-icon-triangle-1-n">
 			<?php  elseif($o==5): ?>
-			<a href="<?php echo site_url("penduduk_log/index/$p/6")?>">No. KK<span class="ui-icon ui-icon-triangle-1-s">
-			<?php  else: ?><a href="<?php echo site_url("penduduk_log/index/$p/5")?>">No. KK<span class="ui-icon ui-icon-triangle-2-n-s">
+			<a href="<?php echo site_url("penduduk_log/index/$p/6")?>">No. KK / Nama KK<span class="ui-icon ui-icon-triangle-1-s">
+			<?php  else: ?><a href="<?php echo site_url("penduduk_log/index/$p/5")?>">No. KK / Nama KK<span class="ui-icon ui-icon-triangle-2-n-s">
 			<?php  endif; ?>
 			&nbsp;</span></a></th>
 
-			<th align="left" align="center"><?php echo ucwords(config_item('sebutan_dusun'))?></th>
+			<th align="left" align="center"><?php echo ucwords($this->setting->sebutan_dusun)?></th>
 			<th align="left" align="center">RW</th>
 			<th align="left" align="center">RT</th>
 
@@ -125,18 +125,18 @@ source: keyword
 			<?php  endif; ?>
 			&nbsp;</span></a></th>
 
-			<th align="left" align="center">Status</th>
+			<th align="left" align="center">Status Menjadi</th>
 			<th align="left" align="center">
-        <?php  if($o==10): ?>
-          <a href="<?php echo site_url("penduduk_log/index/$p/9")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a>
-        <?php  elseif($o==9): ?>
-          <a href="<?php echo site_url("penduduk_log/index/$p/10")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a>
-        <?php  else: ?>
-          <a href="<?php echo site_url("penduduk_log/index/$p/9")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a>
-        <?php  endif; ?>
+            <?php  if($o==10): ?>
+              <a href="<?php echo site_url("penduduk_log/index/$p/9")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-1-n">&nbsp;</span></a>
+            <?php  elseif($o==9): ?>
+              <a href="<?php echo site_url("penduduk_log/index/$p/10")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-1-s">&nbsp;</span></a>
+            <?php  else: ?>
+              <a href="<?php echo site_url("penduduk_log/index/$p/9")?>">Tanggal Peristiwa<span class="ui-icon ui-icon-triangle-2-n-s">&nbsp;</span></a>
+            <?php  endif; ?>
       </th>
-			<th width="300" align="center">Catatan Peristiwa</th>
-
+      <th align="center">Tanggal Rekam</th>
+  		<th align="center">Catatan Peristiwa</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -151,13 +151,17 @@ source: keyword
 			</td>
 			<td><a href="<?php echo site_url("penduduk/detail/$p/$o/$data[id]")?>" id="test" name="<?php echo $data['id']?>"><?php echo $data['nik']?></a></td>
 			<td><a href="<?php echo site_url("penduduk/detail/$p/$o/$data[id]")?>"><?php echo strtoupper(unpenetration($data['nama']))?></a></td>
-			<td><a href="<?php echo site_url("keluarga/kartu_keluarga/$p/$o/$data[id_kk]")?>"><?php echo $data['no_kk']?> </a> </td>
+			<td>
+                <a href="<?php echo site_url("keluarga/kartu_keluarga/$p/$o/$data[id_kk]")?>"><?php echo $data['no_kk']?> </a> <br>
+                <?php echo $data['nama_kk']?>
+            </td>
 			<td><?php echo unpenetration($data['dusun'])?></td>
 			<td><?php echo $data['rw']?></td>
 			<td><?php echo $data['rt']?></td>
 			<td><?php echo $data['umur']?></td>
-			<td><?php if($data['status_dasar']==2){echo "Mati";}elseif($data['status_dasar']==3){echo "Pindah";}else{echo "Hilang";}?></td>
-			<td><?php echo tgl_indo($data['tgl_peristiwa'])?></td>
+			<td><?php echo get_log_penduduk_status($data['id_detail'])?></td>
+            <td><?php echo tgl_indo($data['tgl_peristiwa'])?></td>
+			<td><?php echo tgl_indo2($data['tanggal'])?></td>
 			<td><?php echo $data['catatan']?></td>
 
 		</tr>

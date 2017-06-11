@@ -1,9 +1,10 @@
 <?php
 
-define("VERSION", 'pasca-1.11');
+define("VERSION", 'pasca-1.17');
 define("LOKASI_LOGO_DESA", 'desa/logo/');
 define("LOKASI_ARSIP", 'desa/arsip/');
 define("LOKASI_CONFIG_DESA", 'desa/config/');
+define("LOKASI_SURAT_DESA", 'desa/surat/');
 define("LOKASI_SURAT_FORM_DESA", 'desa/surat/form/');
 define("LOKASI_SURAT_PRINT_DESA", 'desa/surat/print/');
 define("LOKASI_SURAT_EXPORT_DESA", 'desa/surat/export/');
@@ -16,6 +17,9 @@ define("LOKASI_FOTO_GARIS", 'desa/upload/gis/garis/');
 define("LOKASI_DOKUMEN", 'desa/upload/dokumen/');
 define("LOKASI_PENGESAHAN", 'desa/upload/pengesahan/');
 define("LOKASI_WIDGET", 'desa/widget/');
+
+// Kode laporan statistik di mana kode isian belum di isi
+define('BELUM_MENGISI',777);
 
 //
 define("MAX_PINDAH", 7);
@@ -193,14 +197,19 @@ define("KODE_PEKERJAAN", serialize(array(
 /**
  * SuratExportDesa
  *
- * Mengembalikan path surat ubahan desa apabila ada
+ * Mengembalikan path surat ubahan desa apabila ada.
+ * Cek folder semua komponen surat dulu, baru cek folder export
  *
  * @access  public
  * @return  string
  */
   function SuratExportDesa($nama_surat)
   {
-    $surat_export_desa = LOKASI_SURAT_EXPORT_DESA . $nama_surat . ".rtf";
+    $surat_export_desa = LOKASI_SURAT_DESA . $nama_surat . "/" . $nama_surat . ".rtf";
+    if(is_file($surat_export_desa))
+      return $surat_export_desa;
+    else
+      $surat_export_desa = LOKASI_SURAT_EXPORT_DESA . $nama_surat . ".rtf";
     if(is_file($surat_export_desa)){
       return $surat_export_desa;
     } else {
@@ -219,7 +228,11 @@ define("KODE_PEKERJAAN", serialize(array(
  */
   function SuratCetakDesa($nama_surat)
   {
-    $surat_cetak_desa = LOKASI_SURAT_PRINT_DESA . "print_" . $nama_surat . ".php";
+    $surat_cetak_desa = LOKASI_SURAT_DESA . $nama_surat . "/print_" . $nama_surat . ".php";
+    if(is_file($surat_cetak_desa))
+      return $surat_cetak_desa;
+    else
+      $surat_cetak_desa = LOKASI_SURAT_PRINT_DESA . "print_" . $nama_surat . ".php";
     if(is_file($surat_cetak_desa)){
       return $surat_cetak_desa;
     } else {
@@ -364,6 +377,33 @@ define("KODE_PEKERJAAN", serialize(array(
       return ucwords($str);
     else return $str;
   }
+  /**
+   * Membuat string yang diisi &nbsp; di awal dan di akhir, dengan panjang yang ditentukan.
+   *
+   * @param            str      Text yang akan ditambahi awal dan akhiran
+   * @param            awal     Jumlah karakter &nbsp; pada awal text
+   * @param            panjang  Panjang string yang dihasilkan,
+   *                            di mana setiap &nbsp; dihitung sebagai satu karakter
+   * @return           string berisi text yang telah diberi awalan dan akhiran &nbsp;
+   */
+  function padded_string_fixed_length($str,$awal,$panjang){
+    $padding = "&nbsp;";
+    $panjang_padding = strlen($padding);
+    $panjang_text = strlen($str);
+    $str = str_pad($str, ($awal*$panjang_padding)+$panjang_text, $padding, STR_PAD_LEFT);
+    $str = str_pad($str, (($panjang-$panjang_text)*$panjang_padding)+$panjang_text, $padding, STR_PAD_RIGHT);
+    return $str;
+  }
+  function padded_string_center($str,$panjang){
+    $padding = "&nbsp;";
+    $panjang_padding = strlen($padding);
+    $panjang_text = strlen($str);
+    $to_pad = ($panjang-$panjang_text)/2;
+    for ($i=0; $i<$to_pad; $i++){
+      $str = $padding . $str . $padding;
+    }
+    return $str;
+  }
 
   function get_dynamic_title_page_from_path()
   {
@@ -379,5 +419,26 @@ define("KODE_PEKERJAAN", serialize(array(
 		}
 		return ucwords(str_replace(array('  ', '_'), ' ', $title));
 	}
+
+  function show_zero_as($val, $str){
+    return (empty($val) ? $str : $val);
+  }
+
+  /*
+    TODO: mungkin letakkan di penduduk_model
+  */
+  function get_log_penduduk_status($id_detail) {
+    $log_status = array(
+      1 => "Hidup",
+      2 => "Mati",
+      3 => "Pindah",
+      4 => "Hilang");
+    return $log_status[$id_detail];
+  }
+
+  function log_time($msg){
+    $now = DateTime::createFromFormat('U.u', microtime(true));
+    error_log($now->format("m-d-Y H:i:s.u")." : ".$msg."\n", 3, "opensid.log");
+  }
 
 ?>

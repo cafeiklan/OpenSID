@@ -5,36 +5,11 @@ function AmbilFoto($foto){
   return $file_foto;
 }
 
-function UploadFoto($fupload_name,$old_foto){
-  $vdir_upload = LOKASI_USER_PICT;
-  if($old_foto!="")
-	unlink($vdir_upload."kecil_".$old_foto);
-
-  $vfile_upload = $vdir_upload . $fupload_name;
-  move_uploaded_file($_FILES["foto"]["tmp_name"], $vfile_upload);
-  $im_src = imagecreatefromjpeg($vfile_upload);
-  $src_width = imageSX($im_src);
-  $src_height = imageSY($im_src);
-  if($src_width < $src_height){
-	  $dst_width = 100;
-	  $dst_height = ($dst_width/$src_width)*$src_height;
-	  $cut_height = ($dst_height - 100)/2;
-	  $im = imagecreatetruecolor(100,100);
-	  imagecopyresampled($im, $im_src, 0, -($cut_height), 0, $cut_height, $dst_width, $dst_height, $src_width, $src_height);
-
-  }else{
-	  $dst_height = 100;
-	  $dst_width = ($dst_height/$src_height)*$src_width;
-	  $cut_width = ($dst_width - 100)/2;
-	  $im = imagecreatetruecolor(100,100);
-	  imagecopyresampled($im, $im_src, -($cut_width), 0, $cut_width, 0, $dst_width, $dst_height, $src_width, $src_height);
-  }
-  imagejpeg($im,$vdir_upload ."kecil_".$fupload_name);
-  imagedestroy($im_src);
-  imagedestroy($im);
-
-  unlink($vfile_upload);
-  return true;
+function UploadFoto($fupload_name,$old_foto,$tipe_file=""){
+  $dimensi = array("width"=>100, "height"=>100);
+  if($old_foto!="") $old_foto = "kecil_".$old_foto;
+  $nama_simpan = "kecil_".$fupload_name;
+  return UploadResizeImage(LOKASI_USER_PICT,$dimensi,"foto",$fupload_name,$nama_simpan,$old_foto,$tipe_file);
 }
 
 function UploadGambar($fupload_name,$old_gambar){
@@ -436,41 +411,8 @@ function UploadArea($fupload_name){
 }
 
 function UploadLogo($fupload_name,$old_foto,$tipe_file){
-  $vdir_upload = LOKASI_LOGO_DESA;
-  unlink($vdir_upload.$old_foto);
-  $vfile_upload = $vdir_upload . $fupload_name;
-
-  if($tipe_file == "image/jpeg" OR $tipe_file == "image/pjpeg"){
-
-  move_uploaded_file($_FILES["logo"]["tmp_name"], $vfile_upload);
-  $im_src = imagecreatefromjpeg($vfile_upload);
-  $src_width = imageSX($im_src);
-  $src_height = imageSY($im_src);
-  if($src_width < $src_height){
-	  $dst_width = 100;
-	  $dst_height = ($dst_width/$src_width)*$src_height;
-	  $cut_height = $dst_height - 100;
-
-	  $im = imagecreatetruecolor(100,100);
-	  imagecopyresampled($im, $im_src, 0, 0, 0, $cut_height, $dst_width, $dst_height, $src_width, $src_height);
-
-  }else{
-	  $dst_height = 100;
-	  $dst_width = ($dst_height/$src_height)*$src_width;
-	  $cut_width = $dst_width - 100;
-
-	  $im = imagecreatetruecolor(100,100);
-	  imagecopyresampled($im, $im_src, 0, 0, $cut_width, 0, $dst_width, $dst_height, $src_width, $src_height);
-  }
-  imagejpeg($im,$vdir_upload .$fupload_name);
-
-  imagedestroy($im_src);
-  imagedestroy($im);
-
-  return true;
-  }else{
-	move_uploaded_file($_FILES["logo"]["tmp_name"], $vfile_upload);
-  }
+  $dimensi = array("width"=>100, "height"=>100);
+  return UploadResizeImage(LOKASI_LOGO_DESA,$dimensi,"logo",$fupload_name,$fupload_name,$old_foto,$tipe_file);
 }
 
 function UploadLogox($fupload_name){
@@ -478,6 +420,69 @@ function UploadLogox($fupload_name){
   $vfile_upload = $vdir_upload . $fupload_name;
 
   move_uploaded_file($_FILES["logo"]["tmp_name"], $vfile_upload);
+}
+/**
+* $jenis_upload contoh "logo", "foto"
+* $dimensi = array("width"=>lebar, "height"=>tinggi)
+* $lokasi contoh LOKASI_LOGO_DESA
+* $nama_simpan contoh "kecil_".$fupload_name
+*/
+function UploadResizeImage($lokasi,$dimensi,$jenis_upload,$fupload_name,$nama_simpan,$old_foto,$tipe_file){
+  // Hanya bisa upload jpeg atau png
+  $mime_type_image = array("image/jpeg", "image/pjpeg", "image/png", "image/x-png");
+  if(!in_array($tipe_file, $mime_type_image)){
+    $_SESSION['error_msg'].= " -> Jenis file salah: " . $tipe_file;
+    $_SESSION['success']=-1;
+    return FALSE;
+  }
+
+  $vdir_upload = $lokasi;
+  unlink($vdir_upload.$old_foto);
+  $filepath_in = $vdir_upload . $fupload_name;
+  $filepath_out = $vdir_upload.$nama_simpan;
+  move_uploaded_file($_FILES[$jenis_upload]["tmp_name"], $filepath_in);
+
+  $is_png = ($tipe_file == "image/png" OR $tipe_file == "image/x-png");
+
+  $image = ($is_png) ? imagecreatefrompng($filepath_in) : imagecreatefromjpeg($filepath_in);
+  $width = imageSX($image);
+  $height = imageSY($image);
+  $new_width = $dimensi["width"];
+  $new_height = $dimensi["height"];
+
+  if($width>$new_width && $height>$new_height)
+  {
+    if($width < $height){
+      $dst_width = $new_width;
+      $dst_height = ($dst_width/$width)*$height;
+      $cut_height = $dst_height - $new_height;
+      $cut_width = 0;
+    }else{
+      $dst_height = $new_height;
+      $dst_width = ($dst_height/$height)*$width;
+      $cut_width = $dst_width - $new_width;
+      $cut_height = 0;
+    }
+
+    $image_p = imagecreatetruecolor($new_width, $new_height);
+    if ($is_png) {
+      // http://stackoverflow.com/questions/279236/how-do-i-resize-pngs-with-transparency-in-php
+      imagealphablending($image_p, false);
+      imagesavealpha($image_p, true);
+    }
+    imagecopyresampled($image_p, $image, 0, 0, $cut_width, $cut_height, $dst_width, $dst_height, $width, $height);
+    if ($is_png)
+      imagepng($image_p,$filepath_out,5);
+    else
+      imagejpeg($image_p,$filepath_out);
+    imagedestroy($image_p);
+    imagedestroy($image);
+  } else {
+    // Ukuran file tidak perlu di-resize
+    copy($filepath_in, $filepath_out);
+    imagedestroy($image);
+  }
+  return TRUE;
 }
 
 function UploadSimbol($fupload_name){

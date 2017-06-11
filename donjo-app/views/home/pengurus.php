@@ -17,9 +17,9 @@
 <div id="contentpane">
 	<form id="mainform" name="mainform" action="" method="post">
     <div class="ui-layout-north panel">
-        <div class="left"><h3>Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></h3>
+        <div class="left"><h3>Pemerintah <?php echo ucwords($this->setting->sebutan_desa)?></h3>
             <div class="uibutton-group">
-                <a href="<?php echo site_url('pengurus/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></a>
+                <a href="<?php echo site_url('pengurus/form')?>" class="uibutton tipsy south" title="Tambah Data" ><span class="icon-plus-sign icon-large">&nbsp;</span>Tambah Staf Pemerintah <?php echo ucwords($this->setting->sebutan_desa)?></a>
                 <button type="button" title="Hapus Data" onclick="deleteAllBox('mainform','<?php echo site_url("pengurus/delete_all")?>')" class="uibutton tipsy south"><span class="icon-trash icon-large">&nbsp;</span>Hapus Data
             </div>
         </div>
@@ -58,7 +58,15 @@
 				<input type="checkbox" name="id_cb[]" value="<?php echo $data['pamong_id']?>" />
 			</td>
           <td width="5"><div class="uibutton-group">
-            <?php if($data['pamong_id']!="707"){?><a href="<?php echo site_url("pengurus/form/$data[pamong_id]")?>" class="uibutton tipsy south" title="Ubah Data"><span  class="icon-edit icon-large"> Ubah </span></a><a href="<?php echo site_url("pengurus/delete/$data[pamong_id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a><?php }?></div>
+            <?php if($data['pamong_id']!="707"){?>
+                <a href="<?php echo site_url("pengurus/form/$data[pamong_id]")?>" class="uibutton tipsy south" title="Ubah Data"><span  class="icon-edit icon-large"> Ubah </span></a>
+                <?php if($data['pamong_ttd'] == '1'):?>
+                    <a href="<?php echo site_url('pengurus/ttd_off/'.$data['pamong_id'])?>" class="uibutton tipsy south" title="Bukan TTD default"><span  class="icon-pencil icon-large"></span></a>
+                <?php else : ?>
+                    <a href="<?php echo site_url('pengurus/ttd_on/'.$data['pamong_id'])?>" class="uibutton tipsy south" title="Jadikan TTD default"><span  class="icon-user icon-large"></span></a>
+                <?php endif?>
+                <a href="<?php echo site_url("pengurus/delete/$data[pamong_id]")?>" class="uibutton tipsy south" title="Hapus Data" target="confirm" message="Apakah Anda Yakin?" header="Hapus Data"><span class="icon-trash icon-large"></span></a>
+            <?php }?></div>
           </td>
           <td><?php echo unpenetration($data['pamong_nama'])?></td>
 			<td><?php echo $data['pamong_nip']?></td>

@@ -116,6 +116,10 @@
 		return  $query->result_array();
 	}
 
+	function get_kategori_artikel($id){
+		return $this->db->select('id_kategori')->where('id',$id)->get('artikel')->row_array();
+	}
+
 	function get_kategori($cat=0){
 		$sql     = "SELECT kategori FROM kategori WHERE id=?";
 		$query    = $this->db->query($sql,$cat);
@@ -138,6 +142,7 @@
 		  $lokasi_file = $_FILES['gambar']['tmp_name'];
 		  $tipe_file   = $_FILES['gambar']['type'];
 		  $nama_file   = $_FILES['gambar']['name'];
+		  $nama_file   = str_replace(' ', '-', $nama_file); 	 // normalkan nama file
 		  if (!empty($lokasi_file)){
 			if ($tipe_file == "image/jpeg" OR $tipe_file == "image/pjpeg"){
 				UploadArtikel($nama_file,"gambar",$fp);
@@ -187,6 +192,7 @@
  		$lokasi_file = $_FILES['dokumen']['tmp_name'];
 		$tipe_file   = $_FILES['dokumen']['type'];
 		$nama_file   = $_FILES['dokumen']['name'];
+		$nama_file   = str_replace(' ', '-', $nama_file); 	 // normalkan nama file
 
 		if ($nama_file AND !empty($lokasi_file)){
 			if(!in_array($tipe_file, unserialize(MIME_TYPE_DOKUMEN))){
@@ -229,6 +235,7 @@
 		  $lokasi_file = $_FILES['gambar']['tmp_name'];
 		  $tipe_file   = $_FILES['gambar']['type'];
 		  $nama_file   = $_FILES['gambar']['name'];
+		  $nama_file   = str_replace(' ', '-', $nama_file); 	 // normalkan nama file
 		  if (!empty($lokasi_file)){
 			if ($tipe_file == "image/jpeg" OR $tipe_file == "image/pjpeg"){
 				UploadArtikel($nama_file,"gambar",$fp);
@@ -271,6 +278,7 @@
  		$lokasi_file = $_FILES['dokumen']['tmp_name'];
 		$tipe_file   = $_FILES['dokumen']['type'];
 		$nama_file   = $_FILES['dokumen']['name'];
+		$nama_file   = str_replace(' ', '-', $nama_file); 	 // normalkan nama file
 
 		if ($nama_file AND !empty($lokasi_file)){
 			if(!in_array($tipe_file, unserialize(MIME_TYPE_DOKUMEN))){
@@ -324,6 +332,10 @@
 		$this->db->where('id',$id);
 		$outp = $this->db->update('artikel',$data);
 		if(!$outp) $_SESSION['success']=-1;
+	}
+
+	function update_kategori($id, $id_kategori) {
+		$this->db->where('id', $id)->update('artikel', array('id_kategori' => $id_kategori));
 	}
 
 	function delete($id=''){

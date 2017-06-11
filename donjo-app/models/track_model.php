@@ -8,7 +8,7 @@
 
   function track_desa($dari){
 
-    if ($this->config->item('enable_track') == FALSE) return;
+    if ($this->setting->enable_track == FALSE) return;
     // Track web dan admin masing2 maksimum sekali sehari
     if (strpos(current_url(), 'first') !== FALSE) {
       if(isset($_SESSION['track_web']) AND $_SESSION['track_web'] == date("Y m d")) return;
@@ -22,7 +22,9 @@
       switch (ENVIRONMENT)
       {
         case 'development':
-          $tracker = "33.33.33.10/tracksid";
+          // Di development, panggil tracker hanya jika terinstal
+          $tracker = $this->setting->dev_tracker;
+          if (empty($tracker)) return;
         break;
 
         case 'testing':

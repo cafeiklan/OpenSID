@@ -34,7 +34,7 @@
 	}
 
 	function list_penduduk(){
-		$sql   = "SELECT u.id,nik,nama,w.dusun,w.rw,w.rt FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa w ON u.id_cluster = w.id WHERE u.status = 1";
+		$sql   = "SELECT u.id,nik,nama,w.dusun,w.rw,w.rt FROM tweb_penduduk u LEFT JOIN tweb_wil_clusterdesa w ON u.id_cluster = w.id";
 		$query = $this->db->query($sql);
 		$data=$query->result_array();
 
@@ -90,13 +90,13 @@
 	}
 
 	function get_alamat_wilayah($data) {
-		$alamat_wilayah= "$data[alamat] RT $data[rt] / RW $data[rw] ".ikut_case($data['dusun'],config_item('sebutan_dusun'))." ".$data['dusun'];
+		$alamat_wilayah= "$data[alamat] RT $data[rt] / RW $data[rw] ".ucwords(strtolower($this->setting->sebutan_dusun))." ".ucwords(strtolower($data['dusun']));
 		return trim($alamat_wilayah);
 	}
 
 	function get_penduduk($id=0){
-		$sql   = "SELECT u.id AS id,u.nama AS nama,x.nama AS sex,u.id_kk AS id_kk,
-		u.tempatlahir AS tempatlahir,u.tanggallahir AS tanggallahir,
+		$sql   = "SELECT u.id AS id,u.nama AS nama,u.sex as sex_id,x.nama AS sex,u.id_kk AS id_kk,
+		u.tempatlahir AS tempatlahir,u.tanggallahir AS tanggallahir,u.no_kk_sebelumnya,s.nama as status,
 		(select (date_format(from_days((to_days(now()) - to_days(tweb_penduduk.tanggallahir))),'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(tweb_penduduk.tanggallahir))),'%Y') + 0)`
 		from tweb_penduduk where (tweb_penduduk.id = u.id)) AS umur,
 		w.nama AS status_kawin,f.nama AS warganegara,a.nama AS agama,d.nama AS pendidikan,j.nama AS pekerjaan,u.nik AS nik,c.rt AS rt,c.rw AS rw,c.dusun AS dusun,k.no_kk AS no_kk,k.alamat,
@@ -110,6 +110,7 @@
 		left join tweb_wil_clusterdesa c on u.id_cluster = c.id
 		left join tweb_keluarga k on u.id_kk = k.id
 		left join tweb_penduduk_warganegara f on u.warganegara_id = f.id
+		left join tweb_penduduk_status s on u.status = s.id
 		WHERE u.id = ?";
 		$query = $this->db->query($sql,$id);
 		$data  = $query->row_array();
@@ -142,9 +143,20 @@
 			}
 			$outp = $outp.'7070';
 
-
-
-		$sql   = "select `u`.`id` AS `id`,`u`.`nama` AS `nama`,`x`.`nama` AS `sex`,`u`.`tempatlahir` AS `tempatlahir`,`u`.`tanggallahir` AS `tanggallahir`,(select (date_format(from_days((to_days(now()) - to_days(`tweb_penduduk`.`tanggallahir`))),'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(``tweb_penduduk``.``tanggallahir``))),'%Y') + 0)` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `u`.`id`)) AS `umur`,`w`.`nama` AS `status_kawin`,`f`.`nama` AS `warganegara`,`a`.`nama` AS `agama`,`d`.`nama` AS `pendidikan`,`j`.`nama` AS `pekerjaan`,`u`.`nik` AS `nik`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`dusun` AS `dusun`,`k`.`no_kk` AS `no_kk`,(select `tweb_penduduk`.`nama` AS `nama` from `tweb_penduduk` where (`tweb_penduduk`.`id` = `k`.`nik_kepala`)) AS `kepala_kk` from ((((((((`tweb_penduduk` `u` left join `tweb_penduduk_sex` `x` on((`u`.`sex` = `x`.`id`))) left join `tweb_penduduk_kawin` `w` on((`u`.`status_kawin` = `w`.`id`))) left join `tweb_penduduk_agama` `a` on((`u`.`agama_id` = `a`.`id`))) left join `tweb_penduduk_pendidikan_kk` `d` on((`u`.`pendidikan_kk_id` = `d`.`id`))) left join `tweb_penduduk_pekerjaan` `j` on((`u`.`pekerjaan_id` = `j`.`id`))) left join `tweb_wil_clusterdesa` `c` on((`u`.`id_cluster` = `c`.`id`))) left join `tweb_keluarga` `k` on((`u`.`id_kk` = `k`.`id`))) left join `tweb_penduduk_warganegara` `f` on((`u`.`warganegara_id` = `f`.`id`))) WHERE u.nik IN($outp)";
+		$sql   = "SELECT u.id AS id,u.nama AS nama,x.nama AS sex,u.tempatlahir AS tempatlahir,u.tanggallahir AS tanggallahir,
+			(select (date_format(from_days((to_days(now()) - to_days(`tweb_penduduk`.`tanggallahir`))),'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(``tweb_penduduk``.``tanggallahir``))),'%Y') + 0)` from tweb_penduduk where (tweb_penduduk.id = u.id)) AS umur,
+			w.nama AS status_kawin,f.nama AS warganegara,a.nama AS agama,d.nama AS pendidikan,h.nama AS hubungan,j.nama AS pekerjaan,u.nik AS nik,c.rt AS rt,c.rw AS rw,c.dusun AS dusun,k.no_kk AS no_kk,(select tweb_penduduk.nama AS nama from tweb_penduduk where (tweb_penduduk.id = k.nik_kepala)) AS kepala_kk
+			FROM tweb_penduduk u
+			LEFT JOIN tweb_penduduk_sex x on u.sex = x.id
+			LEFT JOIN tweb_penduduk_kawin w on u.status_kawin = w.id
+			LEFT JOIN tweb_penduduk_hubungan h on u.kk_level = h.id
+			LEFT JOIN tweb_penduduk_agama a on u.agama_id = a.id
+			LEFT JOIN tweb_penduduk_pendidikan_kk d on u.pendidikan_kk_id = d.id
+			LEFT JOIN tweb_penduduk_pekerjaan j on u.pekerjaan_id = j.id
+			LEFT JOIN tweb_wil_clusterdesa c on u.id_cluster = c.id
+			LEFT JOIN tweb_keluarga k on u.id_kk = k.id
+			LEFT JOIN tweb_penduduk_warganegara f on u.warganegara_id = f.id
+			WHERE u.nik IN($outp)";
 		$query = $this->db->query($sql);
 		$data  = $query->result_array();
 		}
@@ -161,8 +173,9 @@
 	function get_data_surat($id=0){
 		$sql   = "SELECT u.*,g.nama AS gol_darah,x.nama AS sex,
 			(select (date_format(from_days((to_days(now()) - to_days(tweb_penduduk.tanggallahir))),'%Y') + 0) AS `(date_format(from_days((to_days(now()) - to_days(``tweb_penduduk``.``tanggallahir``))),'%Y') + 0)` from tweb_penduduk where (tweb_penduduk.id = u.id)) AS umur,
-			w.nama AS status_kawin,f.nama AS warganegara,a.nama AS agama,d.nama AS pendidikan,h.nama AS hubungan,j.nama AS pekerjaan,c.rt AS rt,c.rw AS rw,c.dusun AS dusun,k.no_kk AS no_kk,k.alamat,
+			w.nama AS status_kawin,f.nama AS warganegara,a.nama AS agama,d.nama AS pendidikan,h.nama AS hubungan,j.nama AS pekerjaan,c.rt AS rt,c.rw AS rw,c.dusun AS dusun,k.no_kk AS no_kk,k.alamat,m.nama as cacat,
 			(select tweb_penduduk.nik from tweb_penduduk where (tweb_penduduk.id = k.nik_kepala)) AS nik_kk,
+			(select tweb_penduduk.telepon from tweb_penduduk where (tweb_penduduk.id = k.nik_kepala)) AS telepon_kk,
 			(select tweb_penduduk.nama AS nama from tweb_penduduk where (tweb_penduduk.id = k.nik_kepala)) AS kepala_kk
 			from tweb_penduduk u
 			left join tweb_penduduk_sex x on u.sex = x.id
@@ -171,6 +184,7 @@
 			left join tweb_penduduk_agama a on u.agama_id = a.id
 			left join tweb_penduduk_pendidikan_kk d on u.pendidikan_kk_id = d.id
 			left join tweb_penduduk_pekerjaan j on u.pekerjaan_id = j.id
+			left join tweb_cacat m on u.cacat_id = m.id
 			left join tweb_wil_clusterdesa c on u.id_cluster = c.id
 			left join tweb_keluarga k on u.id_kk = k.id
 			left join tweb_penduduk_warganegara f on u.warganegara_id = f.id
@@ -354,7 +368,7 @@
 		if($file == ""){
 			$data['lokasi_rtf'] = "surat/$url/";
 		} else {
-			$data['lokasi_rtf'] = LOKASI_SURAT_EXPORT_DESA;
+			$data['lokasi_rtf'] = dirname($file)."/";
 		}
 		return $data;
 	}
@@ -381,7 +395,7 @@
 	        // Regex ini untuk membersihkan kode isian dari karakter yang dimasukkan oleh Word
 	        // Regex ini disusun berdasarkan RTF yang dihasilkan oleh Word 2011 di Mac.
 	        // Perlu diverifikasi regex ini berlaku juga untuk RTF yang dihasilkan oleh versi Word lain.
-	        $regex = "/(\}.?#)|rtlch.?#|fcs.?#+|afs.?\d#+|f\d*?\d#|fs\d*?\d#|af\d*?\d#+|ltrch#+|insrsid\d*?\d#+|charrsid\d*?\d#+|#+/";
+	        $regex = "/(\}.?#)|rtlch.?#|fcs.?#+|afs.?\d#+|f\d*?\d#|fs\d*?\d#|af\d*?\d#+|ltrch#+|insrsid\d*?\d#+|alang\d+#+|lang\d+|langfe\d+|langnp\d+|langfenp\d+|b#+|ul#+|hich#+|dbch#+|loch#+|charrsid\d*?\d#+|#+/";
 	        $kode_isian = preg_replace($regex, "", $kode_isian);
 	        $buffer_out .= $kode_isian;
 	        break;
@@ -396,9 +410,35 @@
 	  return $buffer_out;
 	}
 
+	function get_data_form($surat){
+		$data_form = LOKASI_SURAT_DESA.$surat."/data_form_".$surat.".php";
+		if (is_file($data_form)) return $data_form;
+		else {
+			$data_form = "surat/$surat/data_form_$surat.php";
+			if(is_file($data_form)) return $data_form;
+		}
+	}
+
 	function get_daftar_kode_surat($surat) {
 		$kode = array();
 		switch ($surat) {
+			case 'surat_ket_nikah':
+				$kode['status_kawin_pria'] = array(
+				  "Jejaka",
+				  "Duda",
+				  "Beristri"
+				);
+				$kode['status_kawin_wanita'] = array(
+				  "Perawan",
+				  "Janda"
+				);
+				break;
+			case 'surat_permohonan_kartu_keluarga':
+				$kode['alasan_permohonan'] = array(
+				  1 => "Karena Membentuk Rumah Tangga Baru",
+				  2 => "Karena Kartu Keluarga Hilang/Rusak",
+				  3 => "Lainnya"
+				);
 			case 'surat_ket_pindah_penduduk':
 				$kode["alasan_pindah"] = array(
 					1 => "Pekerjaan",
@@ -448,7 +488,7 @@
 	}
 
 	function surat_rtf_khusus($url, $input, &$buffer, $config, $individu, $ayah, $ibu) {
-		$alamat_desa = ucwords(config_item('sebutan_desa'))." ".$config['nama_desa'].", Kecamatan ".$config['nama_kecamatan'].", Kabupaten ".$config['nama_kabupaten'];
+		$alamat_desa = ucwords($this->setting->sebutan_desa)." ".$config['nama_desa'].", Kecamatan ".$config['nama_kecamatan'].", ".ucwords($this->setting->sebutan_kabupaten)." ".$config['nama_kabupaten'];
 		// Proses surat yang membutuhkan pengambilan data khusus
 		switch ($url) {
 			case 'surat_ket_pindah_penduduk':
@@ -523,6 +563,85 @@
 				$buffer=str_replace("[usia_suami]","$suami[umur] Tahun",$buffer);
 				$buffer=str_replace("[pekerjaan_suami]",$suami['pek'],$buffer);
 				$buffer=str_replace("[alamat_suami]","RT $suami[rt] / RW $suami[rw] $suami[dusun]",$buffer);
+				break;
+
+			case 'surat_ket_nikah':
+				// Data pasangan pria =====================
+				if($input['id_pria']) {
+					$pria = $this->get_data_surat($input['id_pria']);
+					$ibu_pria = $this->get_data_ibu($input['id_pria']);
+					$ayah_pria = $this->get_data_ayah($input['id_pria']);
+					$buffer=str_replace("[agama_pria]","$pria[agama]",$buffer);
+					$buffer=str_replace("[alamat_pria]","$pria[alamat_wilayah]",$buffer);
+					$buffer=str_replace("[nama_pria]","$pria[nama]",$buffer);
+					$buffer=str_replace("[no_ktp_pria]","$pria[nik]",$buffer);
+					$buffer=str_replace("[no_kk_pria]","$pria[no_kk]",$buffer);
+					$buffer=str_replace("[pekerjaan_pria]","$pria[pekerjaan]",$buffer);
+					$buffer=str_replace("[sex_pria]","$pria[sex]",$buffer);
+					$buffer=str_replace("[status_pria]","$pria[status_kawin]",$buffer);
+					$buffer=str_replace("[tempatlahir_pria]",$pria[tempatlahir],$buffer);
+					$buffer=str_replace("[tanggallahir_pria]",tgl_indo_dari_str($pria[tanggallahir]),$buffer);
+					$buffer=str_replace("[usia_pria]","$pria[umur] Tahun",$buffer);
+					$buffer=str_replace("[wn_pria]","$pria[warganegara]",$buffer);
+				}
+
+				# Data orang tua apabila warga desa
+				if ($ayah_pria) {
+					$buffer=str_replace("[form_nama_ayah_pria]",$ayah_pria['nama'],$buffer);
+					$buffer=str_replace("[form_tempatlahir_ayah_pria]",ucwords(strtolower($ayah_pria['tempatlahir'])),$buffer);
+					$buffer=str_replace("[form_tanggallahir_ayah_pria]",tgl_indo_dari_str($ayah_pria['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_wn_ayah_pria]",$ayah_pria['wn'],$buffer);
+					$buffer=str_replace("[form_agama_ayah_pria]",ucwords(strtolower($ayah_pria['agama'])),$buffer);
+					$buffer=str_replace("[form_pekerjaan_ayah_pria]",ucwords(strtolower($ayah_pria['pek'])),$buffer);
+					$buffer=str_replace("[form_alamat_ayah_pria]","RT ".$ayah_pria[rt]." / RW ".$ayah_pria[rw]." ".ucwords(strtolower($ayah_pria[dusun]))." $alamat_desa",$buffer);
+				}
+				if ($ibu_pria) {
+					$buffer=str_replace("[form_nama_ibu_pria]",$ibu_pria['nama'],$buffer);
+					$buffer=str_replace("[form_tempatlahir_ibu_pria]",ucwords(strtolower($ibu_pria['tempatlahir'])),$buffer);
+					$buffer=str_replace("[form_tanggallahir_ibu_pria]",tgl_indo_dari_str($ibu_pria['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_wn_ibu_pria]",$ibu_pria['wn'],$buffer);
+					$buffer=str_replace("[form_agama_ibu_pria]",ucwords(strtolower($ibu_pria['agama'])),$buffer);
+					$buffer=str_replace("[form_pekerjaan_ibu_pria]",ucwords(strtolower($ibu_pria['pek'])),$buffer);
+					$buffer=str_replace("[form_alamat_ibu_pria]","RT $ibu_pria[rt] / RW $ibu_pria[rw] ".ucwords(strtolower($ibu_pria[dusun]))." $alamat_desa",$buffer);
+				}
+				// Kode isian yang mungkin tidak terisi
+				$buffer=str_replace("[form_istri_dulu]",$input['istri_dulu'],$buffer);
+
+				// Data pasangan wanita =====================
+				if($input['id_wanita']) {
+					$wanita = $this->get_data_surat($input['id_wanita']);
+					$ibu_wanita = $this->get_data_ibu($input['id_wanita']);
+					$ayah_wanita = $this->get_data_ayah($input['id_wanita']);
+					$buffer=str_replace("[form_agama_wanita]",$wanita[agama],$buffer);
+					$buffer=str_replace("[form_alamat_wanita]",$wanita[alamat_wilayah],$buffer);
+					$buffer=str_replace("[form_nama_wanita]",$wanita[nama],$buffer);
+					$buffer=str_replace("[form_pekerjaan_wanita]",$wanita[pekerjaan],$buffer);
+					$buffer=str_replace("[form_tempatlahir_wanita]",$wanita[tempatlahir],$buffer);
+					$buffer=str_replace("[form_tanggallahir_wanita]",tgl_indo_dari_str($wanita[tanggallahir]),$buffer);
+					$buffer=str_replace("[form_wn_wanita]",$wanita[warganegara],$buffer);
+				}
+				# Data orang tua apabila warga desa
+				if ($ayah_wanita) {
+					$buffer=str_replace("[form_nama_ayah_wanita]",$ayah_wanita['nama'],$buffer);
+					$buffer=str_replace("[form_tempatlahir_ayah_wanita]",ucwords(strtolower($ayah_wanita['tempatlahir'])),$buffer);
+					$buffer=str_replace("[form_tanggallahir_ayah_wanita]",tgl_indo_dari_str($ayah_wanita['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_wn_ayah_wanita]",$ayah_wanita['wn'],$buffer);
+					$buffer=str_replace("[form_agama_ayah_wanita]",ucwords(strtolower($ayah_wanita['agama'])),$buffer);
+					$buffer=str_replace("[form_pekerjaan_ayah_wanita]",ucwords(strtolower($ayah_wanita['pek'])),$buffer);
+					$buffer=str_replace("[form_alamat_ayah_wanita]","RT $ayah_wanita[rt] / RW $ayah_wanita[rw] ".ucwords(strtolower($ayah_pria[dusun]))." $alamat_desa",$buffer);
+				}
+				if ($ibu_wanita) {
+					$buffer=str_replace("[form_nama_ibu_wanita]",$ibu_wanita['nama'],$buffer);
+					$buffer=str_replace("[form_tempatlahir_ibu_wanita]",ucwords(strtolower($ibu_wanita['tempatlahir'])),$buffer);
+					$buffer=str_replace("[form_tanggallahir_ibu_wanita]",tgl_indo_dari_str($ibu_wanita['tanggallahir']),$buffer);
+					$buffer=str_replace("[form_wn_ibu_wanita]",$ibu_wanita['wn'],$buffer);
+					$buffer=str_replace("[form_agama_ibu_wanita]",ucwords(strtolower($ibu_wanita['agama'])),$buffer);
+					$buffer=str_replace("[form_pekerjaan_ibu_wanita]",ucwords(strtolower($ibu_wanita['pek'])),$buffer);
+					$buffer=str_replace("[form_alamat_ibu_wanita]","RT $ibu_wanita[rt] / RW $ibu_wanita[rw] ".ucwords(strtolower($ibu_wanita[dusun]))." $alamat_desa",$buffer);
+				}
+				// Kode isian yang mungkin tidak terisi
+				$buffer=str_replace("[form_suami_dulu]",$input['suami_dulu'],$buffer);
+
 				break;
 
 			case 'surat_permohonan_cerai':
@@ -673,54 +792,71 @@
 			$buffer=str_replace("[tahun]","$thn",$buffer);
 
 			//DATA DARI KONFIGURASI DESA
-			$buffer=$this->case_replace("[sebutan_desa]",config_item('sebutan_desa'),$buffer);
-			$buffer=$this->case_replace("[sebutan_dusun]",config_item('sebutan_dusun'),$buffer);
+			$buffer=$this->case_replace("[sebutan_kabupaten]",$this->setting->sebutan_kabupaten,$buffer);
+			$buffer=$this->case_replace("[sebutan_kecamatan]",$this->setting->sebutan_kecamatan,$buffer);
+			$buffer=$this->case_replace("[sebutan_desa]",$this->setting->sebutan_desa,$buffer);
+			$buffer=$this->case_replace("[sebutan_dusun]",$this->setting->sebutan_dusun,$buffer);
+			$buffer=$this->case_replace("[sebutan_camat]",$this->setting->sebutan_camat,$buffer);
+			$buffer=str_replace("[alamat_des]","$config[alamat_kantor] Kode Pos : $config[kode_pos]",$buffer);
+			$buffer=str_replace("[alamat_desa]","$config[alamat_kantor] Kode Pos : $config[kode_pos]",$buffer);
+			$buffer=str_replace("[email_desa]","$config[email_desa]",$buffer);
 			$buffer=str_replace("[kode_desa]","$config[kode_desa]",$buffer);
 			$buffer=str_replace("[kode_kecamatan]","$config[kode_kecamatan]",$buffer);
 			$buffer=str_replace("[kode_kabupaten]","$config[kode_kabupaten]",$buffer);
+			$buffer=str_replace("[kode_pos]","$config[kode_pos]",$buffer);
 			$buffer=str_replace("[kode_provinsi]","$config[kode_propinsi]",$buffer);
+			$buffer=str_replace("[nama_des]","$config[nama_desa]",$buffer);
 			$buffer=str_replace("[nama_kab]","$config[nama_kabupaten]",$buffer);
 			$buffer=str_replace("[nama_kabupaten]","$config[nama_kabupaten]",$buffer);
 			$buffer=str_replace("[nama_kec]","$config[nama_kecamatan]",$buffer);
 			$buffer=str_replace("[nama_kecamatan]","$config[nama_kecamatan]",$buffer);
 			$buffer=str_replace("[nama_provinsi]","$config[nama_propinsi]",$buffer);
 			$buffer=str_replace("[nama_kepala_camat]","$config[nama_kepala_camat]",$buffer);
+			$buffer=str_replace("[nama_kepala_desa]","$config[nama_kepala_desa]",$buffer);
 			$buffer=str_replace("[nip_kepala_camat]","$config[nip_kepala_camat]",$buffer);
-			$buffer=str_replace("[nama_des]","$config[nama_desa]",$buffer);
+			$buffer=str_replace("[nip_kepala_desa]","$config[nip_kepala_desa]",$buffer);
 			$buffer=str_replace("[pos]","$config[kode_pos]",$buffer);
-			$buffer=str_replace("[kode_pos]","$config[kode_pos]",$buffer);
-			$buffer=str_replace("[alamat_des]","$config[alamat_kantor] Kode Pos : $config[kode_pos]",$buffer);
-			$buffer=str_replace("[alamat_desa]","$config[alamat_kantor] Kode Pos : $config[kode_pos]",$buffer);
+			$buffer=str_replace("[telepon_desa]","$config[telepon]",$buffer);
+			$buffer=str_replace("[website_desa]","$config[website]",$buffer);
 
 			//DATA DARI TABEL PENDUDUK
 			//jika data kurang lengkap bisa di tambahkan dari fungsi "get_data_surat" pada file ini
+			$buffer=str_replace("[agama]","$individu[agama]",$buffer);
+			$buffer=str_replace("[akta_lahir]","$individu[akta_lahir]",$buffer);
+			$buffer=str_replace("[akta_perceraian]","$individu[akta_perceraian]",$buffer);
+			$buffer=str_replace("[akta_perkawinan]","$individu[akta_perkawinan]",$buffer);
 			$buffer=str_replace("[alamat]","$individu[alamat_wilayah]",$buffer);
 			$buffer=str_replace("[alamat_jalan]","$individu[alamat]",$buffer);
+			$buffer=str_replace("[alamat_sebelumnya]",ucwords(strtolower($individu[alamat_sebelumnya])),$buffer);
+			$buffer=str_replace("[ayah_nik]","$individu[ayah_nik]",$buffer);
+			$buffer=str_replace("[cacat]",ucwords(strtolower($individu[cacat])),$buffer);
+			$buffer=str_replace("[dokumen_pasport]","$individu[dokumen_pasport]",$buffer);
 			$buffer=str_replace("[dusun]","$individu[dusun]",$buffer);
-			$buffer=str_replace("[rw]","$individu[rw]",$buffer);
-			$buffer=str_replace("[rt]","$individu[rt]",$buffer);
-			$buffer=str_replace("[nama_ayah]","$individu[nama_ayah]",$buffer);
-			$buffer=str_replace("[nama_ibu]","$individu[nama_ibu]",$buffer);
+			$buffer=str_replace("[gol_darah]","$individu[gol_darah]",$buffer);
+			$buffer=str_replace("[hubungan]","$individu[hubungan]",$buffer);
+			$buffer=str_replace("[ibu_nik]","$individu[ibu_nik]",$buffer);
 			$buffer=str_replace("[kepala_kk]","$individu[kepala_kk]",$buffer);
 			$buffer=str_replace("[nama]","$individu[nama]",$buffer);
-			$buffer=str_replace("[sex]","$individu[sex]",$buffer);
-			$buffer=str_replace("[agama]","$individu[agama]",$buffer);
-			$buffer=str_replace("[hubungan]","$individu[hubungan]",$buffer);
-			$buffer=str_replace("[gol_darah]","$individu[gol_darah]",$buffer);
-			$buffer=str_replace("[status]","$individu[status_kawin]",$buffer);
+			$buffer=str_replace("[nama_ayah]","$individu[nama_ayah]",$buffer);
+			$buffer=str_replace("[nama_ibu]","$individu[nama_ibu]",$buffer);
+			$buffer=str_replace("[no_kk]","$individu[no_kk]",$buffer);
+			$buffer=str_replace("[no_ktp]","$individu[nik]",$buffer);
 			$buffer=str_replace("[pendidikan]","$individu[pendidikan]",$buffer);
 			$buffer=str_replace("[pekerjaan]","$individu[pekerjaan]",$buffer);
-			$buffer=str_replace("[warga_negara]","$individu[warganegara]",$buffer);
-			$buffer=str_replace("[no_ktp]","$individu[nik]",$buffer);
-			$buffer=str_replace("*usia","$individu[umur] Tahun",$buffer);
-			$buffer=str_replace("[usia]","$individu[umur] Tahun",$buffer);
-			$buffer=str_replace("[no_kk]","$individu[no_kk]",$buffer);
-			$buffer=str_replace("[ibu_nik]","$individu[ibu_nik]",$buffer);
-			$buffer=str_replace("[ayah_nik]","$individu[ayah_nik]",$buffer);
-			$buffer=str_replace("[tempatlahir]","$individu[tempatlahir]",$buffer);
+			$buffer=str_replace("[rw]","$individu[rw]",$buffer);
+			$buffer=str_replace("[rt]","$individu[rt]",$buffer);
+			$buffer=str_replace("[sex]","$individu[sex]",$buffer);
+			$buffer=str_replace("[status]","$individu[status_kawin]",$buffer);
 			$buffer=str_replace("[tanggallahir]","$tgllhr",$buffer);
-			$buffer=str_replace("[ttl]","$individu[tempatlahir]/$tgllhr",$buffer);
+			$buffer=str_replace("[tanggalperceraian]",ucwords(tgl_indo($individu[tanggalperceraian])),$buffer);
+			$buffer=str_replace("[tanggalperkawinan]",ucwords(tgl_indo($individu[tanggalperkawinan])),$buffer);
+			$buffer=str_replace("[tanggal_akhir_paspor]",ucwords(tgl_indo($individu[tanggal_akhir_paspor])),$buffer);
+			$buffer=str_replace("[tempatlahir]","$individu[tempatlahir]",$buffer);
 			$buffer=str_replace("[tempat_tgl_lahir]","$individu[tempatlahir]/$tgllhr",$buffer);
+			$buffer=str_replace("[ttl]","$individu[tempatlahir]/$tgllhr",$buffer);
+			$buffer=str_replace("[usia]","$individu[umur] Tahun",$buffer);
+			$buffer=str_replace("*usia","$individu[umur] Tahun",$buffer);
+			$buffer=str_replace("[warga_negara]","$individu[warganegara]",$buffer);
 
 			// DATA AYAH dan IBU
 			$buffer=str_replace("[d_nama_ibu]","$ibu[nama]",$buffer);
@@ -757,7 +893,7 @@
 				"tanggallahir_pasangan", "tgl_lahir_ayah", "tgl_lahir_ibu", "tgl_berakhir_paspor",
 				"tgl_akte_perkawinan", "tgl_perceraian", "tanggallahir","tanggallahir_pelapor", "tgl_lahir",
 				"tanggallahir_ayah", "tanggallahir_ibu", "tgl_lahir_wali", "tgl_nikah",
-				"tanggal_pindah"
+				"tanggal_pindah", "tanggal_nikah", "tanggallahir_wali", "tanggallahir_suami_dulu", "tanggallahir_istri_dulu", "tanggallahir_ayah_pria", "tanggallahir_ibu_pria"
 				);
 			foreach ($input as $key => $entry){
 				// Isian tanggal diganti dengan format tanggal standar
@@ -788,6 +924,8 @@
 		* pengguna bisa memilih format mana yang akan digunakan.
 	*/
 	function lampiran_khusus($url, $lampiran_surat, &$input){
+		// $lampiran_surat dalam bentuk seperti "f-1.08.php,f-1.25.php"
+		$daftar_lampiran = explode(",", $lampiran_surat);
 		switch ($url) {
 			case 'surat_ket_pindah_penduduk':
 				if ($input['kode_format'] == 'F-1.23'){
@@ -799,16 +937,14 @@
 				} elseif ($input['kode_format'] == 'F-1.34'){
 					$input['judul_format'] = "Antar Kabupaten/Kota atau Antar Provinsi";
 				}
-				// $lampiran_surat dalam bentuk seperti "f-1.08.php,f-1.25.php"
-				$daftar_lampiran = explode(",", $lampiran_surat);
 				if ($input['kode_format'] == "f108")
-					return $daftar_lampiran[0];
+					return array($daftar_lampiran[0]);
 				else
-					return $daftar_lampiran[1];
+					return array($daftar_lampiran[1]);
 				break;
 
 			default:
-				return $lampiran_surat;
+				return $daftar_lampiran;
 		}
 	}
 
@@ -819,40 +955,47 @@
 		$config = $data['config'];
 		$individu = $data['individu'];
 		$input = $data['input'];
-		$format_lampiran = $this->lampiran_khusus($surat['url_surat'],$surat['lampiran'],$input);
+    include(FCPATH.$surat['lokasi_rtf'].'get_data_lampiran.php');
+		$daftar_lampiran = $this->lampiran_khusus($surat['url_surat'],$surat['lampiran'],$input);
 		$lampiran = pathinfo($nama_surat, PATHINFO_FILENAME)."_lampiran.pdf";
 
     // get the HTML using output buffer
     ob_start();
-    include(FCPATH.$surat['lokasi_rtf'].$format_lampiran);
+    foreach($daftar_lampiran as $format_lampiran){
+	    include(FCPATH.$surat['lokasi_rtf'].$format_lampiran);
+    }
     $content = ob_get_clean();
 
     // convert in PDF
     require_once(FCPATH.'vendor/html2pdf/html2pdf.class.php');
     try
     {
-        $html2pdf = new HTML2PDF('P', array(210,330), 'en');
+      $html2pdf = new HTML2PDF();
 //      $html2pdf->setModeDebug();
-        $html2pdf->setDefaultFont('Arial');
-        $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-				ob_end_clean();
-        $html2pdf->Output(LOKASI_ARSIP.$lampiran, 'F');
+      $html2pdf->setDefaultFont('Arial');
+      $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			ob_end_clean();
+      $html2pdf->Output(LOKASI_ARSIP.$lampiran, 'F');
     }
     catch(HTML2PDF_exception $e) {
-        echo $e;
-        exit;
+      echo $e;
+      exit;
     }
 	}
 
 	function get_data_untuk_surat($url) {
 		$data['input'] = $_POST;
 		// Ambil data
-		$id = $data['input']['nik'];
-		$data['individu'] = $this->get_data_surat($id);
-		$data['ayah'] = $this->get_data_ayah($id);
-		$data['ibu'] = $this->get_data_ibu($id);
 		$data['config'] = $this->get_data_desa();
 		$data['surat'] = $this->get_surat($url);
+		switch ($url) {
+			default:
+				$id = $data['input']['nik'];
+				$data['individu'] = $this->get_data_surat($id);
+				$data['ayah'] = $this->get_data_ayah($id);
+				$data['ibu'] = $this->get_data_ibu($id);
+				break;
+		}
 		return $data;
 	}
 
@@ -870,14 +1013,14 @@
 		$handle = fopen($berkas_arsip,'w+');
 		fwrite($handle,$rtf);
 		fclose($handle);
-		if (config_item('libreoffice_path') AND config_item('libreoffice_path') != '') {
+		if (!empty($this->setting->libreoffice_path)) {
 			// Untuk konversi rtf ke pdf, libreoffice harus terinstall
 			if (strpos(strtoupper(php_uname('s')), 'WIN') !== false) {
 				// Windows O/S
 				$berkas_arsip_win = str_replace('/', "\\", $berkas_arsip);
 				$fcpath = str_replace('/', "\\", FCPATH);
 				$outdir = rtrim(str_replace('/',"\\",FCPATH.LOKASI_ARSIP), "/\\");
-				$cmd = 'cd '.config_item('libreoffice_path');
+				$cmd = 'cd '.$this->setting->libreoffice_path;
 				$cmd = $cmd." && soffice --headless --convert-to pdf:writer_pdf_Export --outdir ".$outdir." ".$fcpath.$berkas_arsip_win;
 			} else {
 				// Linux
@@ -896,13 +1039,20 @@
 	}
 
 	function get_last_nosurat_log($url){
-		$sql   = "SELECT id FROM tweb_surat_format WHERE url_surat = ?";
-		$query = $this->db->query($sql, $url);
 
-		$id_format_surat = $query->row()->id;
+		// abaikan jenis surat
+		if ($this->setting->nomor_terakhir_semua_surat){
+			$sql   = "SELECT no_surat,tanggal FROM log_surat ORDER BY tanggal DESC LIMIT 1";
+			$query = $this->db->query($sql);
+		} else {
+			$sql   = "SELECT id FROM tweb_surat_format WHERE url_surat = ?";
+			$query = $this->db->query($sql, $url);
 
-		$sql   = "SELECT no_surat,tanggal FROM log_surat WHERE id_format_surat = ? ORDER BY tanggal DESC LIMIT 1";
-		$query = $this->db->query($sql, $id_format_surat);
+			$id_format_surat = $query->row()->id;
+
+			$sql   = "SELECT no_surat,tanggal FROM log_surat WHERE id_format_surat = ? ORDER BY tanggal DESC LIMIT 1";
+			$query = $this->db->query($sql, $id_format_surat);
+		}
 
 		return $query->row_array();
 

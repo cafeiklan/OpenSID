@@ -65,8 +65,8 @@ table.form.detail td{
 			<tr>
 				<th>Masa Berlaku</th>
 				<td>
-					<input name="awal" type="text" class="inputbox required datepicker" size="20"/> S/d
-					<input name="akhir" type="text" class="inputbox required datepicker" size="20"/>
+					<input name="awal" type="text" class="inputbox required datepicker-start" size="20"/> S/d
+					<input name="akhir" type="text" class="inputbox required datepicker-end" size="20"/>
 				</td>
 			</tr>
 			<tr>
@@ -76,10 +76,10 @@ table.form.detail td{
 				</td>
 			</tr>
 		<tr>
-<th>Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></th>
+<th>Staf Pemerintah <?php echo ucwords($this->setting->sebutan_desa)?></th>
 <td>
 <select name="pamong"  class="inputbox required">
-<option value="">Pilih Staf Pemerintah <?php echo ucwords(config_item('sebutan_desa'))?></option>
+<option value="">Pilih Staf Pemerintah <?php echo ucwords($this->setting->sebutan_desa)?></option>
 <?php foreach($pamong AS $data){?>
 <option value="<?php echo $data['pamong_nama']?>"><font style="bold"><?php echo $data['pamong_nama']?></font> (<?php echo $data['jabatan']?>)</option>
 <?php }?>

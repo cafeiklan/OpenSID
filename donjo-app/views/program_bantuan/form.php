@@ -21,6 +21,12 @@
     });
   </script>
 
+<style type="text/css">
+  table.form th.indented {
+    padding-left: 40px;
+    font-weight: normal;
+  }
+</style>
 
 <div id="pageC">
 <table class="inner">
@@ -37,9 +43,9 @@
 
           <?php $detail = $program[0];?>
           <div>
-            <legend style="margin-top: 30px;">Detail Program</legend>
+            <legend style="margin-top: 30px;">Rincian Program</legend>
             <table class="form">
-              <tr><td>Nama Program</td><td><strong><?php echo strtoupper($detail["nama"])?></strong></td></tr>
+              <tr><td width="30%">Nama Program</td><td><strong><?php echo strtoupper($detail["nama"])?></strong></td></tr>
               <tr><td>Sasaran Peserta</td><td><strong><?php echo $sasaran[$detail["sasaran"]]?></strong></td></tr>
               <tr><td>Masa Berlaku</td><td><strong><?php echo fTampilTgl($detail["sdate"],$detail["edate"])?></strong></td></tr>
               <tr><td>Keterangan</td><td><strong><?php echo $detail["ndesc"]?></strong></td></tr>
@@ -55,23 +61,23 @@
                 <table class="form">
                   <tr>
                     <?php if($detail["sasaran"] == 1): ?>
-                      <td width="40%">NIK / Nama</td>
-                      <td width="60%">
+                      <td width="30%">NIK / Nama</td>
+                      <td>
                         <div id="nik" name="nik"></div>
                       </td>
                     <?php elseif($detail["sasaran"] == 2): ?>
-                      <td width="40%">No. KK / Nama KK</td>
-                      <td width="60%">
+                      <td width="30%">No. KK / Nama KK</td>
+                      <td>
                         <div id="nik" name="nik"></div>
                       </td>
                     <?php elseif($detail["sasaran"] == 3): ?>
-                      <td width="40%">No. Rumah Tangga / Nama Kepala Rumah Tangga</td>
-                      <td width="60%">
+                      <td width="30%">No. Rumah Tangga / Nama Kepala Rumah Tangga</td>
+                      <td>
                         <div id="nik" name="nik"></div>
                       </td>
                     <?php elseif($detail["sasaran"] == 4): ?>
-                      <td width="40%">Nama Kelompok / Nama Ketua Kelompok</td>
-                      <td width="60%">
+                      <td width="30%">Nama Kelompok / Nama Ketua Kelompok</td>
+                      <td>
                         <div id="nik" name="nik"></div>
                       </td>
                     <?php endif; ?>
@@ -90,8 +96,41 @@
                   }
                   ?>
                   <tr>
-                    <th width="40%">Nomor Kartu Peserta</th>
-                    <td width="60%"><input name="no_id_kartu" type="text" class="inputbox required" size="12"/></td>
+                    <th width="30%">Nomor Kartu Peserta</th>
+                    <td width="70%"><input name="no_id_kartu" type="text" class="inputbox required" size="12"/></td>
+                  </tr>
+                  <tr>
+                    <th colspan="2">Identitas Pada Kartu Peserta</th>
+                  </tr>
+                  <tr>
+                    <th class="indented">NIK</th>
+                    <td>
+                      <input name="kartu_nik" type="text" class="inputbox" size="30"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="indented">Nama</th>
+                    <td>
+                      <input name="kartu_nama" type="text" class="inputbox" size="60"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="indented"> Tempat Lahir</th>
+                    <td>
+                      <input name="kartu_tempat_lahir" type="text" class="inputbox" size="65" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="indented">Tanggal Lahir</th>
+                    <td>
+                      <input name="kartu_tanggal_lahir" type="text" class="inputbox datepicker" size="20"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="indented">Alamat</th>
+                    <td>
+                      <input name="kartu_alamat" type="text" class="inputbox" size="60"/>
+                    </td>
                   </tr>
                 </table>
               </form>

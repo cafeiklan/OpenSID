@@ -58,7 +58,7 @@ $('#'+'main').submit();
 <tr>
 <td width="100">Alamat</td>
 <td width="200">: <?php if(isset($kepala_kk['alamat_plus_dusun'])) echo strtoupper($kepala_kk['alamat_plus_dusun'])  ?></td>
-<td width="120">Kabupaten</td>
+<td width="120">Kabupaten/Kota</td>
 <td width="150">: <?php echo strtoupper(unpenetration($desa['nama_kabupaten'])) ?></td>
 </tr>
 <tr>
@@ -74,7 +74,7 @@ $('#'+'main').submit();
 <td>: <?php echo strtoupper(unpenetration($desa['nama_propinsi'])) ?></td>
 </tr>
 <tr>
-<td>Kecamatan</td>
+<td><?php echo ucwords($this->setting->sebutan_kecamatan)?></td>
 <td>: <?php echo strtoupper(unpenetration($desa['nama_kecamatan'])) ?></td>
 <td>Jumlah Anggota Keluarga</td>
 <td>: <?php echo count($main)?></td>
@@ -170,23 +170,20 @@ $('#'+'main').submit();
 <td width="400"></td>
 <td align="center" width="150"><?php echo unpenetration($desa['nama_desa']) ?>, <?php echo tgl_indo(date("Y m d"))?></td>
 </tr>
-
-
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
+<tr>
+	<td width="25%" align="center">KEPALA KELUARGA</td>
+	<td width="50%"></td>
+	<td align="center" width="150">KEPALA <?php echo strtoupper($this->setting->sebutan_desa)?> <?php echo strtoupper($desa['nama_desa']) ?></td>
+	</tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td width="25%" align="center"><?php echo strtoupper($kepala_kk['nama'])?></td>
+	<td width="50%"></td>
+	<td width="25%" align="center" width="150"><?php echo strtoupper($desa['nama_kepala_desa']) ?></td>
+	</tr>
 
 <tr></tr>
 <tr></tr>
